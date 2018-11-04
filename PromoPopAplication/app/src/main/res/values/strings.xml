@@ -29,6 +29,23 @@
     <string name="config">Configurações</string>
     <string name="login">Entrar</string>
 
+    <string name="title_preferences">SELECIONE SUAS PREFERÊNCIAS</string>
+
+    <string name="sport">ESPORTE</string>
+    <string name="eletronic">ELETRÔNICO</string>
+    <string name="fashion">MODA</string>
+    <string name="hygienic">HIGIENE PESSOAL</string>
+    <string name="mobile">MÓVEIS</string>
+    <string name="more_options">MAIS</string>
+    <string name="jump">pular</string>
+    <string name="next">próximo</string>
+
+    <string name="title_wishList">LISTA DE DESEJO</string>
+
+    <string name="call">Tem um negócio e quer divulgar promoções aqui no PromoPop?</string>
+    <string name="sub">Faça o cadastro da sua loja</string>
+    <string name="start">COMEÇAR</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
