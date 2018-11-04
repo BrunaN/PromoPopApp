@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group>
+        <item android:id="@+id/map"
+            android:title="@string/map"/>
+        <item android:id="@+id/my_promotions"
+            android:title="@string/my_promotions"/>
+        <item android:id="@+id/create_promotions"
+            android:title="@string/create_promotion"/>
+        <item android:id="@+id/list"
+            android:title="@string/list"/>
+    </group>
+
+    <item android:title="ahhhh">
+        <menu>
+            <item android:id="@+id/config"
+                android:title="@string/config"/>
+            <item android:id="@+id/login"
+                android:title="@string/login"/>
+        </menu>
+    </item>
+
+
+</menu>

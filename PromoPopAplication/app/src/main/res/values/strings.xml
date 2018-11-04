@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">PromoPop</string>
+
+    <string name="open">open</string>
+    <string name="close">close</string>
+
+
+    <string name="title_home">Home</string>
+    <string name="title_map">Mapa</string>
+    <string name="title_sales">Anuncie</string>
+
+    <string name="title">Personalizar lista de promoções</string>
+    <string name="subtitle">Selecione as categorias que deseja visualizar no PromoPop</string>
+
+    <string name="search">Pesquise por categoria. Ex.: supermercado</string>
+    <string name="bebes">Bebês e Cianças</string>
+    <string name="bebidas">Bebidas</string>
+    <string name="hobbies">Brinquedos e Hobbies</string>
+    <string name="eletronicos">Eletrônicos, Aúdio e Vídeo</string>
+    <string name="eletrodomesticos">Eletrodomésticos</string>
+    <string name="games">Games</string>
+    <string name="mais">Mais opções</string>
+
+    <string name="map">Mapa</string>
+    <string name="my_promotions">Minhas promoções</string>
+    <string name="create_promotion">Criar promoção</string>
+    <string name="list">Lista de desejo</string>
+
+    <string name="config">Configurações</string>
+    <string name="login">Entrar</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

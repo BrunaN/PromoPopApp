@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/title" android:title="@string/title" android:enabled="false"/>
+    <item android:id="@+id/subtitle" android:title="@string/subtitle" android:enabled="false"/>
+
+    <group android:checkableBehavior="all">
+        <item android:id="@+id/bebes" android:title="@string/bebes"/>
+        <item android:id="@+id/bebidas" android:title="@string/bebidas"/>
+        <item android:id="@+id/hobbies" android:title="@string/hobbies"/>
+        <item android:id="@+id/eletronicos" android:title="@string/eletronicos"/>
+        <item android:id="@+id/eletrodomesticos" android:title="@string/eletrodomesticos"/>
+        <item android:id="@+id/games" android:title="@string/games"/>
+        <item android:id="@+id/mais" android:title="@string/mais"/>
+    </group>
+
+</menu>
