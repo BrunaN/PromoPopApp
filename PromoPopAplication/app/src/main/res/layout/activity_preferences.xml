@@ -6,26 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".Preferences">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/title_preferences"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="@string/title_preferences"
             android:layout_margin="10dp"
             android:textAlignment="center"
-            android:textSize="18sp"/>
+            android:textSize="15sp"/>
 
         <android.support.v7.widget.AppCompatCheckBox
             android:id="@+id/sport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:text="@string/sport" />
 
         <android.support.v7.widget.AppCompatCheckBox
@@ -33,6 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
             android:text="@string/eletronic" />
 
         <android.support.v7.widget.AppCompatCheckBox
@@ -40,6 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
             android:text="@string/fashion" />
 
         <android.support.v7.widget.AppCompatCheckBox
@@ -47,6 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
             android:text="@string/hygienic" />
 
         <android.support.v7.widget.AppCompatCheckBox
@@ -54,39 +60,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/mobile" />
+            android:layout_marginBottom="20dp"
+            android:text="@string/mobile"/>
 
-        <android.support.design.button.MaterialButton
+        <Button
             android:id="@+id/more_options"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/more_options" />
+            android:text="@string/more_options"
+            android:background="?android:attr/windowBackground"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_alignParentBottom="true"
             android:gravity="bottom"
             android:orientation="vertical">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:text="@string/jump" />
+                    android:text="@string/jump"
+                    android:onClick="onClickJump"
+                    android:background="?android:attr/windowBackground"/>
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_alignParentRight="true"
                     android:layout_margin="5dp"
-                    android:text="@string/next" />
+                    app:srcCompat="@drawable/ic_arrow_forward_black_24dp" />
 
             </RelativeLayout>
 
