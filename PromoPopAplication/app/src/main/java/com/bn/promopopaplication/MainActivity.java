@@ -18,12 +18,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, home.OnFragmentInteractionListener,
         map.OnFragmentInteractionListener, sales.OnFragmentInteractionListener, ProductList.OnFragmentInteractionListener, ProductGrid.OnFragmentInteractionListener{
 
     private DrawerLayout drawerLayout;
+    private BottomNavigationView navigation;
 
     @Override
     public void onFragmentInteraction(Uri uri){
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        navigation = findViewById(R.id.navigation);
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -46,13 +49,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new home()).commit();
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, new ProductGrid()).commit();
+
         //fragmentTransaction.add(R.id.fragment_container, new ProductGrid()).commit();
     }
 
@@ -61,7 +64,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (menuItem.getItemId()){
             case R.id.map:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, new map()).commit();
+                //Aqui eu  'seto' o navigation para a posição em que o fragment do map se encontra, para isso deixei o
+                //navigation global e o deixei a inicialização no onCreate
+                navigation.setSelectedItemId(R.id.navigation_map);
                 break;
             case R.id.list:
                 startActivity(new Intent(this, WishList.class));
@@ -124,6 +129,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onContextItemSelected(MenuItem item){
         switch (item.getItemId()){
+            case R.id.bebes:
+                Toast.makeText(this, item.getTitle()+" evento aciodado pela activity", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.bebidas:
+                Toast.makeText(this, item.getTitle()+" evento aciodado pela activity", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.hobbies:
+                Toast.makeText(this, item.getTitle()+" evento aciodado pela activity", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.eletronicos:
+                Toast.makeText(this, item.getTitle()+" evento aciodado pela activity", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.eletrodomesticos:
+                Toast.makeText(this, item.getTitle()+" evento aciodado pela activity", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.games:
+                Toast.makeText(this, item.getTitle()+" evento aciodado pela activity", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.mais:
+                Toast.makeText(this, item.getTitle()+" evento aciodado pela activity", Toast.LENGTH_SHORT).show();
+                break;
 
         }
         return super.onContextItemSelected(item);
