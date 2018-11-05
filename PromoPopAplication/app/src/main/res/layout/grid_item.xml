@@ -9,7 +9,7 @@
     android:layout_height="320dp"
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
     android:layout_margin="5dp"
-    cardview:cardCornerRadius="4dp">
+    cardview:cardCornerRadius="12dp">
 
     <LinearLayout
         android:layout_width="match_parent"

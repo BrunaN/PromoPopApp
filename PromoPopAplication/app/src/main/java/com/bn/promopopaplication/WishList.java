@@ -12,7 +12,5 @@ public class WishList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wish_list);
 
-        ListView wishList = (ListView) findViewById(R.id.wish_list);
-
     }
 }
