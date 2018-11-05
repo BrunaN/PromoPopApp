@@ -52,9 +52,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
             productName.setText(produto.getNomeProduto());
             storeName.setText(produto.getNomeLoja());
-            productTime.setText(produto.getDiasRestantes()+"");
-            productPriceBefore.setText(produto.getPrecoAnterior()+"");
-            productPrice.setText(produto.getPreco()+"");
+            productTime.setText(produto.getDiasRestantes()+" dias restantes");
+            productPriceBefore.setText("R$ "+produto.getPrecoAnterior());
+            productPrice.setText("R$ "+produto.getPreco());
         }
 
         @Override
