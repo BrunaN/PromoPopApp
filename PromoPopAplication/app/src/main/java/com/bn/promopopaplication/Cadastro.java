@@ -23,8 +23,12 @@ public class Cadastro extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Cadastro.this, Login.class);
                 startActivity(intent);
-                finish();
             }
         });
+    }
+
+    public void onClickPreferences(View view){
+        Intent intent = new Intent(this, Preferences.class);
+        startActivity(intent);
     }
 }

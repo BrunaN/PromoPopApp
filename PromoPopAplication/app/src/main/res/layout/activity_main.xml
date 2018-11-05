@@ -52,6 +52,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:id="@+id/nav_view"
+        android:background="@color/colorPrimary"
+        app:itemTextColor="@color/colorAccent"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_navigation"/>
 

@@ -17,7 +17,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="6dp">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="wrap_content"
@@ -28,7 +29,7 @@
                     android:id="@+id/editTextSearch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/search" />
+                    android:hint="@string/search"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -36,41 +37,60 @@
                 android:id="@+id/search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="?android:attr/windowBackground"
+                android:layout_gravity="center"
                 app:srcCompat="@android:drawable/ic_menu_search"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/populares"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAlignment="textEnd"
-                android:layout_weight="4"
-                android:text="Populares" />
+                android:layout_gravity="center"
+                android:textSize="18sp"
+                android:text="Populares"/>
 
-            <ImageButton
-                android:id="@+id/filter"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/ic_menu_more" />
+                android:orientation="horizontal"
+                android:layout_gravity="right">
 
-            <ImageButton
-                android:id="@+id/btn_grid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/ic_dialog_dialer" />
+                <ImageButton
+                    android:id="@+id/filter"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="5dp"
+                    android:background="?android:attr/windowBackground"
+                    app:srcCompat="@drawable/ic_filter_list_black_24dp" />
 
-            <ImageButton
-                android:id="@+id/btn_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/ic_menu_sort_by_size" />
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="5dp"
+                    android:background="?android:attr/windowBackground"
+                    android:id="@+id/btn_grid"
+                    app:srcCompat="@drawable/ic_dashboard_black_24dp"/>
+
+                <ImageButton
+                    android:id="@+id/btn_list"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="5dp"
+                    android:background="?android:attr/windowBackground"
+                    app:srcCompat="@drawable/ic_list_black_24dp" />
+
+            </LinearLayout>
 
         </LinearLayout>
+
+
 
         <FrameLayout
             android:layout_width="match_parent"

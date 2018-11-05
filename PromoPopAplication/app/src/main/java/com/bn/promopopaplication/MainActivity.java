@@ -1,5 +1,6 @@
 package com.bn.promopopaplication;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,9 +20,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
-public class MainActivity extends AppCompatActivity implements home.OnFragmentInteractionListener,
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, home.OnFragmentInteractionListener,
         map.OnFragmentInteractionListener, sales.OnFragmentInteractionListener, ProductList.OnFragmentInteractionListener, ProductGrid.OnFragmentInteractionListener{
-
 
     private DrawerLayout drawerLayout;
 
@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements home.OnFragmentIn
         setSupportActionBar(toolbar);
 
         drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
@@ -52,6 +54,24 @@ public class MainActivity extends AppCompatActivity implements home.OnFragmentIn
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, new ProductGrid()).commit();
         //fragmentTransaction.add(R.id.fragment_container, new ProductGrid()).commit();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+        switch (menuItem.getItemId()){
+            case R.id.map:
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, new map()).commit();
+                break;
+            case R.id.list:
+                startActivity(new Intent(this, WishList.class));
+                break;
+            case R.id.login:
+                startActivity(new Intent(this, Login.class));
+        }
+
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     @Override
@@ -106,7 +126,6 @@ public class MainActivity extends AppCompatActivity implements home.OnFragmentIn
         switch (item.getItemId()){
 
         }
-
         return super.onContextItemSelected(item);
     }
 
