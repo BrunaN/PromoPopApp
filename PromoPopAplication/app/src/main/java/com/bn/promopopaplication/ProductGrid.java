@@ -5,10 +5,16 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.v7.widget.CardView;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -28,6 +34,10 @@ public class ProductGrid extends android.support.v4.app.Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     private OnFragmentInteractionListener mListener;
 
@@ -68,14 +78,37 @@ public class ProductGrid extends android.support.v4.app.Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_product_grid, container, false);
 
-        final CardView card = view.findViewById(R.id.card);
-        card.setOnClickListener(new View.OnClickListener() {
+        mRecyclerView = view.findViewById(R.id.recycler_view);
+
+        final List<Produto> dataModelList = new ArrayList<>();
+        for (int i = 1; i <= 20; ++i) {
+            dataModelList.add(new Produto(i, "NOME DO PRODUTO", "NOME DA LOJA", i*5, i, i*3));
+        }
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+
+        mRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+
+        mLayoutManager = new GridLayoutManager(getContext(), 2);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        // specify an adapter and pass in our data model list
+
+        mAdapter = new ProductListAdapter(dataModelList, getContext(), R.layout.grid_item);
+
+        ((ProductListAdapter) mAdapter).setOnItemClickListener(new ItemClickListener() {
             @Override
-            public void onClick(View v){
+            public void onItemClick(int position) {
+                Log.d("TESTE", "Elemento " + position + " clicado.");
                 Intent intent = new Intent(getActivity(), ProductActivity.class);
+                intent.putExtra("produto",dataModelList.get(position));
                 startActivity(intent);
             }
         });
+        mRecyclerView.setAdapter(mAdapter);
 
         return view;
 
