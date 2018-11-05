@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -84,7 +84,9 @@ public class home extends android.support.v4.app.Fragment {
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                registerForContextMenu(view);
+//              Quando o evento de click no filtro é chamado, eu pego activitivy resposavel pelo fragment, faço o cast para a
+//              classe java responsável e chamo o método showCategories()
+                ((MainActivity)getActivity()).showCategories(view);
             }
         });
 
@@ -117,15 +119,32 @@ public class home extends android.support.v4.app.Fragment {
         }
 
         super.onCreateContextMenu(menu, view, menuInfo);
-
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item){
         switch (item.getItemId()){
-
+            case R.id.bebes:
+                Toast.makeText(getContext(), item.getTitle()+" evento aciodado pelo fragment", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.bebidas:
+                Toast.makeText(getContext(), item.getTitle()+" evento aciodado pelo fragment", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.hobbies:
+                Toast.makeText(getContext(), item.getTitle()+" evento aciodado pelo fragment", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.eletronicos:
+                Toast.makeText(getContext(), item.getTitle()+" evento aciodado pelo fragment", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.eletrodomesticos:
+                Toast.makeText(getContext(), item.getTitle()+" evento aciodado pelo fragment", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.games:
+                Toast.makeText(getContext(), item.getTitle()+" evento aciodado pelo fragment", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.mais:
+                Toast.makeText(getContext(), item.getTitle()+" evento aciodado pelo fragment", Toast.LENGTH_SHORT).show();
         }
-
         return super.onContextItemSelected(item);
     }
 
