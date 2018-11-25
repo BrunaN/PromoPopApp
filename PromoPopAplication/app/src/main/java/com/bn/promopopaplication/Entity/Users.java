@@ -4,7 +4,10 @@ import com.bn.promopopaplication.DAO.ConfigurationFirebase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Users {
@@ -13,6 +16,7 @@ public class Users {
     private String name;
     private String email;
     private String password;
+    private List preferences = new ArrayList();
 
     public Users() {
 
@@ -67,4 +71,16 @@ public class Users {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public List getPreferences() {
+        return preferences;
+    }
+
+    public void setPreferences(List preferences) {
+        this.preferences = preferences;
+
+        DatabaseReference referenciaDatabase = ConfigurationFirebase.getFirebase();
+        referenciaDatabase.child("user").child(id).child("preferences").setValue(this.preferences);
+    }
+
 }

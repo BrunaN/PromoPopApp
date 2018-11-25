@@ -22,46 +22,52 @@
             android:textAlignment="center"
             android:textSize="15sp"/>
 
-        <android.support.v7.widget.AppCompatCheckBox
+        <CheckBox
             android:id="@+id/sport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:text="@string/sport" />
+            android:text="@string/sport"
+            android:onClick="onCheckboxClicked"/>
 
-        <android.support.v7.widget.AppCompatCheckBox
+
+        <CheckBox
             android:id="@+id/eletronic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
-            android:text="@string/eletronic" />
+            android:text="@string/eletronic"
+            android:onClick="onCheckboxClicked"/>
 
-        <android.support.v7.widget.AppCompatCheckBox
+        <CheckBox
             android:id="@+id/fashion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
-            android:text="@string/fashion" />
+            android:text="@string/fashion"
+            android:onClick="onCheckboxClicked"/>
 
-        <android.support.v7.widget.AppCompatCheckBox
+        <CheckBox
             android:id="@+id/hygienic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
-            android:text="@string/hygienic" />
+            android:text="@string/hygienic"
+            android:onClick="onCheckboxClicked"/>
 
-        <android.support.v7.widget.AppCompatCheckBox
+        <CheckBox
             android:id="@+id/mobile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
-            android:text="@string/mobile"/>
+            android:text="@string/mobile"
+            android:onClick="onCheckboxClicked"/>
 
         <Button
             android:id="@+id/more_options"
@@ -69,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/more_options"
-            android:background="?android:attr/windowBackground"/>
+            android:background="?android:attr/windowBackground" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -91,6 +97,7 @@
                     android:background="?android:attr/windowBackground"/>
 
                 <ImageButton
+                    android:id="@+id/next"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_alignParentRight="true"

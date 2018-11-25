@@ -82,8 +82,8 @@ import com.bn.promopopaplication.R;
             filter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v){
-                    //              Quando o evento de click no filtro é chamado, eu pego activitivy resposavel pelo fragment, faço o cast para a
-                    //              classe java responsável e chamo o método showCategories()
+                    // Quando o evento de click no filtro é chamado, eu pego activitivy resposavel pelo fragment, faço o cast para a
+                    // classe java responsável e chamo o método showCategories()
                     ((MainActivity)getActivity()).showCategories(view);
                 }
             });
