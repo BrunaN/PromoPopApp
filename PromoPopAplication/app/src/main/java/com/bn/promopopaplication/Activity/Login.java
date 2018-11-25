@@ -113,6 +113,9 @@ public class Login extends AppCompatActivity {
                 if (task.isSuccessful()){
                     FirebaseUser user = authentication.getCurrentUser();
 
+                    Preference preference = new Preference(Login.this);
+                    preference.saveUserPreferences(user.getUid(), user.getEmail());
+
                     openMainActivity();
 
                     Toast.makeText(getApplicationContext(), "Login efetuado!", Toast.LENGTH_SHORT).show();

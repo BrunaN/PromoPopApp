@@ -3,12 +3,14 @@ package com.bn.promopopaplication.Entity;
 import com.bn.promopopaplication.DAO.ConfigurationFirebase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Users {
+public class Users implements Serializable{
 
     private String id;
     private String name;

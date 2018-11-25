@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.bn.promopopaplication.Activity.MainActivity;
 import com.bn.promopopaplication.Entity.Users;
 import com.bn.promopopaplication.Helper.Preference;
+import com.bn.promopopaplication.Produto;
 import com.bn.promopopaplication.R;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class Preferences extends AppCompatActivity {
     private ImageButton next;
 
     private Users user;
+    private String id;
 
     public List<String> preferenceList = new ArrayList<String>();
 
@@ -30,17 +32,22 @@ public class Preferences extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
 
+        Intent intent = getIntent();
+        user = (Users) intent.getSerializableExtra("user");
+
         next = findViewById(R.id.next);
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //user = new Users();
+                user.setPreferences(preferenceList);
 
-                //user.setPreferences(preferenceList);
+                Toast.makeText(Preferences.this, "Suas preferencias estão salvas!", Toast.LENGTH_SHORT).show();
 
-                //Toast.makeText(Preferences.this, "Preferencias: " + preferenceList, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Preferences.this, MainActivity.class);
+                startActivity(intent);
+
             }
         });
     }
