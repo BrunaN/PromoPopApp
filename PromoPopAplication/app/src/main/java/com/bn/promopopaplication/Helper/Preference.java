@@ -8,12 +8,11 @@ public class Preference {
     private Context context;
     private SharedPreferences preferences;
     private String FILENAME = "PromoPopApp.preference";
-    private  int MODE = 0;
+    private int MODE = 0;
     private SharedPreferences.Editor editor;
 
     private final String CHAVE_IDENTIFICADOR = "identificarUsuarioLogado";
     private final String CHAVE_NOME = "nomeUsuarioLogado";
-
 
     public Preference(Context context) {
         this.context = context;
@@ -22,7 +21,6 @@ public class Preference {
         editor = preferences.edit();
     }
 
-
     public void saveUserPreferences( String identificadorUsuario, String nomeUsuario){
         editor.putString(CHAVE_IDENTIFICADOR, identificadorUsuario);
         editor.putString(CHAVE_NOME, nomeUsuario);
@@ -30,11 +28,11 @@ public class Preference {
         editor.commit();
     }
 
-    public  String getId(){
+    public String getId(){
         return preferences.getString(CHAVE_IDENTIFICADOR, null);
     }
 
-    public  String getName(){
+    public String getName(){
         return preferences.getString(CHAVE_NOME, null);
     }
 }

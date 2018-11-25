@@ -23,7 +23,7 @@ public class Preferences extends AppCompatActivity {
 
     private Users user;
 
-    public List preferenceList = new ArrayList();
+    public List<String> preferenceList = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +36,11 @@ public class Preferences extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //user = new Users();
+
                 //user.setPreferences(preferenceList);
 
-                Toast.makeText(Preferences.this, "Preferencias: " + preferenceList, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Preferences.this, "Preferencias: " + preferenceList, Toast.LENGTH_SHORT).show();
             }
         });
     }

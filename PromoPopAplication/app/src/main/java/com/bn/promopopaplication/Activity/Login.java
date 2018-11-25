@@ -11,11 +11,13 @@ import android.widget.Toast;
 
 import com.bn.promopopaplication.DAO.ConfigurationFirebase;
 import com.bn.promopopaplication.Entity.Users;
+import com.bn.promopopaplication.Helper.Preference;
 import com.bn.promopopaplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
 
@@ -109,7 +111,10 @@ public class Login extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()){
+                    FirebaseUser user = authentication.getCurrentUser();
+
                     openMainActivity();
+
                     Toast.makeText(getApplicationContext(), "Login efetuado!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "Email ou senha inválidos", Toast.LENGTH_SHORT).show();

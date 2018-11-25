@@ -3,8 +3,6 @@ package com.bn.promopopaplication.Entity;
 import com.bn.promopopaplication.DAO.ConfigurationFirebase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
-
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,10 +14,10 @@ public class Users {
     private String name;
     private String email;
     private String password;
-    private List preferences = new ArrayList();
+    private List<String> preferences;
 
     public Users() {
-
+        this.preferences = new ArrayList<String>();
     }
 
     public void save(){
@@ -27,7 +25,8 @@ public class Users {
         referenciaDatabase.child("user").child(String.valueOf(getId())).setValue(this);
     }
 
-    @Exclude
+
+        @Exclude
     public Map<String, Object> toMap(){
         HashMap<String, Object> hashMapUser = new HashMap<>();
 
