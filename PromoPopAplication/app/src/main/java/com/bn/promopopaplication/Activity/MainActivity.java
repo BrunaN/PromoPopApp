@@ -1,6 +1,5 @@
-package com.bn.promopopaplication;
+package com.bn.promopopaplication.Activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,12 +16,17 @@ import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
+
+import com.bn.promopopaplication.Fragments.ProductGrid;
+import com.bn.promopopaplication.Fragments.ProductList;
+import com.bn.promopopaplication.R;
+import com.bn.promopopaplication.Fragments.home;
+import com.bn.promopopaplication.Fragments.map;
+import com.bn.promopopaplication.Fragments.sales;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, home.OnFragmentInteractionListener,
-        map.OnFragmentInteractionListener, sales.OnFragmentInteractionListener, ProductList.OnFragmentInteractionListener, ProductGrid.OnFragmentInteractionListener{
+        map.OnFragmentInteractionListener, sales.OnFragmentInteractionListener, ProductList.OnFragmentInteractionListener, ProductGrid.OnFragmentInteractionListener {
 
     private DrawerLayout drawerLayout;
     private BottomNavigationView navigation;

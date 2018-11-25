@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "86792666777",
+    "firebase_url": "https://promopop-e810f.firebaseio.com",
+    "project_id": "promopop-e810f",
+    "storage_bucket": "promopop-e810f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:86792666777:android:85347885a7b28892",
+        "android_client_info": {
+          "package_name": "com.bn.promopopaplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "86792666777-58gj12j5omcga5eoq61bj7qr1hfctulh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCq0BkOfxrRnxB7WikUS2i_5C-4KTfaJgA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

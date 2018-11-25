@@ -1,9 +1,14 @@
-package com.bn.promopopaplication;
+package com.bn.promopopaplication.Activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+
+import com.bn.promopopaplication.Produto;
+import com.bn.promopopaplication.R;
 
 public class ProductActivity extends AppCompatActivity {
 
@@ -14,6 +19,19 @@ public class ProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
+
+        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         Intent intent = getIntent();
         produto = (Produto) intent.getSerializableExtra("produto");
@@ -31,6 +49,5 @@ public class ProductActivity extends AppCompatActivity {
         productPriceBefore.setText("R$ "+produto.getPrecoAnterior());
         productPrice.setText("R$ "+produto.getPreco());
     }
-
 
 }
