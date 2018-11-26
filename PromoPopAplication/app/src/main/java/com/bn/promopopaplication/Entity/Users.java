@@ -56,6 +56,9 @@ public class Users implements Serializable{
 
     public void setName(String name) {
         this.name = name;
+
+        DatabaseReference referenciaDatabase = ConfigurationFirebase.getFirebase();
+        referenciaDatabase.child("user").child(id).child("name").setValue(this.name);
     }
 
     public String getEmail() {
@@ -64,6 +67,9 @@ public class Users implements Serializable{
 
     public void setEmail(String email) {
         this.email = email;
+
+        DatabaseReference referenciaDatabase = ConfigurationFirebase.getFirebase();
+        referenciaDatabase.child("user").child(id).child("email").setValue(this.email);
     }
 
     public String getPassword() {
