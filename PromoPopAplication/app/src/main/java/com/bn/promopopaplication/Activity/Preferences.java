@@ -4,15 +4,11 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.bn.promopopaplication.Activity.MainActivity;
 import com.bn.promopopaplication.Entity.Users;
-import com.bn.promopopaplication.Helper.Preference;
-import com.bn.promopopaplication.Produto;
 import com.bn.promopopaplication.R;
 
 import java.util.ArrayList;
@@ -45,7 +41,8 @@ public class Preferences extends AppCompatActivity {
 
                 Toast.makeText(Preferences.this, "Suas preferencias estão salvas!", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(Preferences.this, MainActivity.class);
+                Intent intent = new Intent(Preferences.this, EditProfileActivity.class);
+                intent.putExtra("user", user);
                 startActivity(intent);
 
             }
@@ -90,5 +87,7 @@ public class Preferences extends AppCompatActivity {
 
         }
     }
+
+
 
 }

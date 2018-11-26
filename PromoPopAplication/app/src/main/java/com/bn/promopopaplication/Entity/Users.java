@@ -16,6 +16,7 @@ public class Users implements Serializable{
     private String name;
     private String email;
     private String password;
+    private String image;
     private List<String> preferences;
 
     public Users() {
@@ -82,6 +83,17 @@ public class Users implements Serializable{
 
         DatabaseReference referenciaDatabase = ConfigurationFirebase.getFirebase();
         referenciaDatabase.child("user").child(id).child("preferences").setValue(this.preferences);
+    }
+
+    public String  getImage() {
+        return image;
+    }
+
+    public void setImage(String imageName) {
+        this.image = imageName;
+
+        DatabaseReference referenciaDatabase = ConfigurationFirebase.getFirebase();
+        referenciaDatabase.child("user").child(id).child("image").setValue(this.image);
     }
 
 }

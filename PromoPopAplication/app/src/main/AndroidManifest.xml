@@ -21,6 +21,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -34,14 +36,16 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".Activity.ProductActivity" />
-        <activity android:name=".Activity.Login"/>
-        <activity android:name=".Activity.Preferences"></activity>
-        <activity android:name=".Activity.WishList"></activity>
-        <activity android:name=".Activity.Cadastro"></activity>
+        <activity android:name=".Activity.Login" />
+        <activity android:name=".Activity.Preferences" />
+        <activity android:name=".Activity.WishList" />
+        <activity android:name=".Activity.Cadastro" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCsFBiYYJER59ge8JEtxewVLWACw4eOurA" />
@@ -49,6 +53,8 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
+
+        <activity android:name=".Activity.EditProfileActivity"></activity>
     </application>
 
 </manifest>
