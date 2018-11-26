@@ -18,6 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
+        android:id="@+id/ola_visitante"
         android:text="Olá, visitante"
         android:layout_gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
@@ -25,9 +26,26 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:id="@+id/ola_user"
+        android:layout_gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:visibility="gone"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/signUp"
         android:clickable="true"
         android:layout_gravity="center"
-        android:text="Faça seu cadastro ->" />
+        android:text="Faça seu cadastro ->"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/emailUser"
+        android:clickable="true"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
 
 </LinearLayout>

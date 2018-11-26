@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bn.promopopaplication.DAO.ConfigurationFirebase;
@@ -63,9 +64,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FirebaseAuth firebaseAuth = ConfigurationFirebase.getFirebaseAuthtication();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
+        TextView ola_visitante = findViewById(R.id.ola_visitante);
+        TextView ola_user = findViewById(R.id.ola_user);
+        TextView signUp = findViewById(R.id.signUp);
+        TextView emailUser = findViewById(R.id.emailUser);
+
         if(firebaseUser != null){
             nav_Menu.findItem(R.id.login).setVisible(false);
-            //ADICIONAR INFORMAÇÔES DO USUÁRIO
+
+            ola_visitante.setVisibility(View.GONE);
+            ola_user.setText("Olá, "+firebaseUser.getDisplayName());
+            ola_user.setVisibility(View.VISIBLE);
+            signUp.setVisibility(View.GONE);
+            emailUser.setText(firebaseUser.getEmail());
+            ola_user.setVisibility(View.VISIBLE);
+        } else {
+            ola_visitante.setVisibility(View.VISIBLE);
+            ola_user.setVisibility(View.GONE);
+            signUp.setVisibility(View.VISIBLE);
+            ola_user.setVisibility(View.GONE);
         }
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
