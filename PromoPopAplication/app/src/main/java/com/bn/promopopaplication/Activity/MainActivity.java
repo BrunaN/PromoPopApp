@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,8 @@ import com.bn.promopopaplication.R;
 import com.bn.promopopaplication.Fragments.home;
 import com.bn.promopopaplication.Fragments.map;
 import com.bn.promopopaplication.Fragments.sales;
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,6 +41,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, home.OnFragmentInteractionListener,
@@ -47,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private BottomNavigationView navigation;
     private Menu nav_Menu;
     private TextView ola_visitante, ola_user, signUp, emailUser;
+    private ImageView imageView;
 
     @Override
     public void onFragmentInteraction(Uri uri){
@@ -81,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ola_user = header.findViewById(R.id.ola_user);
         signUp = header.findViewById(R.id.signUp);
         emailUser = header.findViewById(R.id.emailUser);
+        imageView = header.findViewById(R.id.userImage);
 
         if(firebaseUser != null){
             nav_Menu.findItem(R.id.login).setVisible(false);
@@ -101,12 +108,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     String name = (String) dataSnapshot.child("name").getValue();
                     String email = (String) dataSnapshot.child("email").getValue();
                     String image = dataSnapshot.child("image").getValue(String.class);
-                    //for (DataSnapshot ds : dataSnapshot.child("children").getChildren()) {
-                    //    Log.d("TAG", ds.getValue(String.class));
-                    //}
 
                     //Users users = dataSnapshot.getValue(Users.class);
                     Log.d("teste", name);
+                    Log.d("teste", image);
+
 
                     ola_user.setText("Olá, " + name);
                     emailUser.setText(email);
@@ -115,6 +121,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     ola_user.setVisibility(View.VISIBLE);
                     signUp.setVisibility(View.GONE);
                     emailUser.setVisibility(View.VISIBLE);
+
+                    StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/"+ image);
+
+                    GlideApp.with(MainActivity.this)
+                            .load(storageReference)
+                            .into(imageView);
 
                 }
 
