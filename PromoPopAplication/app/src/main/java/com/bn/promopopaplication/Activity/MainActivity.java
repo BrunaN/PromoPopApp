@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     //String id = dataSnapshot.child("id").getValue(String.class);
                     String name = (String) dataSnapshot.child("name").getValue();
                     String email = (String) dataSnapshot.child("email").getValue();
-                    String image = dataSnapshot.child("image").getValue(String.class);
+                    String image = (String) dataSnapshot.child("image").getValue();
 
                     //Users users = dataSnapshot.getValue(Users.class);
                     Log.d("teste", name);
@@ -124,9 +124,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/"+ image);
 
-                    GlideApp.with(MainActivity.this)
-                            .load(storageReference)
-                            .into(imageView);
+
+                    if(image != null) {
+                        Glide.with(MainActivity.this)
+                                .load(storageReference)
+                                .into(imageView);
+                    }
 
                 }
 
