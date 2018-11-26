@@ -12,6 +12,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,6 +31,7 @@ import com.bn.promopopaplication.Fragments.map;
 import com.bn.promopopaplication.Fragments.sales;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, home.OnFragmentInteractionListener,
         map.OnFragmentInteractionListener, sales.OnFragmentInteractionListener, ProductList.OnFragmentInteractionListener, ProductGrid.OnFragmentInteractionListener {
@@ -64,10 +66,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FirebaseAuth firebaseAuth = ConfigurationFirebase.getFirebaseAuthtication();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
-        TextView ola_visitante = findViewById(R.id.ola_visitante);
-        TextView ola_user = findViewById(R.id.ola_user);
-        TextView signUp = findViewById(R.id.signUp);
-        TextView emailUser = findViewById(R.id.emailUser);
+
+        View header = navigationView.getHeaderView(0);
+
+        TextView ola_visitante = header.findViewById(R.id.ola_visitante);
+        TextView ola_user = header.findViewById(R.id.ola_user);
+        TextView signUp = header.findViewById(R.id.signUp);
+        TextView emailUser = header.findViewById(R.id.emailUser);
 
         if(firebaseUser != null){
             nav_Menu.findItem(R.id.login).setVisible(false);
@@ -77,12 +82,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ola_user.setVisibility(View.VISIBLE);
             signUp.setVisibility(View.GONE);
             emailUser.setText(firebaseUser.getEmail());
-            ola_user.setVisibility(View.VISIBLE);
+            emailUser.setVisibility(View.VISIBLE);
         } else {
             ola_visitante.setVisibility(View.VISIBLE);
             ola_user.setVisibility(View.GONE);
             signUp.setVisibility(View.VISIBLE);
-            ola_user.setVisibility(View.GONE);
+            emailUser.setVisibility(View.GONE);
         }
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
