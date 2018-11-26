@@ -12,6 +12,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bn.promopopaplication.DAO.ConfigurationFirebase;
+import com.bn.promopopaplication.Entity.Users;
 import com.bn.promopopaplication.Fragments.ProductGrid;
 import com.bn.promopopaplication.Fragments.ProductList;
 import com.bn.promopopaplication.R;
@@ -30,6 +32,11 @@ import com.bn.promopopaplication.Fragments.map;
 import com.bn.promopopaplication.Fragments.sales;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, home.OnFragmentInteractionListener,
         map.OnFragmentInteractionListener, sales.OnFragmentInteractionListener, ProductList.OnFragmentInteractionListener, ProductGrid.OnFragmentInteractionListener {
@@ -93,6 +100,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.replace(R.id.fragment_container, new ProductGrid()).commit();
 
         //fragmentTransaction.add(R.id.fragment_container, new ProductGrid()).commit();
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        String id = firebaseUser.getUid();
+        DatabaseReference ref = database.getReference("user/"+ id);
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Users user = dataSnapshot.getValue(Users.class);
+                System.out.println(user);
+                Log.d("XXXXXXXXXXXXXXXXXXXXXX", "user" + user);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
     }
 
     @Override

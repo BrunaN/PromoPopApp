@@ -78,6 +78,9 @@ import com.bn.promopopaplication.R;
 
             final View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+            FragmentTransaction fragment = getFragmentManager().beginTransaction();
+            fragment.replace(R.id.fragment_container, new ProductGrid()).commit();
+
             ImageButton filter = view.findViewById(R.id.filter);
             filter.setOnClickListener(new View.OnClickListener() {
                 @Override
