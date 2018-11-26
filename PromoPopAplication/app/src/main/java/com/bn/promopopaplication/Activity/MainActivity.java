@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/"+ image);
 
-                    GlideApp.with(MainActivity.this)
+                    Glide.with(MainActivity.this)
                             .load(storageReference)
                             .into(imageView);
 
