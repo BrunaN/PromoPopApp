@@ -100,6 +100,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     users = dataSnapshot.getValue(Users.class);
+                    Log.d("XXXXXXXXXXXXXXXXXXXXXX", "user " + users.getName());
+
+                    nav_Menu.findItem(R.id.login).setVisible(false);
+                    nav_Menu.findItem(R.id.logout).setVisible(true);
+
+                    ola_user.setText("Olá, " + users.getName());
+                    emailUser.setText(users.getEmail());
+
+                    ola_visitante.setVisibility(View.GONE);
+                    ola_user.setVisibility(View.VISIBLE);
+                    signUp.setVisibility(View.GONE);
+                    emailUser.setVisibility(View.VISIBLE);
+
                 }
 
                 @Override
@@ -108,16 +121,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             });
 
-            nav_Menu.findItem(R.id.login).setVisible(false);
-            nav_Menu.findItem(R.id.logout).setVisible(true);
-
-            ola_user.setText("Olá, "+ users.getName());
-            emailUser.setText(firebaseUser.getEmail());
-
-            ola_visitante.setVisibility(View.GONE);
-            ola_user.setVisibility(View.VISIBLE);
-            signUp.setVisibility(View.GONE);
-            emailUser.setVisibility(View.VISIBLE);
         } else {
             nav_Menu.findItem(R.id.login).setVisible(true);
             nav_Menu.findItem(R.id.logout).setVisible(false);
