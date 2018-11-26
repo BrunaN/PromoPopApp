@@ -37,12 +37,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.auth.UserInfo;
+
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, home.OnFragmentInteractionListener,
         map.OnFragmentInteractionListener, sales.OnFragmentInteractionListener, ProductList.OnFragmentInteractionListener, ProductGrid.OnFragmentInteractionListener {
 
     private DrawerLayout drawerLayout;
     private BottomNavigationView navigation;
+    private Menu nav_Menu;
+    private TextView ola_visitante, ola_user, signUp, emailUser;
+
 
     @Override
     public void onFragmentInteraction(Uri uri){
@@ -66,31 +71,57 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu = navigationView.getMenu();
 
         FirebaseAuth firebaseAuth = ConfigurationFirebase.getFirebaseAuthtication();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
-        /*TextView ola_visitante = findViewById(R.id.ola_visitante);
-        TextView ola_user = findViewById(R.id.ola_user);
-        TextView signUp = findViewById(R.id.signUp);
-        TextView emailUser = findViewById(R.id.emailUser);
+        View header = navigationView.getHeaderView(0);
+
+        ola_visitante = header.findViewById(R.id.ola_visitante);
+        ola_user = header.findViewById(R.id.ola_user);
+        signUp = header.findViewById(R.id.signUp);
+        emailUser = header.findViewById(R.id.emailUser);
 
         if(firebaseUser != null){
+
+            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+            String id = firebaseUser.getUid();
+            DatabaseReference ref = database.getReference("user/"+ id);
+
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Users user = dataSnapshot.getValue(Users.class);
+                    System.out.println(user);
+                    Log.d("XXXXXXXXXXXXXXXXXXXXXX", "user" + user);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    System.out.println("The read failed: " + databaseError.getCode());
+                }
+            });
+
             nav_Menu.findItem(R.id.login).setVisible(false);
+            nav_Menu.findItem(R.id.logout).setVisible(true);
+
+            ola_user.setText("Olá, "+firebaseUser.getDisplayName());
+            emailUser.setText(firebaseUser.getEmail());
 
             ola_visitante.setVisibility(View.GONE);
-            ola_user.setText("Olá, "+firebaseUser.getDisplayName());
             ola_user.setVisibility(View.VISIBLE);
             signUp.setVisibility(View.GONE);
-            emailUser.setText(firebaseUser.getEmail());
-            ola_user.setVisibility(View.VISIBLE);
+            emailUser.setVisibility(View.VISIBLE);
         } else {
+            nav_Menu.findItem(R.id.login).setVisible(true);
+            nav_Menu.findItem(R.id.logout).setVisible(false);
+
             ola_visitante.setVisibility(View.VISIBLE);
             ola_user.setVisibility(View.GONE);
             signUp.setVisibility(View.VISIBLE);
-            ola_user.setVisibility(View.GONE);
-        }*/
+            emailUser.setVisibility(View.GONE);
+        }
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -100,24 +131,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.replace(R.id.fragment_container, new ProductGrid()).commit();
 
         //fragmentTransaction.add(R.id.fragment_container, new ProductGrid()).commit();
-
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        String id = firebaseUser.getUid();
-        DatabaseReference ref = database.getReference("user/"+ id);
-
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Users user = dataSnapshot.getValue(Users.class);
-                System.out.println(user);
-                Log.d("XXXXXXXXXXXXXXXXXXXXXX", "user" + user);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
 
     }
 
@@ -228,6 +241,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void logout (){
         FirebaseAuth authentication = ConfigurationFirebase.getFirebaseAuthtication();
         authentication.signOut();
+
+        nav_Menu.findItem(R.id.login).setVisible(true);
+        nav_Menu.findItem(R.id.logout).setVisible(false);
+
+        ola_visitante.setVisibility(View.VISIBLE);
+        ola_user.setVisibility(View.GONE);
+        signUp.setVisibility(View.VISIBLE);
+        emailUser.setVisibility(View.GONE);
     }
 
 }
