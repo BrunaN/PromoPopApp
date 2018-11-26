@@ -86,10 +86,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(firebaseUser != null){
 
-        }
-
-        if(firebaseUser != null){
-
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
             String id = firebaseUser.getUid();
             Log.d("XXXXXXXXXXXXXXXXXXXXXX", "user " + id );
