@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Menu nav_Menu;
     private TextView ola_visitante, ola_user, signUp, emailUser;
 
+    private Users users;
 
     @Override
     public void onFragmentInteraction(Uri uri){
@@ -85,16 +86,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(firebaseUser != null){
 
+        }
+
+        if(firebaseUser != null){
+
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
             String id = firebaseUser.getUid();
+            Log.d("XXXXXXXXXXXXXXXXXXXXXX", "user " + id );
+
             DatabaseReference ref = database.getReference("user/"+ id);
 
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    Users user = dataSnapshot.getValue(Users.class);
-                    System.out.println(user);
-                    Log.d("XXXXXXXXXXXXXXXXXXXXXX", "user" + user);
+                    users = dataSnapshot.getValue(Users.class);
                 }
 
                 @Override
@@ -106,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             nav_Menu.findItem(R.id.login).setVisible(false);
             nav_Menu.findItem(R.id.logout).setVisible(true);
 
-            ola_user.setText("Olá, "+firebaseUser.getDisplayName());
+            ola_user.setText("Olá, "+ users.getName());
             emailUser.setText(firebaseUser.getEmail());
 
             ola_visitante.setVisibility(View.GONE);

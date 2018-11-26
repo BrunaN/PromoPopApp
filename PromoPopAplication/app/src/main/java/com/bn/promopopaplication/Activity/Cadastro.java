@@ -106,7 +106,11 @@ public class Cadastro extends AppCompatActivity {
 
                     Toast.makeText(Cadastro.this, "Usuário cadastrado com sucesso!", Toast.LENGTH_LONG).show();
 
-                    String identificadorUsuario = Base64Custom.codifyBase64(users.getEmail());
+                    //String identificadorUsuario = Base64Custom.codifyBase64(users.getEmail());
+                    String identificadorUsuario = authentication.getCurrentUser().getUid();
+
+                    Log.d("XXXXXXXXXXXXXXXXXXXXXX", "user " + identificadorUsuario );
+
                     FirebaseUser firebaseUser = task.getResult().getUser();
 
                     users.setId(identificadorUsuario);
