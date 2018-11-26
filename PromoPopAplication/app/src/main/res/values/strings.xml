@@ -28,6 +28,8 @@
 
     <string name="config">Configurações</string>
     <string name="login">Entrar</string>
+    <string name="logout">Sair</string>
+
 
     <string name="title_preferences">SELECIONE SUAS PREFERÊNCIAS</string>
 

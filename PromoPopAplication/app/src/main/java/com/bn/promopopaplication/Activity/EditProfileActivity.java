@@ -68,7 +68,7 @@ public class EditProfileActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadImage();
+                upload();
             }
         });
     }
@@ -81,7 +81,7 @@ public class EditProfileActivity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Select picture"), PICK_IMAGE_REQUEST);
     }
 
-    private void uploadImage(){
+    private void upload(){
         if(filePath != null) {
 
             final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -95,6 +95,8 @@ public class EditProfileActivity extends AppCompatActivity {
             Log.d("XXXXXXXXXXXXXXX", "uploadImage: " + ref.getName());
 
             user.setImage(ref.getName());
+            user.setName(edtName.getText().toString());
+            user.setEmail(edtEmail.getText().toString());
 
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -121,6 +123,10 @@ public class EditProfileActivity extends AppCompatActivity {
                     });
 
         }
+
+        user.setName(edtName.getText().toString());
+        user.setEmail(edtEmail.getText().toString());
+
     }
 
     @Override

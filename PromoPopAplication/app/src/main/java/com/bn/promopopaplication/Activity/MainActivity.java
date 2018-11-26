@@ -66,14 +66,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FirebaseAuth firebaseAuth = ConfigurationFirebase.getFirebaseAuthtication();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
-
         View header = navigationView.getHeaderView(0);
 
         TextView ola_visitante = header.findViewById(R.id.ola_visitante);
         TextView ola_user = header.findViewById(R.id.ola_user);
         TextView signUp = header.findViewById(R.id.signUp);
         TextView emailUser = header.findViewById(R.id.emailUser);
-
+        
         if(firebaseUser != null){
             nav_Menu.findItem(R.id.login).setVisible(false);
 
@@ -114,6 +113,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.login:
                 startActivity(new Intent(this, Login.class));
+            case R.id.logout:
+                logout();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -200,6 +201,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void showProduct(View view){
         Intent intent = new Intent(this, ProductActivity.class);
         startActivity(intent);
+    }
+
+    public void logout (){
+        FirebaseAuth authentication = ConfigurationFirebase.getFirebaseAuthtication();
+        authentication.signOut();
     }
 
 }
