@@ -38,6 +38,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private DrawerLayout drawerLayout;
     private BottomNavigationView navigation;
+    private Menu nav_Menu;
+    private TextView ola_visitante, ola_user, signUp, emailUser;
+
 
     @Override
     public void onFragmentInteraction(Uri uri){
@@ -61,28 +64,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu = navigationView.getMenu();
 
         FirebaseAuth firebaseAuth = ConfigurationFirebase.getFirebaseAuthtication();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
         View header = navigationView.getHeaderView(0);
 
-        TextView ola_visitante = header.findViewById(R.id.ola_visitante);
-        TextView ola_user = header.findViewById(R.id.ola_user);
-        TextView signUp = header.findViewById(R.id.signUp);
-        TextView emailUser = header.findViewById(R.id.emailUser);
-        
+        ola_visitante = header.findViewById(R.id.ola_visitante);
+        ola_user = header.findViewById(R.id.ola_user);
+        signUp = header.findViewById(R.id.signUp);
+        emailUser = header.findViewById(R.id.emailUser);
+
         if(firebaseUser != null){
             nav_Menu.findItem(R.id.login).setVisible(false);
+            nav_Menu.findItem(R.id.logout).setVisible(true);
+
+            ola_user.setText("Olá, "+firebaseUser.getDisplayName());
+            emailUser.setText(firebaseUser.getEmail());
 
             ola_visitante.setVisibility(View.GONE);
-            ola_user.setText("Olá, "+firebaseUser.getDisplayName());
             ola_user.setVisibility(View.VISIBLE);
             signUp.setVisibility(View.GONE);
-            emailUser.setText(firebaseUser.getEmail());
             emailUser.setVisibility(View.VISIBLE);
         } else {
+            nav_Menu.findItem(R.id.login).setVisible(true);
+            nav_Menu.findItem(R.id.logout).setVisible(false);
+
             ola_visitante.setVisibility(View.VISIBLE);
             ola_user.setVisibility(View.GONE);
             signUp.setVisibility(View.VISIBLE);
@@ -95,8 +103,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, new ProductGrid()).commit();
-
-        //fragmentTransaction.add(R.id.fragment_container, new ProductGrid()).commit();
     }
 
     @Override
@@ -206,6 +212,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void logout (){
         FirebaseAuth authentication = ConfigurationFirebase.getFirebaseAuthtication();
         authentication.signOut();
+
+        nav_Menu.findItem(R.id.login).setVisible(true);
+        nav_Menu.findItem(R.id.logout).setVisible(false);
+
+        ola_visitante.setVisibility(View.VISIBLE);
+        ola_user.setVisibility(View.GONE);
+        signUp.setVisibility(View.VISIBLE);
+        emailUser.setVisibility(View.GONE);
     }
 
 }
