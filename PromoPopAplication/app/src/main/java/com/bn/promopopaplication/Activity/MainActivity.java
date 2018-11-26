@@ -48,8 +48,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Menu nav_Menu;
     private TextView ola_visitante, ola_user, signUp, emailUser;
 
-    private Users users;
-
     @Override
     public void onFragmentInteraction(Uri uri){
 
@@ -85,6 +83,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         emailUser = header.findViewById(R.id.emailUser);
 
         if(firebaseUser != null){
+            nav_Menu.findItem(R.id.login).setVisible(false);
+            nav_Menu.findItem(R.id.logout).setVisible(true);
 
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
             String id = firebaseUser.getUid();
@@ -95,14 +95,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    users = dataSnapshot.getValue(Users.class);
-                    Log.d("XXXXXXXXXXXXXXXXXXXXXX", "user " + users.getName());
+                    Log.d("teste", ""+dataSnapshot.getValue());
 
-                    nav_Menu.findItem(R.id.login).setVisible(false);
-                    nav_Menu.findItem(R.id.logout).setVisible(true);
+                    //String id = dataSnapshot.child("id").getValue(String.class);
+                    String name = (String) dataSnapshot.child("name").getValue();
+                    String email = (String) dataSnapshot.child("email").getValue();
+                    String image = dataSnapshot.child("image").getValue(String.class);
+                    //for (DataSnapshot ds : dataSnapshot.child("children").getChildren()) {
+                    //    Log.d("TAG", ds.getValue(String.class));
+                    //}
 
-                    ola_user.setText("Olá, " + users.getName());
-                    emailUser.setText(users.getEmail());
+                    //Users users = dataSnapshot.getValue(Users.class);
+                    Log.d("teste", name);
+
+                    ola_user.setText("Olá, " + name);
+                    emailUser.setText(email);
 
                     ola_visitante.setVisibility(View.GONE);
                     ola_user.setVisibility(View.VISIBLE);
