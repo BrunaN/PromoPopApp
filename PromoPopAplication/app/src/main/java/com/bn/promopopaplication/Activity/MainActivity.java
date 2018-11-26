@@ -13,17 +13,22 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bn.promopopaplication.DAO.ConfigurationFirebase;
 import com.bn.promopopaplication.Fragments.ProductGrid;
 import com.bn.promopopaplication.Fragments.ProductList;
 import com.bn.promopopaplication.R;
 import com.bn.promopopaplication.Fragments.home;
 import com.bn.promopopaplication.Fragments.map;
 import com.bn.promopopaplication.Fragments.sales;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, home.OnFragmentInteractionListener,
         map.OnFragmentInteractionListener, sales.OnFragmentInteractionListener, ProductList.OnFragmentInteractionListener, ProductGrid.OnFragmentInteractionListener {
@@ -52,6 +57,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+        Menu nav_Menu = navigationView.getMenu();
+
+        FirebaseAuth firebaseAuth = ConfigurationFirebase.getFirebaseAuthtication();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+        if(firebaseUser != null){
+            nav_Menu.findItem(R.id.login).setVisible(false);
+            //ADICIONAR INFORMAÇÔES DO USUÁRIO
+        }
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
