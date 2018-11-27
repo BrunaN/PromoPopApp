@@ -10,11 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bn.promopopaplication.Entity.Product;
+
 import java.util.List;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.MyViewHolder>{
 
-    private List<Produto> dataModelList;
+    private List<Product> dataModelList;
     private Context mContext;
     private int itemLayout;
 
@@ -41,13 +43,12 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             itemView.setOnClickListener(this);
         }
 
-        public void bindData(Produto produto, Context context) {
+        public void bindData(Product produto, Context context) {
             //Setar a imagem do produto aqui
             //productImage.setImageDrawable(ContextCompat.getDrawable(context, IMAGEM DO PRODUTO));
 
             //Setar a imagem da loja aqui
             //productImage.setImageDrawable(ContextCompat.getDrawable(context, IMAGEM DA LOJA));
-
 
             productName.setText(produto.getNomeProduto());
             storeName.setText(produto.getNomeLoja());
@@ -69,7 +70,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         this.itemClickListener = itemClickListener;
     }
 
-    public ProductListAdapter(List<Produto> modelList, Context context, int itemLayout) {
+    public ProductListAdapter(List<Product> modelList, Context context, int itemLayout) {
         dataModelList = modelList;
         this.itemLayout = itemLayout;
         mContext = context;

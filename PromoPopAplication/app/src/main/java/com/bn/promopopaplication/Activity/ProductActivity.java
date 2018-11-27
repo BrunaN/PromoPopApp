@@ -3,17 +3,16 @@ package com.bn.promopopaplication.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.bn.promopopaplication.Produto;
+import com.bn.promopopaplication.Entity.Product;
 import com.bn.promopopaplication.R;
 
 public class ProductActivity extends AppCompatActivity {
 
     private TextView productName, storeName, productTime, productPriceBefore, productPrice;
-    private Produto produto;
+    private Product produto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +33,7 @@ public class ProductActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        produto = (Produto) intent.getSerializableExtra("produto");
+        produto = (Product) intent.getSerializableExtra("produto");
 
         productName = findViewById(R.id.productName);
         storeName = findViewById(R.id.storeName);

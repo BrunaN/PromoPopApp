@@ -2,6 +2,7 @@ package com.bn.promopopaplication.Activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bn.promopopaplication.DAO.ConfigurationFirebase;
+import com.bn.promopopaplication.Entity.Product;
 import com.bn.promopopaplication.Entity.Users;
 import com.bn.promopopaplication.Fragments.ProductGrid;
 import com.bn.promopopaplication.Fragments.ProductList;
@@ -43,6 +45,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, home.OnFragmentInteractionListener,
@@ -107,12 +112,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     //String id = dataSnapshot.child("id").getValue(String.class);
                     String name = (String) dataSnapshot.child("name").getValue();
                     String email = (String) dataSnapshot.child("email").getValue();
-                    String image = dataSnapshot.child("image").getValue(String.class);
+                    String image = (String) dataSnapshot.child("image").getValue();
 
                     //Users users = dataSnapshot.getValue(Users.class);
                     Log.d("teste", name);
                     Log.d("teste", image);
-
 
                     ola_user.setText("Olá, " + name);
                     emailUser.setText(email);
@@ -124,9 +128,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/"+ image);
 
-                    Glide.with(MainActivity.this)
-                            .load(storageReference)
-                            .into(imageView);
+                    if(image != null) {
+                        Glide.with(MainActivity.this)
+                                .load(storageReference)
+                                .into(imageView);
+                    }
 
                 }
 
@@ -272,6 +278,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ola_user.setVisibility(View.GONE);
         signUp.setVisibility(View.VISIBLE);
         emailUser.setVisibility(View.GONE);
+    }
+
+    public void updateProducts(List<Product> products){
+
+    }
+
+    private List<Product> productList = new ArrayList<Product>();
+
+    public void getProducts(){
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+        DatabaseReference ref = database.getReference("product/");
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+
+                for (DataSnapshot productSnapshot: snapshot.getChildren()) {
+                    productList.add(productSnapshot.getValue(Product.class));
+                    Log.d("teste", ""+ productList.size());
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+
     }
 
 }

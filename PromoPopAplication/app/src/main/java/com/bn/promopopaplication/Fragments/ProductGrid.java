@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import com.bn.promopopaplication.Activity.ProductActivity;
 import com.bn.promopopaplication.ItemClickListener;
 import com.bn.promopopaplication.ProductListAdapter;
-import com.bn.promopopaplication.Produto;
+import com.bn.promopopaplication.Entity.Product;
 import com.bn.promopopaplication.R;
 
 import java.util.ArrayList;
@@ -85,9 +85,11 @@ public class ProductGrid extends android.support.v4.app.Fragment {
 
         mRecyclerView = view.findViewById(R.id.recycler_view);
 
-        final List<Produto> dataModelList = new ArrayList<>();
+        final List<Product> dataModelList = new ArrayList<>();
         for (int i = 1; i <= 20; ++i) {
-            dataModelList.add(new Produto(i, "NOME DO PRODUTO", "NOME DA LOJA", i*5, i, i*3));
+            Product produto = new Product(i + "a", "NOME DO PRODUTO", "NOME DA LOJA", i*5, i, i*3);
+            dataModelList.add(produto);
+            //produto.save();
         }
 
         // use this setting to improve performance if you know that changes
@@ -113,6 +115,7 @@ public class ProductGrid extends android.support.v4.app.Fragment {
                 startActivity(intent);
             }
         });
+
         mRecyclerView.setAdapter(mAdapter);
 
         return view;
