@@ -9,8 +9,7 @@
     <string name="title_map">Mapa</string>
     <string name="title_sales">Anuncie</string>
 
-    <string name="title">Personalizar lista de promoções</string>
-    <string name="subtitle">Selecione as categorias que deseja visualizar no PromoPop</string>
+    <string name="title">Selecione as categorias</string>
 
     <string name="search">Pesquise por categoria</string>
     <string name="bebes">Bebês e Cianças</string>

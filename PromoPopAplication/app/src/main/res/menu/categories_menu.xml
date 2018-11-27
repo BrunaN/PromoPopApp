@@ -2,7 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/title" android:title="@string/title" android:enabled="false"/>
-    <item android:id="@+id/subtitle" android:title="@string/subtitle" android:enabled="false"/>
 
     <group android:checkableBehavior="all">
         <item android:id="@+id/bebes" android:title="@string/bebes"/>

@@ -320,5 +320,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         imageUser.setVisibility(View.GONE);
         imageVisitante.setVisibility(View.VISIBLE);
     }
-    
+
 }
