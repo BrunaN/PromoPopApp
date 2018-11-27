@@ -1,10 +1,12 @@
 package com.bn.promopopaplication.Fragments;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,7 +16,16 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.bn.promopopaplication.Activity.MainActivity;
+import com.bn.promopopaplication.Entity.Product;
 import com.bn.promopopaplication.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
      * A simple {@link Fragment} subclass.
@@ -29,6 +40,9 @@ import com.bn.promopopaplication.R;
         // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
         private static final String ARG_PARAM1 = "param1";
         private static final String ARG_PARAM2 = "param2";
+
+        private final ProductGrid pg = new ProductGrid();
+        private final ProductList pl = new ProductList();
 
         // TODO: Rename and change types of parameters
         private String mParam1;
@@ -79,7 +93,7 @@ import com.bn.promopopaplication.R;
             final View view = inflater.inflate(R.layout.fragment_home, container, false);
 
             FragmentTransaction fragment = getFragmentManager().beginTransaction();
-            fragment.replace(R.id.fragment_container, new ProductGrid()).commit();
+            fragment.replace(R.id.fragment_container, pg).commit();
 
             ImageButton filter = view.findViewById(R.id.filter);
             filter.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +110,7 @@ import com.bn.promopopaplication.R;
                 @Override
                 public void onClick(View v) {
                     FragmentTransaction fragment = getFragmentManager().beginTransaction();
-                    fragment.replace(R.id.fragment_container, new ProductList()).commit();
+                    fragment.replace(R.id.fragment_container, pl).commit();
                 }
             });
 
@@ -105,7 +119,7 @@ import com.bn.promopopaplication.R;
                 @Override
                 public void onClick(View v) {
                     FragmentTransaction fragment = getFragmentManager().beginTransaction();
-                    fragment.replace(R.id.fragment_container, new ProductGrid()).commit();
+                    fragment.replace(R.id.fragment_container, pg).commit();
                 }
             });
 
@@ -187,4 +201,6 @@ import com.bn.promopopaplication.R;
             // TODO: Update argument type and name
             void onFragmentInteraction(Uri uri);
         }
+
+
     }

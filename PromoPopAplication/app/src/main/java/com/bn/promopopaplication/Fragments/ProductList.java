@@ -17,6 +17,11 @@ import com.bn.promopopaplication.ItemClickListener;
 import com.bn.promopopaplication.ProductListAdapter;
 import com.bn.promopopaplication.Entity.Product;
 import com.bn.promopopaplication.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,25 +76,25 @@ public class ProductList extends android.support.v4.app.Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        Log.d("teste", "CRIANDO LIST");
+
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_product_list, container, false);
 
 
         mRecyclerView = view.findViewById(R.id.recycler_view);
-
-        final List<Product> dataModelList = new ArrayList<>();
-        for (int i = 1; i <= 20; ++i) {
-            dataModelList.add(new Product(i + "a", "NOME DO PRODUTO", "NOME DA LOJA", i*5, i, i*3));
-        }
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -101,20 +106,40 @@ public class ProductList extends android.support.v4.app.Fragment{
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        // specify an adapter and pass in our data model list
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        mAdapter = new ProductListAdapter(dataModelList, getContext(), R.layout.list_item);
+        DatabaseReference ref = database.getReference("product/");
 
-        ((ProductListAdapter) mAdapter).setOnItemClickListener(new ItemClickListener() {
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onItemClick(int position) {
-                Log.d("TESTE", "Elemento " + position + " clicado.");
-                Intent intent = new Intent(getActivity(), ProductActivity.class);
-                intent.putExtra("produto",dataModelList.get(position));
-                startActivity(intent);
+            public void onDataChange(DataSnapshot snapshot) {
+                final List<Product> productList = new ArrayList<Product>();
+
+                for (DataSnapshot productSnapshot: snapshot.getChildren()) {
+                    productList.add(productSnapshot.getValue(Product.class));
+                    Log.d("teste", ""+ productList.size());
+                }
+
+                mAdapter = new ProductListAdapter(productList, getContext(), R.layout.list_item);
+
+                ((ProductListAdapter) mAdapter).setOnItemClickListener(new ItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        Log.d("TESTE", "Elemento " + position + " clicado.");
+                        Intent intent = new Intent(getActivity(), ProductActivity.class);
+                        intent.putExtra("produto",productList.get(position));
+                        startActivity(intent);
+                    }
+                });
+                mRecyclerView.setAdapter(mAdapter);
             }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
         });
-        mRecyclerView.setAdapter(mAdapter);
 
         return view;
     }

@@ -1,5 +1,6 @@
 package com.bn.promopopaplication.Activity;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -292,34 +293,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void updateProducts(List<Product> products){
-
-    }
-
-    private List<Product> productList = new ArrayList<Product>();
-
-    public void getProducts(){
-
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-        DatabaseReference ref = database.getReference("product/");
-
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-
-                for (DataSnapshot productSnapshot: snapshot.getChildren()) {
-                    productList.add(productSnapshot.getValue(Product.class));
-                    Log.d("teste", ""+ productList.size());
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-
-        });
 
     }
 

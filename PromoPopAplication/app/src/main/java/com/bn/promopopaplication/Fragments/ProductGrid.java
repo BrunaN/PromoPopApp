@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,11 @@ import com.bn.promopopaplication.ItemClickListener;
 import com.bn.promopopaplication.ProductListAdapter;
 import com.bn.promopopaplication.Entity.Product;
 import com.bn.promopopaplication.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,26 +75,23 @@ public class ProductGrid extends android.support.v4.app.Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d("teste", "CRIANDO GRID");
+
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_product_grid, container, false);
 
         mRecyclerView = view.findViewById(R.id.recycler_view);
-
-        final List<Product> dataModelList = new ArrayList<>();
-        for (int i = 1; i <= 20; ++i) {
-            Product produto = new Product(i + "a", "NOME DO PRODUTO", "NOME DA LOJA", i*5, i, i*3);
-            dataModelList.add(produto);
-            //produto.save();
-        }
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -99,22 +102,42 @@ public class ProductGrid extends android.support.v4.app.Fragment {
 
         mLayoutManager = new GridLayoutManager(getContext(), 2);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        // specify an adapter and pass in our data model list
+        DatabaseReference ref = database.getReference("product/");
 
-        mAdapter = new ProductListAdapter(dataModelList, getContext(), R.layout.grid_item);
-
-        ((ProductListAdapter) mAdapter).setOnItemClickListener(new ItemClickListener() {
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onItemClick(int position) {
-                Log.d("TESTE", "Elemento " + position + " clicado.");
-                Intent intent = new Intent(getActivity(), ProductActivity.class);
-                intent.putExtra("produto",dataModelList.get(position));
-                startActivity(intent);
-            }
-        });
+            public void onDataChange(DataSnapshot snapshot) {
+                final List<Product> productList = new ArrayList<Product>();
 
-        mRecyclerView.setAdapter(mAdapter);
+                for (DataSnapshot productSnapshot: snapshot.getChildren()) {
+                    productList.add(productSnapshot.getValue(Product.class));
+                    Log.d("teste", ""+ productList.size());
+                }
+
+                mAdapter = new ProductListAdapter(productList, getContext(), R.layout.grid_item);
+
+                ((ProductListAdapter) mAdapter).setOnItemClickListener(new ItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        Log.d("TESTE", "Elemento " + position + " clicado.");
+                        Intent intent = new Intent(getActivity(), ProductActivity.class);
+                        intent.putExtra("produto",productList.get(position));
+                        startActivity(intent);
+                    }
+                });
+                mRecyclerView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+        // specify an adapter and pass in our data model list
 
         return view;
 
