@@ -28,8 +28,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:textSize="20sp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:textAllCaps="false"
-            android:background="?android:attr/windowBackground"
+            android:background="@android:color/transparent"
             android:layout_gravity="center"
             android:text="Alterar foto"/>
 
@@ -90,7 +92,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:background="?android:attr/windowBackground"
+                    android:background="@android:color/transparent"
                     android:onClick="onClickJump"
                     android:text="@string/jump" />
 

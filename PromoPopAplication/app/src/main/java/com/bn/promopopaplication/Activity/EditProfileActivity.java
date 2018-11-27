@@ -94,7 +94,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
             Log.d("XXXXXXXXXXXXXXX", "uploadImage: " + ref.getName());
 
-            user.setImage(ref.getName());
+            user.updateImage(ref.getName());
             user.setName(edtName.getText().toString());
             user.setEmail(edtEmail.getText().toString());
 

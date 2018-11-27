@@ -20,6 +20,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,8 +58,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     private BottomNavigationView navigation;
     private Menu nav_Menu;
-    private TextView ola_visitante, ola_user, signUp, emailUser;
+    private Button signUp;
+    private TextView ola_visitante, ola_user, emailUser;
     private ImageView imageUser, imageVisitante;
+
+    private Users user;
 
     @Override
     public void onFragmentInteraction(Uri uri){
@@ -111,9 +116,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Log.d("teste", ""+dataSnapshot.getValue());
 
                     //String id = dataSnapshot.child("id").getValue(String.class);
+                    String id = (String) dataSnapshot.child("id").getValue();
                     String name = (String) dataSnapshot.child("name").getValue();
                     String email = (String) dataSnapshot.child("email").getValue();
                     String image = (String) dataSnapshot.child("image").getValue();
+
+                    user = new Users();
+                    user.setId(id);
+                    user.setName(name);
+                    user.setEmail(email);
+                    user.setImage(image);
 
                     //Users users = dataSnapshot.getValue(Users.class);
                     Log.d("teste", name);
@@ -126,6 +138,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     ola_user.setVisibility(View.VISIBLE);
                     signUp.setVisibility(View.GONE);
                     emailUser.setVisibility(View.VISIBLE);
+
+                    nav_Menu.findItem(R.id.editProfile).setVisible(true);
 
                     StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/"+ image);
 
@@ -152,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             nav_Menu.findItem(R.id.login).setVisible(true);
             nav_Menu.findItem(R.id.logout).setVisible(false);
+            nav_Menu.findItem(R.id.editProfile).setVisible(false);
 
             ola_visitante.setVisibility(View.VISIBLE);
             ola_user.setVisibility(View.GONE);
@@ -159,6 +174,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             emailUser.setVisibility(View.GONE);
             imageUser.setVisibility(View.GONE);
             imageVisitante.setVisibility(View.VISIBLE);
+
         }
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -169,6 +185,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.replace(R.id.fragment_container, new ProductGrid()).commit();
 
         //fragmentTransaction.add(R.id.fragment_container, new ProductGrid()).commit();
+
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Cadastro.class));
+
+            }
+        });
 
     }
 
@@ -188,6 +212,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(this, Login.class));
             case R.id.logout:
                 logout();
+            case R.id.editProfile:
+                /*Intent intent = new Intent(this, EditProfileActivity.class);
+                intent.putExtra("user", user);
+                startActivity(intent);*/
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -282,6 +310,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         nav_Menu.findItem(R.id.login).setVisible(true);
         nav_Menu.findItem(R.id.logout).setVisible(false);
+        nav_Menu.findItem(R.id.editProfile).setVisible(false);
 
         ola_visitante.setVisibility(View.VISIBLE);
         ola_user.setVisibility(View.GONE);
@@ -289,38 +318,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         emailUser.setVisibility(View.GONE);
         imageUser.setVisibility(View.GONE);
         imageVisitante.setVisibility(View.VISIBLE);
-    }
-
-    public void updateProducts(List<Product> products){
-
-    }
-
-    private List<Product> productList = new ArrayList<Product>();
-
-    public void getProducts(){
-
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-        DatabaseReference ref = database.getReference("product/");
-
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-
-                for (DataSnapshot productSnapshot: snapshot.getChildren()) {
-                    productList.add(productSnapshot.getValue(Product.class));
-                    Log.d("teste", ""+ productList.size());
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-
-        });
-
     }
 
 }

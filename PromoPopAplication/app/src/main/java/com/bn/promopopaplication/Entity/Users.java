@@ -89,7 +89,11 @@ public class Users implements Serializable{
         return image;
     }
 
-    public void setImage(String imageName) {
+    public void setImage( String imageName) {
+        this.image = imageName;
+    }
+
+    public void updateImage(String imageName) {
         this.image = imageName;
 
         DatabaseReference referenciaDatabase = ConfigurationFirebase.getFirebase();

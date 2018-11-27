@@ -12,7 +12,7 @@
     <string name="title">Personalizar lista de promoções</string>
     <string name="subtitle">Selecione as categorias que deseja visualizar no PromoPop</string>
 
-    <string name="search">Pesquise por categoria. Ex.: supermercado</string>
+    <string name="search">Pesquise por categoria</string>
     <string name="bebes">Bebês e Cianças</string>
     <string name="bebidas">Bebidas</string>
     <string name="hobbies">Brinquedos e Hobbies</string>
@@ -28,6 +28,7 @@
 
     <string name="config">Configurações</string>
     <string name="login">Entrar</string>
+    <string name="editProfile">Editar perfil</string>
     <string name="logout">Sair</string>
 
 

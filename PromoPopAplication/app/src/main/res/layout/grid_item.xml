@@ -5,10 +5,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card"
     android:clickable="true"
-    android:layout_width="175dp"
-    android:layout_height="320dp"
+    android:layout_width="184dp"
+    android:layout_height="wrap_content"
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="5dp"
+    android:layout_margin="4dp"
     cardview:cardCornerRadius="12dp">
 
     <LinearLayout
@@ -19,20 +19,21 @@
         <ImageView
             android:id="@+id/imageProduct"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
+            android:minHeight="130dp"
             app:srcCompat="@mipmap/ic_launcher" />
 
         <View
             android:id="@+id/divider2"
             android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="?android:attr/listDivider" />
+            android:layout_height="2dp"
+            android:background="?android:attr/windowBackground" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="6dp">
+            android:padding="7dp">
 
             <TextView
                 android:id="@+id/productName"
@@ -40,14 +41,14 @@
                 android:layout_height="wrap_content"
                 android:text="Nome do Produto"
                 android:textAllCaps="true"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="6dp"
                 android:textStyle="bold"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="15dp">
+                android:layout_marginBottom="6dp">
 
                 <ImageView
                     android:id="@+id/storeImage"
@@ -94,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp">
 
                 <TextView
@@ -109,6 +110,7 @@
                     android:id="@+id/productPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
+                    android:layout_marginRight="5dp"
                     android:background="@color/colorPrimary"
                     android:textColor="?android:attr/windowBackground"
                     android:layout_weight="1"
