@@ -50,6 +50,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             //Setar a imagem da loja aqui
             //productImage.setImageDrawable(ContextCompat.getDrawable(context, IMAGEM DA LOJA));
 
+            Log.d("teste", "produto: "+produto.id());
+
             productName.setText(produto.getNomeProduto());
             storeName.setText(produto.getNomeLoja());
             productTime.setText(produto.getDiasRestantes()+" dias restantes");

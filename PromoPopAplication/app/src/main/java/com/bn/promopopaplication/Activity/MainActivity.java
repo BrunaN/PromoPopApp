@@ -1,5 +1,6 @@
 package com.bn.promopopaplication.Activity;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -319,5 +320,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         imageUser.setVisibility(View.GONE);
         imageVisitante.setVisibility(View.VISIBLE);
     }
-
+    
 }
