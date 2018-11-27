@@ -1,14 +1,27 @@
 package com.bn.promopopaplication.Fragments;
 
+import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.IBinder;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bn.promopopaplication.R;
+import com.bn.promopopaplication.Services.LocationService;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -35,6 +48,8 @@ public class map extends android.support.v4.app.Fragment implements OnMapReadyCa
     private String mParam2;
     private MapView mMapView;
     private GoogleMap mGoogleMap;
+    private LatLng ny;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -42,6 +57,18 @@ public class map extends android.support.v4.app.Fragment implements OnMapReadyCa
         // Required empty public constructor
     }
 
+
+    private class MyBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Double lat, lng;
+            lat = intent.getDoubleExtra("lat", ny.latitude);
+            lng = intent.getDoubleExtra("lng", ny.longitude);
+            ny = new LatLng(lat, lng);
+            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(ny));
+            mGoogleMap.setMinZoomPreference(14);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,6 +79,25 @@ public class map extends android.support.v4.app.Fragment implements OnMapReadyCa
         mMapView.onCreate(savedInstanceState);
         mMapView.getMapAsync(this); //this is important
 
+
+        if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) !=
+                        PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(getActivity(), new String[] {
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION }, 1);
+        }
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.my.app");
+        MyBroadcastReceiver receiver = new MyBroadcastReceiver();
+        getActivity().registerReceiver(receiver, intentFilter);
+
+        Intent i = new Intent(getContext(), LocationService.class);
+        getActivity().startService(i);
+
         return v;
     }
 
@@ -60,7 +106,7 @@ public class map extends android.support.v4.app.Fragment implements OnMapReadyCa
         mGoogleMap = googleMap;
         mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
         mGoogleMap.setMinZoomPreference(14);
-        LatLng ny = new LatLng(-4.9684385, -39.0161259);
+        ny = new LatLng(-4.9684385, -39.0161259);
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(ny));
     }
 
