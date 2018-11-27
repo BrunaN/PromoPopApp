@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private BottomNavigationView navigation;
     private Menu nav_Menu;
     private TextView ola_visitante, ola_user, signUp, emailUser;
-    private ImageView imageView;
+    private ImageView imageUser, imageVisitante;
 
     @Override
     public void onFragmentInteraction(Uri uri){
@@ -87,7 +87,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ola_user = header.findViewById(R.id.ola_user);
         signUp = header.findViewById(R.id.signUp);
         emailUser = header.findViewById(R.id.emailUser);
-        imageView = header.findViewById(R.id.userImage);
+        imageUser = header.findViewById(R.id.userImage);
+        imageVisitante = header.findViewById(R.id.visitanteImage);
 
         if(firebaseUser != null){
             nav_Menu.findItem(R.id.login).setVisible(false);
@@ -113,7 +114,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Log.d("teste", name);
                     Log.d("teste", image);
 
-
                     ola_user.setText("Olá, " + name);
                     emailUser.setText(email);
 
@@ -128,7 +128,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     if(image != null) {
                         Glide.with(MainActivity.this)
                                 .load(storageReference)
-                                .into(imageView);
+                                .into(imageUser);
+
+                        imageUser.setVisibility(View.VISIBLE);
+                        imageVisitante.setVisibility(View.GONE);
+                    }else{
+                        imageUser.setVisibility(View.GONE);
+                        imageVisitante.setVisibility(View.VISIBLE);
                     }
 
                 }
@@ -147,6 +153,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ola_user.setVisibility(View.GONE);
             signUp.setVisibility(View.VISIBLE);
             emailUser.setVisibility(View.GONE);
+            imageUser.setVisibility(View.GONE);
+            imageVisitante.setVisibility(View.VISIBLE);
         }
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -275,6 +283,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ola_user.setVisibility(View.GONE);
         signUp.setVisibility(View.VISIBLE);
         emailUser.setVisibility(View.GONE);
+        imageUser.setVisibility(View.GONE);
+        imageVisitante.setVisibility(View.VISIBLE);
     }
 
 }
