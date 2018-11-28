@@ -31,6 +31,7 @@ public class ProductActivity extends AppCompatActivity {
                 finish();
             }
         });
+        toolbar.setNavigationIcon(R.drawable.arrow_back);
 
         Intent intent = getIntent();
         produto = (Product) intent.getSerializableExtra("produto");

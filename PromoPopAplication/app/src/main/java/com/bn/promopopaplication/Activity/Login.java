@@ -45,15 +45,15 @@ public class Login extends AppCompatActivity {
                 finish();
             }
         });
+        toolbar.setNavigationIcon(R.drawable.arrow_back);
 
-        avancar = findViewById(R.id.avancarBtnLogin);
         email = findViewById(R.id.emailLogin);
         cadastrese = findViewById(R.id.cadastreseBtnLogin);
         visitante = findViewById(R.id.visitanteBtnLogin);
         senha = findViewById(R.id.senhaLogin);
         login = findViewById(R.id.submitLogin);
 
-        avancar.setOnClickListener(new View.OnClickListener() {
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!email.getText().toString().equals("") && !senha.getText().toString().equals("")){
