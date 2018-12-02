@@ -34,7 +34,7 @@
             android:paddingBottom="10dp"
             android:textSize="15dp"
             android:text="@string/sport"
-            android:background="@drawable/unchecked"
+            android:background="@drawable/check"
             android:buttonTint="@color/colorPrimary"
             android:onClick="onCheckboxClicked"/>
 
@@ -49,6 +49,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
+            android:textSize="15dp"
             android:text="@string/eletronic"
             android:buttonTint="@color/colorPrimary"
             android:onClick="onCheckboxClicked"/>
@@ -63,6 +64,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
+            android:textSize="15dp"
             android:text="@string/fashion"
             android:buttonTint="@color/colorPrimary"
             android:onClick="onCheckboxClicked"/>
@@ -77,6 +79,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
+            android:textSize="15dp"
             android:text="@string/hygienic"
             android:buttonTint="@color/colorPrimary"
             android:onClick="onCheckboxClicked"/>
@@ -91,6 +94,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
+            android:textSize="15dp"
             android:text="@string/mobile"
             android:buttonTint="@color/colorPrimary"
             android:onClick="onCheckboxClicked"/>

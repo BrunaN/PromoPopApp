@@ -29,7 +29,8 @@ public class Cadastro extends AppCompatActivity {
 
     private EditText edtName, edtEmail, edtPassword, edtConfirmPassword;
 
-    private Button btnLogin, btnSignin;
+    private Button btnLogin;
+    private Button btnSignin;
 
     private Users users;
 
@@ -46,13 +47,15 @@ public class Cadastro extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.arrow_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        toolbar.setNavigationIcon(R.drawable.arrow_back);
+
+        btnLogin = findViewById(R.id.loginBtnCadastro);
 
         edtName = findViewById(R.id.name);
         edtEmail = findViewById(R.id.email);
@@ -60,7 +63,6 @@ public class Cadastro extends AppCompatActivity {
         edtConfirmPassword = findViewById(R.id.confirmPassword);
 
         btnSignin = findViewById(R.id.signin);
-        btnLogin = findViewById(R.id.loginBtnCadastro);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

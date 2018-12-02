@@ -3,4 +3,6 @@
     <color name="colorPrimary">#FF4747</color>
     <color name="colorPrimaryDark">#842929</color>
     <color name="colorAccent">#EFEFEF</color>
+    <color name= "fundoapp">#F0F0F0</color>
+    <color name="vermelhoPromoPop">#E24D4D</color>
 </resources>

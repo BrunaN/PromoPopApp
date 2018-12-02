@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.CadastroAnuncio"
+    android:background="@color/fundoapp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?android:attr/windowBackground"
+                android:id="@+id/toolbar"/>
+
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="110dp"
+                android:layout_gravity="center"
+                android:src="@drawable/logo_vertical_red" />
+
+            <EditText
+                android:id="@+id/edtNomeLoja"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:ems="10"
+                android:hint="Nome"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:background="@drawable/inputs"
+                android:inputType="text"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:ems="10"
+                android:hint="Email"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:background="@drawable/inputs"
+                android:inputType="text"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/edtSenha"
+                android:hint="Senha"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:ems="10"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:background="@drawable/inputs"
+                android:inputType="textPassword"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/edtConfirmSenha"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:ems="10"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:background="@drawable/inputs"
+                android:inputType="textPassword"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:hint="Comfirme a senha" />
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="15dp">
+
+            <EditText
+                android:id="@+id/edtCidade"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:ems="10"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:background="@drawable/inputs"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:hint="Cidade"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/edtEndereco"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:ems="10"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:background="@drawable/inputs"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:hint="Endereço"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/edtCNPJ"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:ems="10"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:background="@drawable/inputs"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:hint="CPNJ"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/edtRamoAtuacao"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:ems="10"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:background="@drawable/inputs"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:hint="Ramo de Atuação"
+                android:inputType="text" />
+
+            <Button
+                android:id="@+id/btnSalvar"
+                android:layout_width="170dp"
+                android:layout_height="38dp"
+                android:text="Cadastrar-se"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:textColor="#ffffff"
+                android:background="@drawable/btn_red" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</android.support.constraint.ConstraintLayout>

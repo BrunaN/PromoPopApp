@@ -104,7 +104,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(firebaseUser != null){
             nav_Menu.findItem(R.id.login).setVisible(false);
             nav_Menu.findItem(R.id.logout).setVisible(true);
-            nav_Menu.findItem(R.id.editProfile).setVisible(true);
 
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
             String id = firebaseUser.getUid();
@@ -118,9 +117,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Log.d("teste", ""+dataSnapshot.getValue());
 
                     //String id = dataSnapshot.child("id").getValue(String.class);
-
-                    //Users users = dataSnapshot.getValue(Users.class);
-
                     String id = (String) dataSnapshot.child("id").getValue();
                     String name = (String) dataSnapshot.child("name").getValue();
                     String email = (String) dataSnapshot.child("email").getValue();
@@ -130,6 +126,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     user.setId(id);
                     user.setName(name);
                     user.setEmail(email);
+
+                    //Users users = dataSnapshot.getValue(Users.class);
+                    //Log.d("teste", name);
+                    //Log.d("teste", image);
 
                     ola_user.setText("Olá, " + name);
                     emailUser.setText(email);
@@ -216,6 +216,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(this, Login.class));
             case R.id.logout:
                 logout();
+            case R.id.editProfile:
+                /*Intent intent = new Intent(this, EditProfileActivity.class);
+                intent.putExtra("user", user);
+                startActivity(intent);*/
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);

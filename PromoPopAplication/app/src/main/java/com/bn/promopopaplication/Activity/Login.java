@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
 
-    private Button avancar, login, cadastrese, visitante;
+    private Button avancar, login, cadastrese, visitante, cadastroLoja;
     private EditText email, senha;
 
     private FirebaseAuth authentication;
@@ -33,7 +33,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        /*android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -46,6 +46,7 @@ public class Login extends AppCompatActivity {
             }
         });
         toolbar.setNavigationIcon(R.drawable.arrow_back);
+        */
 
         email = findViewById(R.id.emailLogin);
         cadastrese = findViewById(R.id.cadastreseBtnLogin);
@@ -53,7 +54,10 @@ public class Login extends AppCompatActivity {
         senha = findViewById(R.id.senhaLogin);
         login = findViewById(R.id.submitLogin);
 
+        cadastroLoja = findViewById(R.id.btnCadLoja);
+
         login.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 if(!email.getText().toString().equals("") && !senha.getText().toString().equals("")){
@@ -89,7 +93,14 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Login.this, Cadastro.class);
                 startActivity(intent);
-                finish();
+            }
+        });
+
+        cadastroLoja.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this, CadastroLojista.class);
+                startActivity(intent);
             }
         });
 
