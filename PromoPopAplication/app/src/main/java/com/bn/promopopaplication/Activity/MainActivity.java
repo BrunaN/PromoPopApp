@@ -130,10 +130,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     user.setId(id);
                     user.setName(name);
                     user.setEmail(email);
-                    user.setImage(image);
-
-                    Log.d("teste", name);
-                    Log.d("teste", image);
 
                     ola_user.setText("Olá, " + name);
                     emailUser.setText(email);
@@ -148,6 +144,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/"+ image);
 
                     if(image != null) {
+
+                        user.setImage(image);
+
                         Glide.with(MainActivity.this)
                                 .load(storageReference)
                                 .into(imageUser);
@@ -188,8 +187,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, new ProductGrid()).commit();
 
-        //fragmentTransaction.add(R.id.fragment_container, new ProductGrid()).commit();
-
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -208,6 +205,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 //Aqui eu  'seto' o navigation para a posição em que o fragment do map se encontra, para isso deixei o
                 //navigation global e o deixei a inicialização no onCreate
                 navigation.setSelectedItemId(R.id.navigation_map);
+                break;
+            case R.id.create_promotions:
+                navigation.setSelectedItemId(R.id.navigation_sales);
                 break;
             case R.id.list:
                 startActivity(new Intent(this, WishList.class));

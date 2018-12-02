@@ -104,6 +104,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
                             Toast.makeText(EditProfileActivity.this, "Alteração concluída", Toast.LENGTH_SHORT).show();
+                            openMainActivity();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -143,14 +144,20 @@ public class EditProfileActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }else{
-            //resultCode != RESULT_OK
-            //fazer depois
+
         }
     }
 
     public void onClickJump(View view){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
+    }
+
+    public void openMainActivity(){
+        Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }

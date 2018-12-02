@@ -105,21 +105,29 @@ import java.util.List;
                 }
             });
 
-            ImageButton forList = view.findViewById(R.id.btn_list);
+
+            final ImageButton forGrid = view.findViewById(R.id.btn_grid);
+            final ImageButton forList = view.findViewById(R.id.btn_list);
+
+            forGrid.setVisibility(View.GONE);
+
             forList.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     FragmentTransaction fragment = getFragmentManager().beginTransaction();
                     fragment.replace(R.id.fragment_container, pl).commit();
+                    forList.setVisibility(View.GONE);
+                    forGrid.setVisibility(View.VISIBLE);
                 }
             });
 
-            ImageButton forGrid = view.findViewById(R.id.btn_grid);
             forGrid.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     FragmentTransaction fragment = getFragmentManager().beginTransaction();
                     fragment.replace(R.id.fragment_container, pg).commit();
+                    forList.setVisibility(View.VISIBLE);
+                    forGrid.setVisibility(View.GONE);
                 }
             });
 

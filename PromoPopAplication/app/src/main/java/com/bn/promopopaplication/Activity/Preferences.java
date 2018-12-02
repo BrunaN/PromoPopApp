@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ public class Preferences extends AppCompatActivity {
 
     private Users user;
     private String id;
+    private CheckBox sport, eletronic, fashion, mobile, hygienic;
 
     public List<String> preferenceList = new ArrayList<String>();
 
@@ -27,6 +29,12 @@ public class Preferences extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
+
+        sport = findViewById(R.id.sport);
+        eletronic = findViewById(R.id.eletronic);
+        fashion = findViewById(R.id.fashion);
+        mobile = findViewById(R.id.mobile);
+        hygienic = findViewById(R.id.hygienic);
 
         Intent intent = getIntent();
         user = (Users) intent.getSerializableExtra("user");
@@ -47,11 +55,67 @@ public class Preferences extends AppCompatActivity {
 
             }
         });
+
+        sport.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    sport.setBackground(getResources().getDrawable(R.drawable.check));
+                }else{
+                    sport.setBackground(getResources().getDrawable(R.drawable.unchecked));
+                }
+            }
+        });
+
+        fashion.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    fashion.setBackground(getResources().getDrawable(R.drawable.check));
+                }else{
+                    fashion.setBackground(getResources().getDrawable(R.drawable.unchecked));
+                }
+            }
+        });
+
+        mobile.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    mobile.setBackground(getResources().getDrawable(R.drawable.check));
+                }else{
+                    mobile.setBackground(getResources().getDrawable(R.drawable.unchecked));
+                }
+            }
+        });
+
+        eletronic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    eletronic.setBackground(getResources().getDrawable(R.drawable.check));
+                }else{
+                    eletronic.setBackground(getResources().getDrawable(R.drawable.unchecked));
+                }
+            }
+        });
+
+        hygienic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    hygienic.setBackground(getResources().getDrawable(R.drawable.check));
+                }else{
+                    hygienic.setBackground(getResources().getDrawable(R.drawable.unchecked));
+                }
+            }
+        });
     }
 
     public void onClickJump(View view){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void onCheckboxClicked(View view) {

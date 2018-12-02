@@ -28,6 +28,7 @@ public class WishList extends AppCompatActivity {
             }
         });
         toolbar.setNavigationIcon(R.drawable.arrow_back);
+        toolbar.setTitle("Lista de Desejo");
 
     }
 }

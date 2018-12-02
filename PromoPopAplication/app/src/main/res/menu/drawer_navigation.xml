@@ -6,8 +6,6 @@
     <group>
         <item android:id="@+id/map"
             android:title="@string/map"/>
-        <item android:id="@+id/my_promotions"
-            android:title="@string/my_promotions"/>
         <item android:id="@+id/create_promotions"
             android:title="@string/create_promotion"/>
         <item android:id="@+id/list"

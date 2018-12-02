@@ -160,6 +160,7 @@ public class Cadastro extends AppCompatActivity {
         Intent intent = new Intent(Cadastro.this, Preferences.class);
         intent.putExtra("user", users);
         startActivity(intent);
+        finish();
     }
 
 
