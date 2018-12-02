@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
 
-    private Button avancar, login, cadastrese, visitante;
+    private Button avancar, login, cadastrese, visitante, cadastroLoja;
     private EditText email, senha;
 
     private FirebaseAuth authentication;
@@ -52,6 +52,8 @@ public class Login extends AppCompatActivity {
         visitante = findViewById(R.id.visitanteBtnLogin);
         senha = findViewById(R.id.senhaLogin);
         login = findViewById(R.id.submitLogin);
+
+        cadastroLoja = findViewById(R.id.btnCadLoja);
 
         avancar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +90,15 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Login.this, Cadastro.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        cadastroLoja.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this, CadastroLojista.class);
                 startActivity(intent);
                 finish();
             }

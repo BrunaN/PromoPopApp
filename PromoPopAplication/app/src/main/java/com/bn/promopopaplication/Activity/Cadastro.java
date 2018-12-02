@@ -163,5 +163,4 @@ public class Cadastro extends AppCompatActivity {
         startActivity(intent);
     }
 
-
 }

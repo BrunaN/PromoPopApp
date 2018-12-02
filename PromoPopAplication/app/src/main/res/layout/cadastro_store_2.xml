@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?android:attr/windowBackground"
+            android:id="@+id/toolbar"/>
+
+
+        <EditText
+            android:id="@+id/edtCidade"
+            style="@style/Base.Widget.MaterialComponents.TextInputEditText"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext_background"
+            android:hint="Cidade"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/edtEndereco"
+            style="@style/Base.Widget.MaterialComponents.TextInputEditText"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext_background"
+            android:hint="Endereço"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/edtCEP"
+            style="@style/Base.Widget.MaterialComponents.TextInputEditText"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext_background"
+            android:hint="CEP"
+            android:inputType="number"
+            />
+
+        <EditText
+            android:id="@+id/edtCNPJ"
+            style="@style/Base.Widget.MaterialComponents.TextInputEditText"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext_background"
+            android:hint="CPNJ"
+            android:inputType="number" />
+
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="200dp"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/fundo_redondo_vermelho"
+            android:text="Salvar"
+            android:textColor="@color/fundoapp" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
