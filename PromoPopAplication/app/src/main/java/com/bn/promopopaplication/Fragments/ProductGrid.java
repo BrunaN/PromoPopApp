@@ -112,6 +112,9 @@ public class ProductGrid extends android.support.v4.app.Fragment {
             public void onDataChange(DataSnapshot snapshot) {
                 final List<Product> productList = new ArrayList<Product>();
 
+                //quantidade de produtos que eu tô buscando
+                //salvar data
+
                 for (DataSnapshot productSnapshot: snapshot.getChildren()) {
                     productList.add(productSnapshot.getValue(Product.class));
                     Log.d("teste", ""+ productList.size());

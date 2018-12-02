@@ -28,8 +28,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="25dp"
             android:text="@string/sport"
+            android:buttonTint="@color/colorPrimary"
             android:onClick="onCheckboxClicked"/>
 
 
@@ -38,8 +39,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="25dp"
             android:text="@string/eletronic"
+            android:buttonTint="@color/colorPrimary"
             android:onClick="onCheckboxClicked"/>
 
         <CheckBox
@@ -47,8 +49,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="25dp"
             android:text="@string/fashion"
+            android:buttonTint="@color/colorPrimary"
             android:onClick="onCheckboxClicked"/>
 
         <CheckBox
@@ -56,8 +59,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="25dp"
             android:text="@string/hygienic"
+            android:buttonTint="@color/colorPrimary"
             android:onClick="onCheckboxClicked"/>
 
         <CheckBox
@@ -65,8 +69,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="25dp"
             android:text="@string/mobile"
+            android:buttonTint="@color/colorPrimary"
             android:onClick="onCheckboxClicked"/>
 
         <Button
@@ -86,24 +91,24 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp">
 
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_width="70dp"
+                    android:layout_height="45dp"
+                    android:textAllCaps="false"
                     android:text="@string/jump"
                     android:onClick="onClickJump"
                     android:background="@android:color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/next"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:layout_alignParentRight="true"
-                    android:layout_margin="5dp"
-                    android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/ic_arrow_forward_black_24dp" />
+                    android:background="@drawable/btn_rounded"
+                    android:src="@drawable/ic_arrow_forward" />
 
             </RelativeLayout>
 

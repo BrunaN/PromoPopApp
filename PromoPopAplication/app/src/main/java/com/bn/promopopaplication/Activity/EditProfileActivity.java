@@ -132,7 +132,6 @@ public class EditProfileActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII", "onActivityResult: AQUI" + requestCode + resultCode + data.getData());
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null){
             filePath = data.getData();
@@ -143,6 +142,9 @@ public class EditProfileActivity extends AppCompatActivity {
             catch (IOException e){
                 e.printStackTrace();
             }
+        }else{
+            //resultCode != RESULT_OK
+            //fazer depois
         }
     }
 

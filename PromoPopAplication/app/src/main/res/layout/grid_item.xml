@@ -50,12 +50,12 @@
                 android:orientation="horizontal"
                 android:layout_marginBottom="6dp">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/storeImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@mipmap/ic_launcher_round" />
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@mipmap/ic_launcher_round"/>
 
                 <TextView
                     android:id="@+id/storeName"
@@ -65,7 +65,7 @@
                     android:layout_weight="1"
                     android:textAllCaps="true"
                     android:text="Lojas Americanas"
-                    android:paddingLeft="4dp"
+                    android:paddingLeft="7dp"
                     android:textSize="12sp"/>
             </LinearLayout>
 

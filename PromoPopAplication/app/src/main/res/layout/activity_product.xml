@@ -19,7 +19,7 @@
             <android.support.v7.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorAccent"
+                android:background="@android:color/transparent"
                 android:id="@+id/toolbar"/>
 
             <ImageView
@@ -63,12 +63,12 @@
                         android:layout_marginBottom="20dp"
                         android:orientation="horizontal">
 
-                        <ImageView
+                        <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/storeImage"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_weight="1"
-                            app:srcCompat="@mipmap/ic_launcher_round" />
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:src="@mipmap/ic_launcher_round"/>
 
                         <TextView
                             android:id="@+id/storeName"
@@ -76,7 +76,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="1"
-                            android:paddingLeft="6dp"
+                            android:paddingLeft="7dp"
                             android:text="Lojas Americanas"
                             android:textAllCaps="true"
                             android:textSize="12sp" />
@@ -188,12 +188,13 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
-                            <ImageView
+
+                            <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/userImage"
+                                xmlns:app="http://schemas.android.com/apk/res-auto"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@mipmap/ic_launcher_round" />
+                                android:src="@mipmap/ic_launcher_round"/>
 
                             <TextView
                                 android:id="@+id/userName"
@@ -201,7 +202,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_weight="1"
-                                android:paddingLeft="6dp"
+                                android:paddingLeft="8dp"
                                 android:text="Bruna Neves"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />

@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     //Users users = dataSnapshot.getValue(Users.class);
                     //Log.d("teste", name);
-                    //Log.d("teste", image);
+                   // Log.d("teste", image);
 
                     ola_user.setText("Olá, " + name);
                     emailUser.setText(email);
