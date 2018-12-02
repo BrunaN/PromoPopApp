@@ -46,14 +46,20 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:layout_margin="5dp">
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:src="@drawable/icn_pp_populares"/>
 
                 <TextView
                     android:id="@+id/populares"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
-                    android:layout_margin="5dp"
+                    android:layout_marginBottom="5dp"
                     android:textColor="#878787"
                     android:text="Populares"/>
 

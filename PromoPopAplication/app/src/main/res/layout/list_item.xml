@@ -104,10 +104,11 @@
 
                     <ImageView
                         android:id="@+id/calendar"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="13dp"
+                        android:layout_height="15dp"
                         android:layout_weight="1"
-                        app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/ic_pp_calender" />
 
                     <TextView
                         android:id="@+id/productTime"
