@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.EditProfileActivity">
+    tools:context=".Activity.AddStoreImageActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,14 +15,23 @@
         android:layout_marginBottom="20dp"
         android:layout_marginTop="30dp">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#878787"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:layout_marginBottom="30dp"
+            android:text="Adicionar foto do perfil"/>
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/image"
             android:layout_gravity="center"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@mipmap/ic_launcher_round"/>
-
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:src="@drawable/icn_pp_user"/>
 
         <Button
             android:id="@+id/btnChoose"
@@ -35,37 +45,8 @@
             android:textColor="@color/colorPrimary"
             android:background="@android:color/transparent"
             android:layout_gravity="center"
-            android:text="Alterar foto"/>
+            android:text="Adicionar foto"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nome"
-            android:textSize="18sp"
-            android:layout_marginBottom="6dp"/>
-
-        <EditText
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:ems="10"
-            android:inputType="text"
-            android:layout_marginBottom="8dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Endereço de email"
-            android:textSize="18sp"
-            android:layout_marginBottom="6dp"/>
-
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            android:layout_marginBottom="8dp"/>
 
         <Button
             android:id="@+id/btnSave"

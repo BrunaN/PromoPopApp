@@ -109,7 +109,7 @@ public class CadastroLojista extends AppCompatActivity {
 
                             store.save();
 
-                            openMainStore();
+                            openAddStoreImage();
 
                         }else{
                             String error = "";
@@ -137,8 +137,8 @@ public class CadastroLojista extends AppCompatActivity {
         });
     }
 
-    public void openMainStore(){
-        Intent intent = new Intent(CadastroLojista.this, MainStoreActivity.class);
+    public void openAddStoreImage(){
+        Intent intent = new Intent(CadastroLojista.this, AddStoreImageActivity.class);
         intent.putExtra("store", store);
         startActivity(intent);
         finish();

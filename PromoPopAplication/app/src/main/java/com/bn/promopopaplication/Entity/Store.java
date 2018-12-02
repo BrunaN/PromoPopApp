@@ -110,6 +110,6 @@ public class Store implements Serializable{
         this.image = imageName;
 
         DatabaseReference referenciaDatabase = ConfigurationFirebase.getFirebase();
-        referenciaDatabase.child("user").child(id).child("image").setValue(this.image);
+        referenciaDatabase.child("stores").child(id).child("image").setValue(this.image);
     }
 }

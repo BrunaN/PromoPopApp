@@ -107,6 +107,7 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
 
                         storeImage.setVisibility(View.VISIBLE);
                         noImage.setVisibility(View.GONE);
+
                     }else{
                         storeImage.setVisibility(View.GONE);
                         noImage.setVisibility(View.VISIBLE);
@@ -143,6 +144,7 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
             case R.id.profile:
+                startActivity(new Intent(this, StoreActivity.class).putExtra("store", store));
                 break;
             case R.id.create_promotions:
 
