@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fundoapp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="0dp">
+
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cadastrar Anúncio"
+            android:textAlignment="center"
+            android:textColor="@color/vermelhoPromoPop"
+            android:textSize="25dp"/>
+
+
+        <ImageView
+            android:id="@+id/imgAnuncio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:srcCompat="@android:drawable/ic_menu_report_image" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Selecionar imagem"
+            android:textAlignment="center"
+            android:textSize="15dp" />
+
+        <EditText
+            android:id="@+id/edtTituloAnuncio"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/inputs"
+            android:ems="10"
+            android:hint="Título do Anuncio"
+            android:inputType="text"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp" />
+
+        <EditText
+            android:id="@+id/edtDiasRest"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/inputs"
+            android:ems="10"
+            android:hint="Dias restantes"
+            android:inputType="number"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp" />
+
+            <EditText
+                android:id="@+id/edtValorAtual"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/inputs"
+                android:ems="10"
+                android:hint="Valor"
+                android:inputType="numberDecimal"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp" />
+
+            <EditText
+                android:id="@+id/edtValorAntigo"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/inputs"
+                android:ems="10"
+                android:hint="Valor Antigo"
+                android:inputType="numberDecimal"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp" />
+
+
+        <Button
+            android:id="@+id/btnSalvarAnuncio"
+            android:layout_width="170dp"
+            android:layout_height="38dp"
+            android:text="Salvar Anúncio"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:textColor="#ffffff"
+            android:background="@drawable/btn_red" />
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -66,6 +67,8 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
         storeEmail = header.findViewById(R.id.email);
         storeImage = header.findViewById(R.id.storeImage);
         noImage = header.findViewById(R.id.noImage);
+
+
 
         if(firebaseUser != null){
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -133,8 +136,9 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
             @Override
             public void onClick(View view) {
 
-                //Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                //       .setAction("Action", null).show();
+               Intent intent = new Intent(MainStoreActivity.this, CadastroAnuncio.class);
+               startActivity(intent);
+
             }
         });
 
