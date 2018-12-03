@@ -76,6 +76,8 @@ public class ProductGrid extends android.support.v4.app.Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        String storeId = getArguments().getString("storeId");
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -90,8 +92,6 @@ public class ProductGrid extends android.support.v4.app.Fragment {
 
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_product_grid, container, false);
-
-
 
         mRecyclerView = view.findViewById(R.id.recycler_view);
 

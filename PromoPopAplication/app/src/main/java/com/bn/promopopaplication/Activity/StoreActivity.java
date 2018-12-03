@@ -112,16 +112,24 @@ public class StoreActivity extends AppCompatActivity implements ProductList.OnFr
             }
         });
 
-
+        ProductGrid productGrid = new ProductGrid();
+        Bundle bundle = new Bundle();
+        bundle.putString("storeId", store.getId());
+        productGrid.setArguments(bundle);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, new ProductGrid()).commit();
+        fragmentTransaction.replace(R.id.fragment_container, productGrid).commit();
 
         btnList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ProductList productList = new ProductList();
+                Bundle bundle = new Bundle();
+                bundle.putString("storeId", store.getId());
+                productList.setArguments(bundle);
+
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, new ProductList()).commit();
+                fragmentTransaction.replace(R.id.fragment_container, productList).commit();
                 btnList.setVisibility(View.GONE);
                 btnGrid.setVisibility(View.VISIBLE);
             }
@@ -130,8 +138,13 @@ public class StoreActivity extends AppCompatActivity implements ProductList.OnFr
         btnGrid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ProductGrid productGrid = new ProductGrid();
+                Bundle bundle = new Bundle();
+                bundle.putString("storeId", store.getId());
+                productGrid.setArguments(bundle);
+
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, new ProductGrid()).commit();
+                fragmentTransaction.replace(R.id.fragment_container, productGrid).commit();
                 btnGrid.setVisibility(View.GONE);
                 btnList.setVisibility(View.VISIBLE);
             }
