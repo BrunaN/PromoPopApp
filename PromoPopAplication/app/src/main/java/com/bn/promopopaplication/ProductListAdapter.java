@@ -43,7 +43,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            productImage = itemView.findViewById(R.id.imageView);
+            productImage = itemView.findViewById(R.id.imageProduct);
             storeImage = itemView.findViewById(R.id.storeImage);
             noImage = itemView.findViewById(R.id.noImage);
             productName = itemView.findViewById(R.id.productName);
@@ -62,11 +62,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/"+ produto.getImage());
 
             if(produto.getImage() != null) {
-
                 Glide.with(context)
                         .load(storageReference)
                         .into(productImage);
-
             }
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -129,7 +127,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
         @Override
         public void onClick(View v) {
-            Log.d("TESTE", "TESTE");
             if(itemClickListener != null) {
                 itemClickListener.onItemClick(getAdapterPosition());
             }
