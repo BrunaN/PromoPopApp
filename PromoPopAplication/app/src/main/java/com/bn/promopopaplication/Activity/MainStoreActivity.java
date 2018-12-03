@@ -150,7 +150,7 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
 
                 break;
             case R.id.logout:
-                break;
+                logout();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
