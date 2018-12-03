@@ -72,6 +72,8 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
         storeImage = header.findViewById(R.id.storeImage);
         noImage = header.findViewById(R.id.noImage);
 
+
+
         if(firebaseUser != null){
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
             String id = firebaseUser.getUid();
@@ -155,8 +157,9 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
             @Override
             public void onClick(View view) {
 
-                //Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                //       .setAction("Action", null).show();
+               Intent intent = new Intent(MainStoreActivity.this, CadastroAnuncio.class);
+               startActivity(intent);
+
             }
         });
 

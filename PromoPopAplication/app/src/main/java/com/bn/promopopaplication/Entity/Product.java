@@ -49,6 +49,30 @@ public class Product implements Serializable {
 
     }
 
+    public void setDiasRestantes(Integer diasRestantes) {
+        this.diasRestantes = diasRestantes;
+    }
+
+    public void setPreco(float preco) {
+        this.preco = preco;
+    }
+
+    public void setPrecoAnterior(float precoAnterior) {
+        this.precoAnterior = precoAnterior;
+    }
+
+    public void setNomeProduto(String nomeProduto) {
+        this.nomeProduto = nomeProduto;
+    }
+
+    public void setNomeLoja(String nomeLoja) {
+        this.nomeLoja = nomeLoja;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public int getDiasRestantes() {
         return this.diasRestantes;
     }
