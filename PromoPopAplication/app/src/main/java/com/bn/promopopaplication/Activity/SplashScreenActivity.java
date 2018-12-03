@@ -5,7 +5,10 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.bn.promopopaplication.DAO.ConfigurationFirebase;
 import com.bn.promopopaplication.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -14,6 +17,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_splash_screen);
+
+        FirebaseAuth firebaseAuth = ConfigurationFirebase.getFirebaseAuthtication();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

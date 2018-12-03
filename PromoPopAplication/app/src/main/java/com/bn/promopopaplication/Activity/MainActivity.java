@@ -1,5 +1,6 @@
 package com.bn.promopopaplication.Activity;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.net.Uri;
@@ -116,48 +117,56 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Log.d("testeUser", ""+dataSnapshot.getValue());
 
-                    //String id = dataSnapshot.child("id").getValue(String.class);
-                    String id = (String) dataSnapshot.child("id").getValue();
-                    String name = (String) dataSnapshot.child("name").getValue();
-                    String email = (String) dataSnapshot.child("email").getValue();
-                    String image = (String) dataSnapshot.child("image").getValue();
+                    if(dataSnapshot.getValue() != null){
 
-                    user = new Users();
-                    user.setId(id);
-                    user.setName(name);
-                    user.setEmail(email);
+                        String id = (String) dataSnapshot.child("id").getValue();
+                        String name = (String) dataSnapshot.child("name").getValue();
+                        String email = (String) dataSnapshot.child("email").getValue();
+                        String image = (String) dataSnapshot.child("image").getValue();
 
-                    //Users users = dataSnapshot.getValue(Users.class);
-                    //Log.d("teste", name);
-                    //Log.d("teste", image);
+                        user = new Users();
+                        user.setId(id);
+                        user.setName(name);
+                        user.setEmail(email);
 
-                    ola_user.setText("Olá, " + name);
-                    emailUser.setText(email);
+                        //Users users = dataSnapshot.getValue(Users.class);
+                        //Log.d("teste", name);
+                        //Log.d("teste", image);
 
-                    ola_visitante.setVisibility(View.GONE);
-                    ola_user.setVisibility(View.VISIBLE);
-                    signUp.setVisibility(View.GONE);
-                    emailUser.setVisibility(View.VISIBLE);
+                        ola_user.setText("Olá, " + name);
+                        emailUser.setText(email);
 
-                    nav_Menu.findItem(R.id.editProfile).setVisible(true);
+                        ola_visitante.setVisibility(View.GONE);
+                        ola_user.setVisibility(View.VISIBLE);
+                        signUp.setVisibility(View.GONE);
+                        emailUser.setVisibility(View.VISIBLE);
 
-                    StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/"+ image);
+                        nav_Menu.findItem(R.id.editProfile).setVisible(true);
 
-                    if(image != null) {
+                        StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/"+ image);
 
-                        user.setImage(image);
+                        if(image != null) {
 
-                        Glide.with(MainActivity.this)
-                                .load(storageReference)
-                                .into(imageUser);
+                            user.setImage(image);
 
-                        imageUser.setVisibility(View.VISIBLE);
-                        imageVisitante.setVisibility(View.GONE);
+                            Glide.with(MainActivity.this)
+                                    .load(storageReference)
+                                    .into(imageUser);
+
+                            imageUser.setVisibility(View.VISIBLE);
+                            imageVisitante.setVisibility(View.GONE);
+                        }else{
+                            imageUser.setVisibility(View.GONE);
+                            imageVisitante.setVisibility(View.VISIBLE);
+                        }
+
                     }else{
-                        imageUser.setVisibility(View.GONE);
-                        imageVisitante.setVisibility(View.VISIBLE);
-                    }
 
+                        Intent intent = new Intent(MainActivity.this, MainStoreActivity.class);
+                        startActivity(intent);
+                        finish();
+
+                    }
                 }
 
                 @Override
