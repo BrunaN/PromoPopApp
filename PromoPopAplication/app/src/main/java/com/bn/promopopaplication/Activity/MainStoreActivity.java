@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,6 +40,7 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
 
     private TextView storeName, storeEmail;
     private ImageView storeImage, noImage;
+    private Button comoChegar;
 
     private Store store;
 
@@ -57,7 +59,7 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        FirebaseAuth firebaseAuth = ConfigurationFirebase.getFirebaseAuthtication();
+        final FirebaseAuth firebaseAuth = ConfigurationFirebase.getFirebaseAuthtication();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
         View header = navigationView.getHeaderView(0);
@@ -66,6 +68,7 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
         storeEmail = header.findViewById(R.id.email);
         storeImage = header.findViewById(R.id.storeImage);
         noImage = header.findViewById(R.id.noImage);
+        comoChegar = findViewById(R.id.comoChegar);
 
         if(firebaseUser != null){
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -78,6 +81,13 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Log.d("teste", ""+dataSnapshot.getValue());
+
+                    if(dataSnapshot.getValue() == null){
+                        firebaseAuth.signOut();
+                        Intent i = new Intent(MainStoreActivity.this, MainActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
 
                     //String id = dataSnapshot.child("id").getValue(String.class);
                     String id = (String) dataSnapshot.child("id").getValue();
@@ -122,6 +132,16 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
             });
 
         }
+
+        comoChegar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("teste", "CLIQUE!!");
+            }
+        });
+
+        //Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+        // Uri.parse("google.navigation:q=an+address+city"));
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);

@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    Log.d("teste", ""+dataSnapshot.getValue());
+                    Log.d("testeUser", ""+dataSnapshot.getValue());
 
                     //String id = dataSnapshot.child("id").getValue(String.class);
                     String id = (String) dataSnapshot.child("id").getValue();
@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
+                    Log.d("testeUser", "cancelled");
                     System.out.println("The read failed: " + databaseError.getCode());
                 }
             });
