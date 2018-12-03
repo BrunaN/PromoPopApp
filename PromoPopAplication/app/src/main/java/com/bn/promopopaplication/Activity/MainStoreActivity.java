@@ -58,7 +58,7 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        FirebaseAuth firebaseAuth = ConfigurationFirebase.getFirebaseAuthtication();
+        final FirebaseAuth firebaseAuth = ConfigurationFirebase.getFirebaseAuthtication();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
         View header = navigationView.getHeaderView(0);
@@ -82,16 +82,28 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Log.d("teste", ""+dataSnapshot.getValue());
 
+                    if(dataSnapshot.getValue() == null){
+                        firebaseAuth.signOut();
+                        Intent i = new Intent(MainStoreActivity.this, MainActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+
                     //String id = dataSnapshot.child("id").getValue(String.class);
                     String id = (String) dataSnapshot.child("id").getValue();
                     String name = (String) dataSnapshot.child("storeName").getValue();
                     String email = (String) dataSnapshot.child("email").getValue();
                     String image = (String) dataSnapshot.child("image").getValue();
+                    String endereco = (String) dataSnapshot.child("endereco").getValue();
+                    String cidade = (String) dataSnapshot.child("cidade").getValue();
+
 
                     store = new Store();
                     store.setId(id);
                     store.setStoreName(name);
                     store.setEmail(email);
+                    store.setEndereco(endereco);
+                    store.setCidade(cidade);
 
                     Log.d("teste", ""+ store);
 
@@ -126,6 +138,9 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
 
         }
 
+        //Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+        // Uri.parse("google.navigation:q=an+address+city"));
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -154,7 +169,7 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
 
                 break;
             case R.id.logout:
-                break;
+                logout();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);

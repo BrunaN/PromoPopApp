@@ -61,6 +61,7 @@
                 android:textSize="16dp"
                 android:textColor="#A0A0A0"
                 android:textAllCaps="false"
+                android:id="@+id/comoChegar"
                 android:background="@android:color/transparent"/>
 
             <View
