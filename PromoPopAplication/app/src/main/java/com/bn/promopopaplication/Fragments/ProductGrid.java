@@ -18,10 +18,12 @@ import com.bn.promopopaplication.ItemClickListener;
 import com.bn.promopopaplication.ProductListAdapter;
 import com.bn.promopopaplication.Entity.Product;
 import com.bn.promopopaplication.R;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -81,7 +83,6 @@ public class ProductGrid extends android.support.v4.app.Fragment {
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -92,53 +93,85 @@ public class ProductGrid extends android.support.v4.app.Fragment {
 
         mRecyclerView = view.findViewById(R.id.recycler_view);
 
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-
         mRecyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
 
         mLayoutManager = new GridLayoutManager(getContext(), 2);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        Log.d("TESTE", idLoja);
+        if(idLoja != ""){
+            final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        DatabaseReference ref = database.getReference("product/");
+            DatabaseReference ref = database.getReference("product/");
 
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                final List<Product> productList = new ArrayList<Product>();
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    final List<Product> productList = new ArrayList<Product>();
 
 
-                for (DataSnapshot productSnapshot: snapshot.getChildren()) {
-                    productList.add(productSnapshot.getValue(Product.class));
-                    Log.d("teste", ""+ productList.size());
+                    for (DataSnapshot productSnapshot: snapshot.getChildren()) {
+                        productList.add(productSnapshot.getValue(Product.class));
+                        Log.d("teste", ""+ productList.size());
+                    }
+
+                    mAdapter = new ProductListAdapter(productList, getContext(), R.layout.grid_item);
+
+                    ((ProductListAdapter) mAdapter).setOnItemClickListener(new ItemClickListener() {
+                        @Override
+                        public void onItemClick(int position) {
+                            Log.d("TESTE", "Elemento " + position + " clicado.");
+                            Intent intent = new Intent(getActivity(), ProductActivity.class);
+                            intent.putExtra("produto",productList.get(position));
+                            startActivity(intent);
+                        }
+                    });
+                    mRecyclerView.setAdapter(mAdapter);
                 }
 
-                mAdapter = new ProductListAdapter(productList, getContext(), R.layout.grid_item);
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-                ((ProductListAdapter) mAdapter).setOnItemClickListener(new ItemClickListener() {
-                    @Override
-                    public void onItemClick(int position) {
-                        Log.d("TESTE", "Elemento " + position + " clicado.");
-                        Intent intent = new Intent(getActivity(), ProductActivity.class);
-                        intent.putExtra("produto",productList.get(position));
-                        startActivity(intent);
+                }
+
+            });
+        }else{
+            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+            DatabaseReference ref = database.getReference("product/");
+            ref.child(idLoja).equalTo(idLoja);
+
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    final List<Product> productList = new ArrayList<Product>();
+
+                    for (DataSnapshot productSnapshot: snapshot.getChildren()) {
+                        productList.add(productSnapshot.getValue(Product.class));
                     }
-                });
-                mRecyclerView.setAdapter(mAdapter);
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                    mAdapter = new ProductListAdapter(productList, getContext(), R.layout.grid_item);
 
-            }
+                    ((ProductListAdapter) mAdapter).setOnItemClickListener(new ItemClickListener() {
+                        @Override
+                        public void onItemClick(int position) {
+                            Log.d("TESTE", "Elemento " + position + " clicado.");
+                            Intent intent = new Intent(getActivity(), ProductActivity.class);
+                            intent.putExtra("produto",productList.get(position));
+                            startActivity(intent);
+                        }
+                    });
 
-        });
+                    mRecyclerView.setAdapter(mAdapter);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+
+            });
+        }
+
         // specify an adapter and pass in our data model list
 
         return view;
