@@ -40,7 +40,6 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
 
     private TextView storeName, storeEmail;
     private ImageView storeImage, noImage;
-    private Button comoChegar;
 
     private Store store;
 
@@ -68,7 +67,6 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
         storeEmail = header.findViewById(R.id.email);
         storeImage = header.findViewById(R.id.storeImage);
         noImage = header.findViewById(R.id.noImage);
-        comoChegar = findViewById(R.id.comoChegar);
 
         if(firebaseUser != null){
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -94,11 +92,16 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
                     String name = (String) dataSnapshot.child("storeName").getValue();
                     String email = (String) dataSnapshot.child("email").getValue();
                     String image = (String) dataSnapshot.child("image").getValue();
+                    String endereco = (String) dataSnapshot.child("endereco").getValue();
+                    String cidade = (String) dataSnapshot.child("cidade").getValue();
+
 
                     store = new Store();
                     store.setId(id);
                     store.setStoreName(name);
                     store.setEmail(email);
+                    store.setEndereco(endereco);
+                    store.setCidade(cidade);
 
                     Log.d("teste", ""+ store);
 
@@ -132,13 +135,6 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
             });
 
         }
-
-        comoChegar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("teste", "CLIQUE!!");
-            }
-        });
 
         //Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
         // Uri.parse("google.navigation:q=an+address+city"));

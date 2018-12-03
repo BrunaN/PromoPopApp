@@ -30,7 +30,7 @@ public class StoreActivity extends AppCompatActivity implements ProductList.OnFr
 
     private TextView storeName;
     private ImageView storeImage, noImage;
-    private Button btnGrid, btnList, btnSort, btnFilter;
+    private Button btnGrid, btnList, btnSort, btnFilter, comoChegar;
 
     private Store store;
 
@@ -60,12 +60,23 @@ public class StoreActivity extends AppCompatActivity implements ProductList.OnFr
         btnFilter = findViewById(R.id.filter);
         btnGrid = findViewById(R.id.btn_grid);
         btnList = findViewById(R.id.btn_list);
+        comoChegar = findViewById(R.id.comoChegar);
+
 
         storeName = findViewById(R.id.storeName);
         storeImage = findViewById(R.id.storeImage);
         noImage = findViewById(R.id.noImage);
 
         storeName.setText(store.getStoreName());
+
+        comoChegar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                    Uri.parse("http://maps.google.com/maps?daddr="+store.getEndereco()+","+store.getCidade()));
+                startActivity(intent);
+            }
+        });
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("stores/"+ store.getId());
@@ -100,6 +111,8 @@ public class StoreActivity extends AppCompatActivity implements ProductList.OnFr
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+
+
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, new ProductGrid()).commit();
