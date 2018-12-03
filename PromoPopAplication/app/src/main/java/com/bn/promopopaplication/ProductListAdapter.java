@@ -118,7 +118,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             });
 
 
-            Log.d("teste", "produto: "+produto.id());
+            Log.d("teste", "produto: "+produto.getId());
 
             productName.setText(produto.getNomeProduto());
             storeName.setText(store.getStoreName());

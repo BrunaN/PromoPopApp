@@ -30,6 +30,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.UUID;
 
 public class CadastroAnuncio extends AppCompatActivity {
@@ -81,7 +82,8 @@ public class CadastroAnuncio extends AppCompatActivity {
             public void onClick(View v) {
 
                 anuncio = new Product();
-                anuncio.setId(Base64Custom.codifyBase64(firebaseUser.getUid()));
+                Calendar cal = Calendar.getInstance();
+                anuncio.setId(UUID.randomUUID().toString() +"_"+ firebaseUser.getUid() +"_"+ cal.getTimeInMillis());
                 anuncio.setIdLoja(firebaseUser.getUid());
                 anuncio.setNomeProduto(tituloAnuncio.getText().toString());
                 anuncio.setDiasRestantes(Integer.valueOf(validade.getText().toString()));
@@ -108,8 +110,9 @@ public class CadastroAnuncio extends AppCompatActivity {
 
     private boolean salvarAnuncio(Product anuncio){
         try {
+            Log.d("teste",anuncio.getId());
             DatabaseReference referenciaDatabase = ConfigurationFirebase.getFirebase();
-            referenciaDatabase.child("product").child(String.valueOf(anuncio.id())).setValue(anuncio);
+            referenciaDatabase.child("product/"+String.valueOf(anuncio.getId())).setValue(anuncio);
 
             upload();
 

@@ -36,7 +36,7 @@ public class Product implements Serializable {
     public Map<String, Object> toMap(){
         HashMap<String, Object> hashMapProduct= new HashMap<>();
 
-        hashMapProduct.put("id", id());
+        hashMapProduct.put("id", getId());
         hashMapProduct.put("nomeProduto", getNomeProduto());
         hashMapProduct.put("nomeLoja", getNomeLoja());
         hashMapProduct.put("idLoja", getIdLoja());
@@ -100,7 +100,7 @@ public class Product implements Serializable {
         return this.nomeProduto;
     }
 
-    public String id() {
+    public String getId() {
         return this.id;
     }
 

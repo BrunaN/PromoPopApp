@@ -19,11 +19,14 @@ import com.bn.promopopaplication.Entity.Store;
 import com.bn.promopopaplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.UUID;
 
 public class AddStoreImageActivity extends AppCompatActivity {
@@ -80,9 +83,14 @@ public class AddStoreImageActivity extends AppCompatActivity {
             progressDialog.setTitle("Salvando as alterações");
             progressDialog.show();
 
+            final FirebaseAuth firebaseAuth = ConfigurationFirebase.getFirebaseAuthtication();
+            final FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
             StorageReference storageReference = ConfigurationFirebase.getStorageReference();
 
-            StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
+
+            Calendar cal = Calendar.getInstance();
+            StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString() +"_"+ firebaseUser.getUid() +"_"+ cal.getTimeInMillis());
 
             Log.d("XXXXXXXXXXXXXXX", "uploadImage: " + ref.getName());
 
