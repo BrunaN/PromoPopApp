@@ -76,7 +76,7 @@ public class ProductGrid extends android.support.v4.app.Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String storeId = getArguments().getString("storeId");
+        //String storeId = getArguments().getString("storeId");
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);

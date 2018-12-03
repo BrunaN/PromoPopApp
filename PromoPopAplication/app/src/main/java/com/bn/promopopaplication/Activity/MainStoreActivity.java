@@ -150,7 +150,7 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
         toggle.syncState();
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, new ProductGrid()).commit();
+        fragmentTransaction.replace(R.id.container, new ProductGrid()).commit();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

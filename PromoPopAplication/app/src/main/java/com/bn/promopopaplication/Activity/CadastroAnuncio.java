@@ -11,25 +11,41 @@ import android.widget.Toast;
 import com.bn.promopopaplication.DAO.ConfigurationFirebase;
 import com.bn.promopopaplication.Entity.Product;
 import com.bn.promopopaplication.Entity.Store;
+import com.bn.promopopaplication.Helper.Base64Custom;
 import com.bn.promopopaplication.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
-public class CadastroAnuncio extends AppCompatActivity {
+import java.util.UUID;
 
-    int PICK_IMAGE_REQUEST = 71;
+public class CadastroAnuncio extends AppCompatActivity {
 
     private EditText tituloAnuncio, validade, valor, valorAntigo;
     private Button btnSalvarAnuncio;
 
     private DatabaseReference firebase;
 
-    private Store store;
     private Product anuncio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_anuncio);
+
+        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.arrow_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         tituloAnuncio = findViewById(R.id.edtTituloAnuncio);
         validade = findViewById(R.id.edtDiasRest);
@@ -38,14 +54,16 @@ public class CadastroAnuncio extends AppCompatActivity {
 
         btnSalvarAnuncio = findViewById(R.id.btnSalvarAnuncio);
 
-        store = new Store();
+        final FirebaseAuth firebaseAuth = ConfigurationFirebase.getFirebaseAuthtication();
+        final FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
         btnSalvarAnuncio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 anuncio = new Product();
-                //anuncio.setNomeLoja(store.getId());
+                anuncio.setId(Base64Custom.codifyBase64(firebaseUser.getUid()));
+                anuncio.setIdLoja(firebaseUser.getUid());
                 anuncio.setNomeProduto(tituloAnuncio.getText().toString());
                 anuncio.setDiasRestantes(Integer.valueOf(validade.getText().toString()));
                 anuncio.setPreco(Float.valueOf(valor.getText().toString()));
@@ -62,20 +80,12 @@ public class CadastroAnuncio extends AppCompatActivity {
 
     }
 
-    private void chooseImage(){
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction( Intent.ACTION_PICK);
-        //ou usar : ACTION_GET_CONTENT
-        startActivityForResult(Intent.createChooser(intent, "Select picture"), PICK_IMAGE_REQUEST);
-    }
-
     private boolean salvarAnuncio(Product anuncio){
         try {
-            firebase = ConfigurationFirebase.getFirebase().child("anuncios");
-            firebase.child(anuncio.getNomeProduto()).setValue(anuncio);
+            DatabaseReference referenciaDatabase = ConfigurationFirebase.getFirebase();
+            referenciaDatabase.child("product").child(String.valueOf(anuncio.id())).setValue(anuncio);
 
-            Toast.makeText(CadastroAnuncio.this, "Anuncio Cadastrado com sucesso", Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastroAnuncio.this, "Promoção Cadastrada com sucesso", Toast.LENGTH_LONG).show();
 
             return true;
 

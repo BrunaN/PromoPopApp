@@ -78,7 +78,6 @@ public class CadastroLojista extends AppCompatActivity {
                     store.setCidade(edtCidade.getText().toString());
                     store.setEndereco(edtEndereco.getText().toString());
 
-
                     cadastrarLoja();
 
                 }else{

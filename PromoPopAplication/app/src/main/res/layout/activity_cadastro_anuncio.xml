@@ -9,11 +9,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="0dp">
-
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -24,7 +21,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cadastrar Anúncio"
+            android:text="Cadastrar Promoção"
             android:textAlignment="center"
             android:textColor="@color/vermelhoPromoPop"
             android:textSize="25dp"/>
@@ -53,7 +50,7 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/inputs"
             android:ems="10"
-            android:hint="Título do Anuncio"
+            android:hint="Nome do produto"
             android:inputType="text"
             android:paddingLeft="20dp"
             android:paddingRight="10dp" />
@@ -67,7 +64,7 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/inputs"
             android:ems="10"
-            android:hint="Dias restantes"
+            android:hint="Número de dias de duração"
             android:inputType="number"
             android:paddingLeft="20dp"
             android:paddingRight="10dp" />
@@ -81,7 +78,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/inputs"
                 android:ems="10"
-                android:hint="Valor"
+                android:hint="Valor atual"
                 android:inputType="numberDecimal"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp" />
@@ -95,7 +92,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/inputs"
                 android:ems="10"
-                android:hint="Valor Antigo"
+                android:hint="Valor antigo"
                 android:inputType="numberDecimal"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp" />
@@ -105,7 +102,7 @@
             android:id="@+id/btnSalvarAnuncio"
             android:layout_width="170dp"
             android:layout_height="38dp"
-            android:text="Salvar Anúncio"
+            android:text="Salvar promoção"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:textColor="#ffffff"

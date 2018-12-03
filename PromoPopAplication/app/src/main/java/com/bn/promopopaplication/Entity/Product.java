@@ -12,14 +12,16 @@ public class Product implements Serializable {
     private int diasRestantes;
     private float preco, precoAnterior;
     private String nomeProduto;
+    private String idLoja;
     private String nomeLoja;
     private String id;
 
 
-    public Product(String id, String nomeProduto, String nomeLoja, int diasRestantes, float preco, float precoAnterior) {
+    public Product(String id, String nomeProduto, String nomeLoja, String idLoja, int diasRestantes, float preco, float precoAnterior) {
         this.id = id;
         this.diasRestantes = diasRestantes;
         this.nomeLoja = nomeLoja;
+        this.idLoja = idLoja;
         this.preco = preco;
         this.nomeProduto = nomeProduto;
         this.precoAnterior = precoAnterior;
@@ -29,11 +31,6 @@ public class Product implements Serializable {
 
     }
 
-    public void save(){
-        DatabaseReference referenciaDatabase = ConfigurationFirebase.getFirebase();
-        referenciaDatabase.child("product").child(String.valueOf(id())).setValue(this);
-    }
-
     @Exclude
     public Map<String, Object> toMap(){
         HashMap<String, Object> hashMapProduct= new HashMap<>();
@@ -41,6 +38,7 @@ public class Product implements Serializable {
         hashMapProduct.put("id", id());
         hashMapProduct.put("nomeProduto", getNomeProduto());
         hashMapProduct.put("nomeLoja", getNomeLoja());
+        hashMapProduct.put("idLoja", getIdLoja());
         hashMapProduct.put("preco", getPreco());
         hashMapProduct.put("precoAnterior", getPrecoAnterior());
         hashMapProduct.put("diasRestantes", getDiasRestantes());
@@ -69,6 +67,10 @@ public class Product implements Serializable {
         this.nomeLoja = nomeLoja;
     }
 
+    public void setIdLoja(String idLoja) {
+        this.idLoja = idLoja;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -87,6 +89,10 @@ public class Product implements Serializable {
 
     public String getNomeLoja() {
         return this.nomeLoja;
+    }
+
+    public String getIdLoja() {
+        return this.idLoja;
     }
 
     public String getNomeProduto() {
