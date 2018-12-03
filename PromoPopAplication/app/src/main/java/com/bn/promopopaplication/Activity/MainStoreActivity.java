@@ -165,4 +165,11 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
             super.onBackPressed();
         }
     }
+
+    public void logout (){
+        FirebaseAuth authentication = ConfigurationFirebase.getFirebaseAuthtication();
+        authentication.signOut();
+        startActivity(new Intent(this, Login.class));
+        finish();
+    }
 }

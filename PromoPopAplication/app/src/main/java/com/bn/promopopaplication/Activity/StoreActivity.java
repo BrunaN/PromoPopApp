@@ -1,14 +1,21 @@
 package com.bn.promopopaplication.Activity;
 
+import android.app.FragmentManager;
 import android.content.Intent;
+import android.net.Uri;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bn.promopopaplication.Entity.Store;
+import com.bn.promopopaplication.Fragments.ProductGrid;
+import com.bn.promopopaplication.Fragments.ProductList;
 import com.bn.promopopaplication.R;
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
@@ -19,10 +26,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class StoreActivity extends AppCompatActivity {
+public class StoreActivity extends AppCompatActivity implements ProductList.OnFragmentInteractionListener, ProductGrid.OnFragmentInteractionListener{
 
     private TextView storeName;
     private ImageView storeImage, noImage;
+    private Button btnGrid, btnList, btnSort, btnFilter;
 
     private Store store;
 
@@ -48,10 +56,14 @@ public class StoreActivity extends AppCompatActivity {
             }
         });
 
+        btnSort = findViewById(R.id.sort);
+        btnFilter = findViewById(R.id.filter);
+        btnGrid = findViewById(R.id.btn_grid);
+        btnList = findViewById(R.id.btn_list);
+
         storeName = findViewById(R.id.storeName);
         storeImage = findViewById(R.id.storeImage);
         noImage = findViewById(R.id.noImage);
-
 
         storeName.setText(store.getStoreName());
 
@@ -88,5 +100,34 @@ public class StoreActivity extends AppCompatActivity {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, new ProductGrid()).commit();
+
+        btnList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, new ProductList()).commit();
+                btnList.setVisibility(View.GONE);
+                btnGrid.setVisibility(View.VISIBLE);
+            }
+        });
+
+        btnGrid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, new ProductGrid()).commit();
+                btnGrid.setVisibility(View.GONE);
+                btnList.setVisibility(View.VISIBLE);
+            }
+        });
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
