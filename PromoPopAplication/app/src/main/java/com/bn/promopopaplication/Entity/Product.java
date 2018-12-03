@@ -15,9 +15,9 @@ public class Product implements Serializable {
     private String idLoja;
     private String nomeLoja;
     private String id;
+    private String image;
 
-
-    public Product(String id, String nomeProduto, String nomeLoja, String idLoja, int diasRestantes, float preco, float precoAnterior) {
+    public Product(String id, String nomeProduto, String nomeLoja, String idLoja, int diasRestantes, float preco, float precoAnterior, String image) {
         this.id = id;
         this.diasRestantes = diasRestantes;
         this.nomeLoja = nomeLoja;
@@ -25,6 +25,7 @@ public class Product implements Serializable {
         this.preco = preco;
         this.nomeProduto = nomeProduto;
         this.precoAnterior = precoAnterior;
+        this.image = image;
     }
 
     public Product(){
@@ -101,5 +102,20 @@ public class Product implements Serializable {
 
     public String id() {
         return this.id;
+    }
+
+    public String  getImage() {
+        return image;
+    }
+
+    public void setImage( String imageName) {
+        this.image = imageName;
+    }
+
+    public void updateImage(String imageName) {
+        this.image = imageName;
+
+        DatabaseReference referenciaDatabase = ConfigurationFirebase.getFirebase();
+        referenciaDatabase.child("product").child(id).child("image").setValue(this.image);
     }
 }
