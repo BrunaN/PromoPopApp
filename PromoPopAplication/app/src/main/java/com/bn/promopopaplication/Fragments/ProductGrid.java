@@ -91,6 +91,8 @@ public class ProductGrid extends android.support.v4.app.Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_product_grid, container, false);
 
+
+
         mRecyclerView = view.findViewById(R.id.recycler_view);
 
         // use this setting to improve performance if you know that changes

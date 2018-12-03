@@ -75,27 +75,30 @@
 
                 <ImageButton
                     android:id="@+id/filter"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_margin="5dp"
-                    android:background="?android:attr/windowBackground"
-                    android:src="@drawable/ic_filter_list_black_24dp" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@mipmap/icon_filter" />
 
                 <ImageButton
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_margin="5dp"
-                    android:background="?android:attr/windowBackground"
-                    android:id="@+id/btn_grid"
-                    android:src="@drawable/ic_dashboard_black_24dp" />
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="12dp"
+                    android:background="@mipmap/icon_grid"
+                    android:id="@+id/btn_grid" />
 
                 <ImageButton
                     android:id="@+id/btn_list"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_margin="5dp"
-                    android:background="?android:attr/windowBackground"
-                    android:src="@drawable/ic_list_black_24dp" />
+                    android:layout_width="21dp"
+                    android:layout_height="18dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="12dp"
+                    android:background="@mipmap/icon_list" />
 
             </LinearLayout>
 
