@@ -72,8 +72,6 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
         storeImage = header.findViewById(R.id.storeImage);
         noImage = header.findViewById(R.id.noImage);
 
-
-
         if(firebaseUser != null){
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
             String id = firebaseUser.getUid();
@@ -109,6 +107,9 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
                     store.setEndereco(endereco);
                     store.setCidade(cidade);
 
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.container, ProductList.newInstance(id)).commit();
+
                     Log.d("teste", ""+ store);
 
                     storeName.setText("Olá, " + name);
@@ -142,15 +143,9 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
 
         }
 
-        //Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-        // Uri.parse("google.navigation:q=an+address+city"));
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container, new ProductGrid()).commit();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -172,7 +167,7 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
                 startActivity(new Intent(this, StoreActivity.class).putExtra("store", store));
                 break;
             case R.id.create_promotions:
-
+                startActivity(new Intent(MainStoreActivity.this, CadastroAnuncio.class));
                 break;
             case R.id.logout:
                 logout();

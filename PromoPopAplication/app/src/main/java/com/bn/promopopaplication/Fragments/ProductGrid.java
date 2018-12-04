@@ -98,7 +98,7 @@ public class ProductGrid extends android.support.v4.app.Fragment {
         mLayoutManager = new GridLayoutManager(getContext(), 2);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-
+        if(idLoja == null || idLoja.equals("")){
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
             DatabaseReference ref = database.getReference("product/");
@@ -134,7 +134,44 @@ public class ProductGrid extends android.support.v4.app.Fragment {
                 }
 
             });
-        
+
+        }else{
+            Log.d("IDLOJA", idLoja);
+
+            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+            DatabaseReference ref = database.getReference("product/");
+            ref.orderByChild("idLoja").equalTo(idLoja).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    final List<Product> productList = new ArrayList<Product>();
+
+                    for (DataSnapshot productSnapshot: snapshot.getChildren()) {
+                        productList.add(productSnapshot.getValue(Product.class));
+                    }
+
+                    mAdapter = new ProductListAdapter(productList, getContext(), R.layout.grid_item);
+
+                    ((ProductListAdapter) mAdapter).setOnItemClickListener(new ItemClickListener() {
+                        @Override
+                        public void onItemClick(int position) {
+                            Log.d("TESTE", "Elemento " + position + " clicado.");
+                            Intent intent = new Intent(getActivity(), ProductActivity.class);
+                            intent.putExtra("produto",productList.get(position));
+                            startActivity(intent);
+                        }
+                    });
+
+                    mRecyclerView.setAdapter(mAdapter);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+
+            });
+        }
 
         // specify an adapter and pass in our data model list
 

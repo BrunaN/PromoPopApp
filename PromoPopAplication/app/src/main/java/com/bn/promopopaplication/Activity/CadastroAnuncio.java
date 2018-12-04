@@ -92,10 +92,6 @@ public class CadastroAnuncio extends AppCompatActivity {
 
                 salvarAnuncio(anuncio);
 
-                tituloAnuncio.setText("");
-                validade.setText("");
-                valor.setText("");
-                valorAntigo.setText("");
             }
         });
 
@@ -150,6 +146,11 @@ public class CadastroAnuncio extends AppCompatActivity {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
                             Toast.makeText(CadastroAnuncio.this, "Promoção Cadastrada com sucesso", Toast.LENGTH_SHORT).show();
+
+                            Intent intent = new Intent(CadastroAnuncio.this, MainStoreActivity.class);
+                            startActivity(intent);
+                            finish();
+
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -178,6 +179,7 @@ public class CadastroAnuncio extends AppCompatActivity {
                 && data != null && data.getData() != null){
             filePath = data.getData();
             try {
+                btnChoose.setText("Alterar foto");
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 imageView.setImageBitmap(bitmap);
             }
