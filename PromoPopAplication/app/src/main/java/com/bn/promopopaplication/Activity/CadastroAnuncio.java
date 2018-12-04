@@ -3,6 +3,7 @@ package com.bn.promopopaplication.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
+import java.util.Calendar;
 import java.util.UUID;
 
 public class CadastroAnuncio extends AppCompatActivity {
@@ -62,7 +64,8 @@ public class CadastroAnuncio extends AppCompatActivity {
             public void onClick(View v) {
 
                 anuncio = new Product();
-                anuncio.setId(Base64Custom.codifyBase64(firebaseUser.getUid()));
+                Calendar cal = Calendar.getInstance();
+                anuncio.setId(UUID.randomUUID().toString() +"_"+ firebaseUser.getUid() +"_"+ cal.getTimeInMillis());
                 anuncio.setIdLoja(firebaseUser.getUid());
                 anuncio.setNomeProduto(tituloAnuncio.getText().toString());
                 anuncio.setDiasRestantes(Integer.valueOf(validade.getText().toString()));
@@ -82,8 +85,9 @@ public class CadastroAnuncio extends AppCompatActivity {
 
     private boolean salvarAnuncio(Product anuncio){
         try {
+            Log.d("teste",anuncio.getId());
             DatabaseReference referenciaDatabase = ConfigurationFirebase.getFirebase();
-            referenciaDatabase.child("product").child(String.valueOf(anuncio.id())).setValue(anuncio);
+            referenciaDatabase.child("product/"+String.valueOf(anuncio.getId())).setValue(anuncio);
 
             Toast.makeText(CadastroAnuncio.this, "Promoção Cadastrada com sucesso", Toast.LENGTH_LONG).show();
 

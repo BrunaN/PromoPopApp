@@ -84,10 +84,6 @@ public class StoreActivity extends AppCompatActivity implements ProductList.OnFr
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("teste", ""+dataSnapshot.getValue());
-
-                Log.d("teste", ""+ store.getImage());
-
                 if(store.getImage() != null) {
 
                     StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/" + store.getImage());
@@ -112,10 +108,7 @@ public class StoreActivity extends AppCompatActivity implements ProductList.OnFr
             }
         });
 
-        ProductGrid productGrid = new ProductGrid();
-        Bundle bundle = new Bundle();
-        bundle.putString("storeId", store.getId());
-        productGrid.setArguments(bundle);
+        ProductGrid productGrid = ProductGrid.newInstance(store.getId());
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, productGrid).commit();
@@ -123,10 +116,7 @@ public class StoreActivity extends AppCompatActivity implements ProductList.OnFr
         btnList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProductList productList = new ProductList();
-                Bundle bundle = new Bundle();
-                bundle.putString("storeId", store.getId());
-                productList.setArguments(bundle);
+                ProductList productList = ProductList.newInstance(store.getId());
 
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, productList).commit();
@@ -138,10 +128,7 @@ public class StoreActivity extends AppCompatActivity implements ProductList.OnFr
         btnGrid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProductGrid productGrid = new ProductGrid();
-                Bundle bundle = new Bundle();
-                bundle.putString("storeId", store.getId());
-                productGrid.setArguments(bundle);
+                ProductGrid productGrid = ProductGrid.newInstance(store.getId());
 
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, productGrid).commit();
