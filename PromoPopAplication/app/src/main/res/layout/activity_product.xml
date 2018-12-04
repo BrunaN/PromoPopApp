@@ -151,13 +151,14 @@
                             android:orientation="horizontal">
 
                             <Button
-                                android:layout_width="wrap_content"
+                                android:layout_width="140dp"
                                 android:layout_height="30dp"
                                 android:layout_gravity="center"
                                 android:text="Como chegar"
                                 android:textSize="16dp"
                                 android:textColor="#A0A0A0"
                                 android:textAllCaps="false"
+                                android:drawableLeft="@drawable/icon_como_chegar"
                                 android:id="@+id/comoChegar"
                                 android:background="@android:color/transparent"/>
 
