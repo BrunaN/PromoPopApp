@@ -184,4 +184,3 @@ public class ProductList extends android.support.v4.app.Fragment{
     }
 
 }
-
