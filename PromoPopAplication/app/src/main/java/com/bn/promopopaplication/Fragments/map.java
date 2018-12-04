@@ -305,7 +305,7 @@ public class map extends android.support.v4.app.Fragment implements OnMapReadyCa
         Integer pos = mMarkers.get(marker.getId());
         if(pos != null) {
             Store store = storeList.get(pos);
-           
+
             Intent i = new Intent(getContext(), StoreActivity.class);
             i.putExtra("store", store);
             startActivity(i);

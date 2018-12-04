@@ -104,43 +104,77 @@ public class ProductList extends android.support.v4.app.Fragment{
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        if(idLoja == null || idLoja.equals("")) {
+            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference ref = database.getReference("product/");
 
-        Log.d("TESTE", idLoja);
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    final List<Product> productList = new ArrayList<Product>();
 
-        DatabaseReference ref = database.getReference("product/");
+                    for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+                        productList.add(productSnapshot.getValue(Product.class));
+                        Log.d("teste", "" + productList.size());
+                    }
 
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                final List<Product> productList = new ArrayList<Product>();
+                    mAdapter = new ProductListAdapter(productList, getContext(), R.layout.list_item);
 
-                for (DataSnapshot productSnapshot: snapshot.getChildren()) {
-                    productList.add(productSnapshot.getValue(Product.class));
-                    Log.d("teste", ""+ productList.size());
+                    ((ProductListAdapter) mAdapter).setOnItemClickListener(new ItemClickListener() {
+                        @Override
+                        public void onItemClick(int position) {
+                            Log.d("TESTE", "Elemento " + position + " clicado.");
+                            Intent intent = new Intent(getActivity(), ProductActivity.class);
+                            intent.putExtra("produto", productList.get(position));
+                            startActivity(intent);
+                        }
+                    });
+                    mRecyclerView.setAdapter(mAdapter);
                 }
 
-                mAdapter = new ProductListAdapter(productList, getContext(), R.layout.list_item);
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-                ((ProductListAdapter) mAdapter).setOnItemClickListener(new ItemClickListener() {
-                    @Override
-                    public void onItemClick(int position) {
-                        Log.d("TESTE", "Elemento " + position + " clicado.");
-                        Intent intent = new Intent(getActivity(), ProductActivity.class);
-                        intent.putExtra("produto",productList.get(position));
-                        startActivity(intent);
+                }
+
+            });
+
+        } else {
+
+            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference ref = database.getReference("product/");
+
+            ref.orderByChild("idLoja").equalTo(idLoja).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    final List<Product> productList = new ArrayList<Product>();
+
+                    for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+                        productList.add(productSnapshot.getValue(Product.class));
+                        Log.d("teste", "" + productList.size());
                     }
-                });
-                mRecyclerView.setAdapter(mAdapter);
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                    mAdapter = new ProductListAdapter(productList, getContext(), R.layout.list_item);
 
-            }
+                    ((ProductListAdapter) mAdapter).setOnItemClickListener(new ItemClickListener() {
+                        @Override
+                        public void onItemClick(int position) {
+                            Log.d("TESTE", "Elemento " + position + " clicado.");
+                            Intent intent = new Intent(getActivity(), ProductActivity.class);
+                            intent.putExtra("produto", productList.get(position));
+                            startActivity(intent);
+                        }
+                    });
+                    mRecyclerView.setAdapter(mAdapter);
+                }
 
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
+                }
+
+            });
+        }
         return view;
     }
 

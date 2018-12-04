@@ -73,7 +73,6 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
         noImage = header.findViewById(R.id.noImage);
 
 
-
         if(firebaseUser != null){
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
             String id = firebaseUser.getUid();
@@ -108,6 +107,9 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
                     store.setEmail(email);
                     store.setEndereco(endereco);
                     store.setCidade(cidade);
+
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.container, ProductGrid.newInstance(id)).commit();
 
                     Log.d("teste", ""+ store);
 
@@ -148,9 +150,6 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container, new ProductGrid()).commit();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

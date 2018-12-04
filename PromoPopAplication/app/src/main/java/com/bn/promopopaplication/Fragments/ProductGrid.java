@@ -98,7 +98,7 @@ public class ProductGrid extends android.support.v4.app.Fragment {
         mLayoutManager = new GridLayoutManager(getContext(), 2);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        if(idLoja != ""){
+        if(idLoja == null || idLoja.equals("")){
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
             DatabaseReference ref = database.getReference("product/");
@@ -135,12 +135,12 @@ public class ProductGrid extends android.support.v4.app.Fragment {
 
             });
         }else{
+            Log.d("IDLOJA", idLoja);
+
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
             DatabaseReference ref = database.getReference("product/");
-            ref.child(idLoja).equalTo(idLoja);
-
-            ref.addValueEventListener(new ValueEventListener() {
+            ref.orderByChild("idLoja").equalTo(idLoja).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     final List<Product> productList = new ArrayList<Product>();
