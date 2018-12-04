@@ -1,6 +1,7 @@
 package com.bn.promopopaplication.Fragments;
 
 import android.Manifest;
+import android.app.MediaRouteButton;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -8,6 +9,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,18 +18,39 @@ import android.app.Fragment;
 import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bn.promopopaplication.Activity.ProductActivity;
+import com.bn.promopopaplication.Activity.StoreActivity;
+import com.bn.promopopaplication.Entity.Product;
+import com.bn.promopopaplication.Entity.Store;
+import com.bn.promopopaplication.ItemClickListener;
+import com.bn.promopopaplication.ProductListAdapter;
 import com.bn.promopopaplication.R;
 import com.bn.promopopaplication.Services.LocationService;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -37,11 +61,14 @@ import com.google.android.gms.maps.model.LatLng;
  * Use the {@link map#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class map extends android.support.v4.app.Fragment implements OnMapReadyCallback{
+public class map extends android.support.v4.app.Fragment implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private List<Store> storeList;
+    private Map<String, Integer> mMarkers;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -49,12 +76,14 @@ public class map extends android.support.v4.app.Fragment implements OnMapReadyCa
     private MapView mMapView;
     private GoogleMap mGoogleMap;
     private LatLng ny;
+    private boolean refresh;
 
 
     private OnFragmentInteractionListener mListener;
 
     public map() {
         // Required empty public constructor
+        refresh = false;
     }
 
 
@@ -65,8 +94,10 @@ public class map extends android.support.v4.app.Fragment implements OnMapReadyCa
             lat = intent.getDoubleExtra("lat", ny.latitude);
             lng = intent.getDoubleExtra("lng", ny.longitude);
             ny = new LatLng(lat, lng);
-            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(ny));
-            mGoogleMap.setMinZoomPreference(14);
+            if(!refresh) {
+                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(ny));
+                refresh = true;
+            }
         }
     }
 
@@ -101,13 +132,88 @@ public class map extends android.support.v4.app.Fragment implements OnMapReadyCa
         return v;
     }
 
+    public LatLng getLocationFromAddress(Context context, String strAddress)
+    {
+        Geocoder coder= new Geocoder(context);
+        List<Address> address;
+        LatLng p1 = null;
+
+        try
+        {
+            address = coder.getFromLocationName(strAddress, 5);
+            if(address==null)
+            {
+                return null;
+            }
+            Address location = address.get(0);
+            location.getLatitude();
+            location.getLongitude();
+
+            p1 = new LatLng(location.getLatitude(), location.getLongitude());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return p1;
+
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
-        mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
-        mGoogleMap.setMinZoomPreference(14);
         ny = new LatLng(-4.9684385, -39.0161259);
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(ny));
+        mGoogleMap.animateCamera( CameraUpdateFactory.zoomTo( 14.0f ) );
+        mGoogleMap.getUiSettings().setZoomControlsEnabled(false);
+
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("stores/");
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                 storeList = new ArrayList<Store>();
+                 mMarkers = new HashMap<String, Integer>();
+
+
+                for (DataSnapshot storeSnapshot: snapshot.getChildren()) {
+                    storeList.add(storeSnapshot.getValue(Store.class));
+                }
+
+                mGoogleMap.clear();
+                mMarkers.clear();
+
+                int i = 0;
+
+                for(Store store: storeList){
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    Log.d("Endereço", store.getEndereco()+", "+store.getCidade());
+                    LatLng ll = getLocationFromAddress(getContext(), store.getEndereco()+", "+store.getCidade());
+                    if(ll != null) {
+                        Log.d("Endereço", ll.latitude + " " + ll.longitude);
+                        markerOptions.position(ll)
+                                .snippet("Clique para ver o perfil")
+                                .title(store.getStoreName());
+                        Marker mkr = mGoogleMap.addMarker(markerOptions);
+
+                        mMarkers.put(mkr.getId(), i);
+                    }
+
+                    i++;
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+
+        mGoogleMap.setOnInfoWindowClickListener(this);
     }
 
     @Override
@@ -192,5 +298,20 @@ public class map extends android.support.v4.app.Fragment implements OnMapReadyCa
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        Integer pos = mMarkers.get(marker.getId());
+        if(pos != null) {
+            Store store = storeList.get(pos);
+            Toast.makeText(getContext(), "Loja clicada = " + store.getStoreName(),
+                    Toast.LENGTH_SHORT).show();
+
+            Intent i = new Intent(getContext(), StoreActivity.class);
+            i.putExtra("store", store);
+            startActivity(i);
+            getActivity().finish();
+        }
     }
 }
