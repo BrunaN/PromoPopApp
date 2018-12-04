@@ -68,7 +68,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             }
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference ref = database.getReference("stores/"+ produto.getIdLoja());
+            DatabaseReference ref = database.getReference("stores/" + produto.getIdLoja());
 
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -88,7 +88,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                     store.setEndereco(endereco);
                     store.setCidade(cidade);
 
-                    StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/"+ store.getImage());
+                    storeName.setText(store.getStoreName());
+
+                    StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/"+ image);
 
                     if(image != null) {
 
@@ -116,10 +118,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             });
 
 
-            Log.d("teste", "produto: "+produto.getId());
+            Log.d("teste", "produto: "+ produto.getId());
 
             productName.setText(produto.getNomeProduto());
-            storeName.setText(store.getStoreName());
             productTime.setText(produto.getDiasRestantes()+" dias restantes");
             productPriceBefore.setText("R$ "+produto.getPrecoAnterior());
             productPrice.setText("R$ "+produto.getPreco());
