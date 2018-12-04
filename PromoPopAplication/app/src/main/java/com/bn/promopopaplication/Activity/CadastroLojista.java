@@ -77,6 +77,7 @@ public class CadastroLojista extends AppCompatActivity {
                     store.setPassword(edtSenha.getText().toString());
                     store.setCidade(edtCidade.getText().toString());
                     store.setEndereco(edtEndereco.getText().toString());
+                    store.setCNPJ(Integer.valueOf(edtCNPJ.getText().toString()));
 
                     cadastrarLoja();
 

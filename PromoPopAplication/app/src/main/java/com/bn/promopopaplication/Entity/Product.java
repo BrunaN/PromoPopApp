@@ -5,6 +5,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,8 +17,9 @@ public class Product implements Serializable {
     private String nomeLoja;
     private String id;
     private String image;
+    private Date data;
 
-    public Product(String id, String nomeProduto, String nomeLoja, String idLoja, int diasRestantes, float preco, float precoAnterior, String image) {
+    public Product(String id, String nomeProduto, String nomeLoja, String idLoja, int diasRestantes, float preco, float precoAnterior, String image, Date data) {
         this.id = id;
         this.diasRestantes = diasRestantes;
         this.nomeLoja = nomeLoja;
@@ -26,6 +28,7 @@ public class Product implements Serializable {
         this.nomeProduto = nomeProduto;
         this.precoAnterior = precoAnterior;
         this.image = image;
+        this.data = data;
     }
 
     public Product(){
@@ -74,6 +77,14 @@ public class Product implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public Date getData() {
+        return this.data;
     }
 
     public int getDiasRestantes() {

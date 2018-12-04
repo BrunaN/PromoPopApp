@@ -31,6 +31,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 public class CadastroAnuncio extends AppCompatActivity {
@@ -81,6 +82,8 @@ public class CadastroAnuncio extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Date currentTime = Calendar.getInstance().getTime();
+
                 anuncio = new Product();
                 Calendar cal = Calendar.getInstance();
                 anuncio.setId(UUID.randomUUID().toString() +"_"+ firebaseUser.getUid() +"_"+ cal.getTimeInMillis());
@@ -89,6 +92,7 @@ public class CadastroAnuncio extends AppCompatActivity {
                 anuncio.setDiasRestantes(Integer.valueOf(validade.getText().toString()));
                 anuncio.setPreco(Float.valueOf(valor.getText().toString()));
                 anuncio.setPrecoAnterior(Float.valueOf(valorAntigo.getText().toString()));
+                anuncio.setData(currentTime);
 
                 salvarAnuncio(anuncio);
 
@@ -111,6 +115,12 @@ public class CadastroAnuncio extends AppCompatActivity {
             referenciaDatabase.child("product/"+String.valueOf(anuncio.getId())).setValue(anuncio);
 
             upload();
+
+            if(filePath == null){
+                Intent intent = new Intent(CadastroAnuncio.this, MainStoreActivity.class);
+                startActivity(intent);
+                finish();
+            }
 
             return true;
 
