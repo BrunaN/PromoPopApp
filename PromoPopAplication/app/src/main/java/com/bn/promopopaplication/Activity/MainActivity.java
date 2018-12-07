@@ -249,7 +249,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.logout:
                 logout();
             case R.id.editProfile:
-                startActivity(new Intent(this, EditProfileActivity.class).putExtra("user", user));
+                //startActivity(new Intent(this, EditProfileActivity.class).putExtra("user", user));
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
