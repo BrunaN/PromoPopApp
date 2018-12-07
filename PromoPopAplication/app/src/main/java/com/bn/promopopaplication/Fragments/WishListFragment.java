@@ -108,6 +108,21 @@ public class WishListFragment extends Fragment {
                             Product product = productSnapshot.getValue(Product.class);
                             productList.add(product);
                             Log.w("FIREBASE DATABASE", ""+productList);
+
+                            mAdapter = new ProductListAdapter(productList, getContext(), R.layout.list_item);
+
+                            ((ProductListAdapter) mAdapter).setOnItemClickListener(new ItemClickListener() {
+                                @Override
+                                public void onItemClick(int position) {
+                                    Log.d("TESTE", "Elemento " + position + " clicado.");
+                                    Intent intent = new Intent(getActivity(), ProductActivity.class);
+                                    intent.putExtra("produto",productList.get(position));
+                                    startActivity(intent);
+                                }
+                            });
+
+                            mRecyclerView.setAdapter(mAdapter);
+
                         }
 
                         @Override
@@ -116,20 +131,6 @@ public class WishListFragment extends Fragment {
                         }
                     });
                 }
-
-                mAdapter = new ProductListAdapter(productList, getContext(), R.layout.list_item);
-
-                ((ProductListAdapter) mAdapter).setOnItemClickListener(new ItemClickListener() {
-                    @Override
-                    public void onItemClick(int position) {
-                        Log.d("TESTE", "Elemento " + position + " clicado.");
-                        Intent intent = new Intent(getActivity(), ProductActivity.class);
-                        intent.putExtra("produto",productList.get(position));
-                        startActivity(intent);
-                    }
-                });
-
-                mRecyclerView.setAdapter(mAdapter);
             }
 
             @Override

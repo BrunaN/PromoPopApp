@@ -45,8 +45,7 @@ public class WishList extends AppCompatActivity implements WishListFragment.OnFr
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WishList.this, MainActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 
