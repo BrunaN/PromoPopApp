@@ -18,9 +18,11 @@ public class Users implements Serializable{
     private String password;
     private String image;
     private List<String> preferences;
+    private List<String> wishedProducts;
 
     public Users() {
         this.preferences = new ArrayList<String>();
+        this.wishedProducts = new ArrayList<String>();
     }
 
     public void save(){
@@ -39,7 +41,6 @@ public class Users implements Serializable{
         hashMapUser.put("password", getPassword());
 
         return hashMapUser;
-
     }
 
     public String getId() {
@@ -100,4 +101,18 @@ public class Users implements Serializable{
         referenciaDatabase.child("user").child(id).child("image").setValue(this.image);
     }
 
+    public List getWished() {
+        return wishedProducts;
+    }
+
+    public void addWished(String idProduct) {
+        this.wishedProducts.add(idProduct);
+
+        DatabaseReference referenciaDatabase = ConfigurationFirebase.getFirebase();
+        referenciaDatabase.child("user").child(id).child("wishedProducts").push().setValue(idProduct);
+    }
+
+    public void setWished(List wishedProducts) {
+        this.wishedProducts = wishedProducts;
+    }
 }

@@ -33,6 +33,9 @@ import com.bn.promopopaplication.Entity.Product;
 import com.bn.promopopaplication.Entity.Users;
 import com.bn.promopopaplication.Fragments.ProductGrid;
 import com.bn.promopopaplication.Fragments.ProductList;
+import com.bn.promopopaplication.Fragments.WishListFragment;
+import com.bn.promopopaplication.ItemClickListener;
+import com.bn.promopopaplication.ProductListAdapter;
 import com.bn.promopopaplication.R;
 import com.bn.promopopaplication.Fragments.home;
 import com.bn.promopopaplication.Fragments.map;
@@ -124,14 +127,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         String email = (String) dataSnapshot.child("email").getValue();
                         String image = (String) dataSnapshot.child("image").getValue();
 
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference ref = database.getReference("user/"+ id).child("wishedProducts");
+                        final List<String> wishedList = new ArrayList<String>();
+
+                        ref.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                                    wishedList.add(snapshot.getValue().toString());
+                                }
+                                user.setWished(wishedList);
+                                Log.w("FIREBASE DATABASE", ""+wishedList);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                // Getting Post failed, log a message
+                                Log.w("FIREBASE DATABASE", "loadPost:onCancelled", databaseError.toException());
+                                // ...
+                            }
+                        });
+
                         user = new Users();
                         user.setId(id);
                         user.setName(name);
                         user.setEmail(email);
-
-                        //Users users = dataSnapshot.getValue(Users.class);
-                        //Log.d("teste", name);
-                        //Log.d("teste", image);
 
                         ola_user.setText("Olá, " + name);
                         emailUser.setText(email);
@@ -220,7 +241,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 navigation.setSelectedItemId(R.id.navigation_sales);
                 break;
             case R.id.list:
-                startActivity(new Intent(this, WishList.class));
+                FirebaseAuth firebaseAuth = ConfigurationFirebase.getFirebaseAuthtication();
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+                if(firebaseUser != null){
+                    startActivity(new Intent(this, WishList.class));
+                } else {
+                    Toast.makeText(this, "Para visualizar a sua Lista de desejo, você precisa fazer login", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.login:
                 startActivity(new Intent(this, Login.class));

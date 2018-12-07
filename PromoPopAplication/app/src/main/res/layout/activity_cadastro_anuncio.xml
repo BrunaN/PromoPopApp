@@ -7,75 +7,79 @@
     android:layout_height="match_parent"
     android:background="@color/fundoapp">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/transparent" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Cadastrar Promoção"
-            android:textAlignment="center"
-            android:textColor="@color/vermelhoPromoPop"
-            android:textSize="25dp"/>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cadastrar Promoção"
+                android:textAlignment="center"
+                android:textColor="@color/vermelhoPromoPop"
+                android:textSize="25dp"/>
 
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="120dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:src="@mipmap/image" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:src="@mipmap/image" />
 
-        <Button
-            android:id="@+id/btnChoose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textSize="20sp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:textAllCaps="false"
-            android:textColor="@color/colorPrimary"
-            android:background="@android:color/transparent"
-            android:layout_gravity="center"
-            android:text="Adicionar foto"/>
+            <Button
+                android:id="@+id/btnChoose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textSize="20sp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:background="@android:color/transparent"
+                android:layout_gravity="center"
+                android:text="Adicionar foto"/>
 
-        <EditText
-            android:id="@+id/edtTituloAnuncio"
-            android:layout_width="250dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/inputs"
-            android:ems="10"
-            android:hint="Nome do produto"
-            android:inputType="text"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp" />
+            <EditText
+                android:id="@+id/edtTituloAnuncio"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/inputs"
+                android:ems="10"
+                android:hint="Nome do produto"
+                android:inputType="text"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp" />
 
-        <EditText
-            android:id="@+id/edtDiasRest"
-            android:layout_width="250dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/inputs"
-            android:ems="10"
-            android:hint="Número de dias de duração"
-            android:inputType="number"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp" />
+            <EditText
+                android:id="@+id/edtDiasRest"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/inputs"
+                android:ems="10"
+                android:hint="Dias de duração da promoção"
+                android:inputType="number"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp" />
 
             <EditText
                 android:id="@+id/edtValorAtual"
@@ -106,15 +110,18 @@
                 android:paddingRight="10dp" />
 
 
-        <Button
-            android:id="@+id/btnSalvarAnuncio"
-            android:layout_width="170dp"
-            android:layout_height="38dp"
-            android:text="Salvar promoção"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:textColor="#ffffff"
-            android:background="@drawable/btn_red" />
+            <Button
+                android:id="@+id/btnSalvarAnuncio"
+                android:layout_width="170dp"
+                android:layout_height="38dp"
+                android:text="Salvar promoção"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:textColor="#ffffff"
+                android:background="@drawable/btn_red" />
 
-    </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
 </android.support.constraint.ConstraintLayout>

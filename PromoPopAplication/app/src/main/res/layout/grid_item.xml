@@ -71,7 +71,7 @@
                     xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@mipmap/icon_user"
+                    android:src="@mipmap/icon_store"
                     android:visibility="gone"/>
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -79,7 +79,7 @@
                     xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@mipmap/icon_user"/>
+                    android:src="@mipmap/icon_store"/>
 
                 <TextView
                     android:id="@+id/storeName"

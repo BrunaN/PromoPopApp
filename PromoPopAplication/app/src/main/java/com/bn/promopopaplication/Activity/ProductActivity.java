@@ -4,15 +4,22 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bn.promopopaplication.DAO.ConfigurationFirebase;
 import com.bn.promopopaplication.Entity.Product;
 import com.bn.promopopaplication.Entity.Store;
+import com.bn.promopopaplication.Entity.Users;
 import com.bn.promopopaplication.R;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,13 +28,18 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProductActivity extends AppCompatActivity {
 
     private TextView productName, storeName, productTime, productPriceBefore, productPrice;
     private ImageView productImage, productNoImage, storeImage, storeNoImage;
     private Product produto;
     private Button comoChegar;
+    private ImageButton addWishList;
 
+    private Users user;
     private Store store;
 
     @Override
@@ -64,6 +76,28 @@ public class ProductActivity extends AppCompatActivity {
         storeNoImage = findViewById(R.id.storeNoImage);
 
         comoChegar = findViewById(R.id.comoChegar);
+
+        addWishList = findViewById(R.id.addWishList);
+
+        FirebaseAuth firebaseAuth = ConfigurationFirebase.getFirebaseAuthtication();
+        final FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+        addWishList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(firebaseUser != null){
+                    user = new Users();
+                    user.setId(firebaseUser.getUid());
+
+                    String idProduct = produto.getId();
+                    user.addWished(idProduct);
+                    Toast.makeText(ProductActivity.this, "Esse Produto foi adicionado na sua Lista de desejo!", Toast.LENGTH_SHORT).show();
+
+                }else{
+                    Toast.makeText(ProductActivity.this, "Para adicionar o produto na sua Lista de desejo, você precisa fazer login", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         storeName.setOnClickListener(new View.OnClickListener() {
             @Override

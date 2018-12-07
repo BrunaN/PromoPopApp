@@ -54,7 +54,7 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:text="Como chegar"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="12dp"
                 android:textSize="16dp"
                 android:textColor="#A0A0A0"
                 android:textAllCaps="false"

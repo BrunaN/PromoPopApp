@@ -76,7 +76,7 @@
                 <ImageButton
                     android:id="@+id/filter"
                     android:layout_width="22dp"
-                    android:layout_height="19dp"
+                    android:layout_height="20dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="16dp"

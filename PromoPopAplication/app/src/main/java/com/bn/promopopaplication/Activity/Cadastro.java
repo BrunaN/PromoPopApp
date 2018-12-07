@@ -25,6 +25,9 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cadastro extends AppCompatActivity {
 
     private EditText edtName, edtEmail, edtPassword, edtConfirmPassword;
@@ -33,6 +36,7 @@ public class Cadastro extends AppCompatActivity {
     private Button btnSignin;
 
     private Users users;
+    public List<String> wishedProducts = new ArrayList<String>();
 
     private FirebaseAuth authentication;
 
@@ -80,6 +84,7 @@ public class Cadastro extends AppCompatActivity {
                     users.setName(edtName.getText().toString());
                     users.setEmail(edtEmail.getText().toString());
                     users.setPassword(edtPassword.getText().toString());
+                    users.setWished(wishedProducts);
 
                     signinUser();
 

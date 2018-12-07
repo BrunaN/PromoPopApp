@@ -34,7 +34,7 @@
                 android:layout_width="250dp"
                 android:layout_height="40dp"
                 android:ems="10"
-                android:hint="Nome"
+                android:hint="Nome da loja"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
                 android:background="@drawable/inputs"
