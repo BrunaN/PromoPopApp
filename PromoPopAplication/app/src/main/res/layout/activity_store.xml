@@ -65,15 +65,15 @@
             <View
                 android:id="@+id/divider2"
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="3dp"
                 android:background="?android:attr/windowBackground" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp">
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
 
                 <Button
                     android:id="@+id/sort"
@@ -84,7 +84,7 @@
                     android:textColor="@color/colorPrimary"
                     android:layout_height="30dp"
                     android:layout_margin="5dp"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="10dp"
                     android:background="@android:color/transparent"
                     android:drawableLeft="@drawable/icon_sort" />
 
@@ -96,7 +96,7 @@
                     android:textColor="@color/colorPrimary"
                     android:layout_weight="1"
                     android:layout_margin="5dp"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="10dp"
                     android:id="@+id/btn_grid"
                     android:background="@android:color/transparent"
                     android:drawableLeft="@drawable/icon_grid_red"
@@ -111,7 +111,7 @@
                     android:layout_height="30dp"
                     android:layout_weight="1"
                     android:layout_margin="5dp"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="10dp"
                     android:background="@android:color/transparent"
                     android:drawableLeft="@drawable/icon_list_red" />
 
@@ -123,7 +123,7 @@
                     android:textColor="@color/colorPrimary"
                     android:layout_height="30dp"
                     android:layout_margin="5dp"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:drawableLeft="@drawable/icon_filter_red" />
