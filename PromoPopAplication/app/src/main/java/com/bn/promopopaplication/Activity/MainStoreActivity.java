@@ -75,7 +75,6 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
         if(firebaseUser != null){
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
             String id = firebaseUser.getUid();
-            Log.d("XXXXXXXXXXXXXXXXXXXXXX", "store " + id );
 
             DatabaseReference ref = database.getReference("stores/"+ id);
 
@@ -98,7 +97,6 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
                     String image = (String) dataSnapshot.child("image").getValue();
                     String endereco = (String) dataSnapshot.child("endereco").getValue();
                     String cidade = (String) dataSnapshot.child("cidade").getValue();
-
 
                     store = new Store();
                     store.setId(id);

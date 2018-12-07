@@ -88,11 +88,8 @@ public class AddStoreImageActivity extends AppCompatActivity {
 
             StorageReference storageReference = ConfigurationFirebase.getStorageReference();
 
-
             Calendar cal = Calendar.getInstance();
             StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString() +"_"+ firebaseUser.getUid() +"_"+ cal.getTimeInMillis());
-
-            Log.d("XXXXXXXXXXXXXXX", "uploadImage: " + ref.getName());
 
             store.updateImage(ref.getName());
 

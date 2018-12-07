@@ -111,14 +111,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
             String id = firebaseUser.getUid();
-            Log.d("XXXXXXXXXXXXXXXXXXXXXX", "user " + id );
 
             DatabaseReference ref = database.getReference("user/"+ id);
 
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    Log.d("testeUser", ""+dataSnapshot.getValue());
 
                     if(dataSnapshot.getValue() != null){
 
@@ -138,14 +136,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     wishedList.add(snapshot.getValue().toString());
                                 }
                                 user.setWished(wishedList);
-                                Log.w("FIREBASE DATABASE", ""+wishedList);
                             }
 
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
-                                // Getting Post failed, log a message
                                 Log.w("FIREBASE DATABASE", "loadPost:onCancelled", databaseError.toException());
-                                // ...
                             }
                         });
 
@@ -192,7 +187,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    Log.d("testeUser", "cancelled");
                     System.out.println("The read failed: " + databaseError.getCode());
                 }
             });
@@ -255,9 +249,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.logout:
                 logout();
             case R.id.editProfile:
-                /*Intent intent = new Intent(this, EditProfileActivity.class);
-                intent.putExtra("user", user);
-                startActivity(intent);*/
+                startActivity(new Intent(this, EditProfileActivity.class).putExtra("user", user));
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -315,35 +307,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onContextItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.bebes:
-                Toast.makeText(this, item.getTitle()+" evento aciodado pela activity", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, item.getTitle()+" Produtos da relacionados a bebês e crianças", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.bebidas:
-                Toast.makeText(this, item.getTitle()+" evento aciodado pela activity", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, item.getTitle()+" Produtos da relacionados a bebidas", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.hobbies:
-                Toast.makeText(this, item.getTitle()+" evento aciodado pela activity", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, item.getTitle()+" Produtos da relacionados a brinquedos e hobbies", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.eletronicos:
-                Toast.makeText(this, item.getTitle()+" evento aciodado pela activity", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, item.getTitle()+" Produtos da relacionados a eletrônicos, aúdio e vídeo", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.eletrodomesticos:
-                Toast.makeText(this, item.getTitle()+" evento aciodado pela activity", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, item.getTitle()+" Produtos da relacionados a eletrodomésticos", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.games:
-                Toast.makeText(this, item.getTitle()+" evento aciodado pela activity", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, item.getTitle()+" Produtos da relacionados a games", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.mais:
-                Toast.makeText(this, item.getTitle()+" evento aciodado pela activity", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, item.getTitle()+" Produtos da relacionados a mais", Toast.LENGTH_SHORT).show();
                 break;
 
         }
         return super.onContextItemSelected(item);
-    }
-
-
-    public void showProduct(View view){
-        Intent intent = new Intent(this, ProductActivity.class);
-        startActivity(intent);
     }
 
     public void logout (){

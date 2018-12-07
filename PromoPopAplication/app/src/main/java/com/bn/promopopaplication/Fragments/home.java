@@ -147,25 +147,27 @@ import java.util.List;
         public boolean onContextItemSelected(MenuItem item){
             switch (item.getItemId()){
                 case R.id.bebes:
-                    Toast.makeText(getContext(), item.getTitle()+" evento aciodado pelo fragment", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), item.getTitle()+" Produtos da relacionados a bebês e crianças", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.bebidas:
-                    Toast.makeText(getContext(), item.getTitle()+" evento aciodado pelo fragment", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), item.getTitle()+" Produtos da relacionados a bebidas", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.hobbies:
-                    Toast.makeText(getContext(), item.getTitle()+" evento aciodado pelo fragment", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), item.getTitle()+" Produtos da relacionados a brinquedos e hobbies", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.eletronicos:
-                    Toast.makeText(getContext(), item.getTitle()+" evento aciodado pelo fragment", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), item.getTitle()+" Produtos da relacionados a eletrônicos, aúdio e vídeo", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.eletrodomesticos:
-                    Toast.makeText(getContext(), item.getTitle()+" evento aciodado pelo fragment", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), item.getTitle()+" Produtos da relacionados a eletrodomésticos", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.games:
-                    Toast.makeText(getContext(), item.getTitle()+" evento aciodado pelo fragment", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), item.getTitle()+" Produtos da relacionados a games", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.mais:
-                    Toast.makeText(getContext(), item.getTitle()+" evento aciodado pelo fragment", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), item.getTitle()+" Produtos da relacionados a mais", Toast.LENGTH_SHORT).show();
+                    break;
+
             }
             return super.onContextItemSelected(item);
         }

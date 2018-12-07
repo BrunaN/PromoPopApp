@@ -51,6 +51,7 @@ public class WishList extends AppCompatActivity implements WishListFragment.OnFr
                 startActivity(intent);
             }
         });
+
         toolbar.setNavigationIcon(R.drawable.arrow_back);
         toolbar.setTitle("Lista de Desejo");
 

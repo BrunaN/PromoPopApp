@@ -119,10 +119,8 @@ public class Preferences extends AppCompatActivity {
     }
 
     public void onCheckboxClicked(View view) {
-        // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
 
-        // Check which checkbox was clicked
         switch(view.getId()) {
             case R.id.sport:
                 if (checked)

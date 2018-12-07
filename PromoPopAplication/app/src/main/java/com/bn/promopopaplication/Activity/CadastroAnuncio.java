@@ -110,7 +110,6 @@ public class CadastroAnuncio extends AppCompatActivity {
 
     private boolean salvarAnuncio(Product anuncio){
         try {
-            Log.d("teste",anuncio.getId());
             DatabaseReference referenciaDatabase = ConfigurationFirebase.getFirebase();
             referenciaDatabase.child("product/"+String.valueOf(anuncio.getId())).setValue(anuncio);
 

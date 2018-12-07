@@ -130,7 +130,6 @@ public class Login extends AppCompatActivity {
                     ref.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            Log.d("teste", ""+dataSnapshot.getValue());
 
                             if(dataSnapshot.getValue() != null){
 
@@ -151,7 +150,7 @@ public class Login extends AppCompatActivity {
                         }
                     });
 
-                    Toast.makeText(getApplicationContext(), "Login efetuado!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Login realizado com sucesso!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "Email ou senha inválidos", Toast.LENGTH_SHORT).show();
                 }

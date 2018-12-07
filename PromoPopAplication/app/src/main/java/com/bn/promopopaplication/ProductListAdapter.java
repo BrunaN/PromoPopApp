@@ -94,9 +94,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        // Getting Post failed, log a message
                         Log.w("FIREBASE DATABASE", "loadPost:onCancelled", databaseError.toException());
-                        // ...
                     }
                 });
             }

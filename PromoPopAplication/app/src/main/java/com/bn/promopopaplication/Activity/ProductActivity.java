@@ -2,6 +2,7 @@ package com.bn.promopopaplication.Activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,8 @@ import com.bn.promopopaplication.DAO.ConfigurationFirebase;
 import com.bn.promopopaplication.Entity.Product;
 import com.bn.promopopaplication.Entity.Store;
 import com.bn.promopopaplication.Entity.Users;
+import com.bn.promopopaplication.Fragments.OtherProductsFragment;
+import com.bn.promopopaplication.Fragments.ProductGrid;
 import com.bn.promopopaplication.R;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,7 +34,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductActivity extends AppCompatActivity {
+public class ProductActivity extends AppCompatActivity implements OtherProductsFragment.OnFragmentInteractionListener{
 
     private TextView productName, storeName, productTime, productPriceBefore, productPrice;
     private ImageView productImage, productNoImage, storeImage, storeNoImage;
@@ -87,8 +90,6 @@ public class ProductActivity extends AppCompatActivity {
 
         if(firebaseUser != null){
 
-            Log.w("FIREBASE DATABASE", "FOR"+firebaseUser.getUid());
-
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference ref = database.getReference("user/"+ firebaseUser.getUid()).child("wishedProducts");
 
@@ -98,7 +99,6 @@ public class ProductActivity extends AppCompatActivity {
                     for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                         wishedList.add(snapshot.getValue().toString());
                         if(snapshot.getValue().toString().equals(produto.getId())){
-                            Log.w("FIREBASE DATABASE", "EEXISTE");
                             wishList.setVisibility(View.VISIBLE);
                             addWishList.setVisibility(View.GONE);
                         }
@@ -111,15 +111,42 @@ public class ProductActivity extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    // Getting Post failed, log a message
                     Log.w("FIREBASE DATABASE", "loadPost:onCancelled", databaseError.toException());
-                    // ...
                 }
             });
 
             Log.w("FIREBASE DATABASE", "FOR"+wishedList);
 
         }
+
+        addWishList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(firebaseUser != null){
+
+                    for(int i=0; i < wishedList.size(); i++){
+                        if(produto.getId() == wishedList.get(i)){
+                            Toast.makeText(ProductActivity.this, "Esse Produto já está adicionado na sua Lista de desejo!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    wishList.setVisibility(View.VISIBLE);
+                    addWishList.setVisibility(View.GONE);
+
+                    Users user = new Users();
+                    user.setId(firebaseUser.getUid());
+
+                    String idProduct = produto.getId();
+                    user.addWished(idProduct);
+                    Toast.makeText(ProductActivity.this, "Esse Produto foi adicionado na sua Lista de desejo!", Toast.LENGTH_SHORT).show();
+
+                }else{
+                    Toast.makeText(ProductActivity.this, "Para adicionar o produto na sua Lista de desejo, você precisa fazer login", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
 
         storeName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,6 +190,11 @@ public class ProductActivity extends AppCompatActivity {
                 store.setEndereco(endereco);
                 store.setCidade(cidade);
 
+                OtherProductsFragment otherProductsFragment= OtherProductsFragment.newInstance(store.getId());
+
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.container, otherProductsFragment).commit();
+
                 comoChegar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -204,6 +236,11 @@ public class ProductActivity extends AppCompatActivity {
         productTime.setText(produto.getDiasRestantes()+" dias restantes");
         productPriceBefore.setText("R$ "+produto.getPrecoAnterior());
         productPrice.setText("R$ "+produto.getPreco());
+
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }

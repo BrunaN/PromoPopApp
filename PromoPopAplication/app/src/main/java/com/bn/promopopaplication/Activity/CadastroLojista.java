@@ -41,7 +41,6 @@ public class CadastroLojista extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_store);
 
-
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
@@ -97,13 +96,9 @@ public class CadastroLojista extends AppCompatActivity {
 
                         if(task.isSuccessful()){
 
-                            Log.d("teste", "Passou");
-
                             Toast.makeText(CadastroLojista.this, "Usuário cadastrado com sucesso!", Toast.LENGTH_LONG).show();
 
                             String identificadorUsuario = authentication.getCurrentUser().getUid();
-
-                            Log.d("OOOOOOOOOOOOOOOOOOOOOO", "user " + identificadorUsuario );
 
                             FirebaseUser firebaseUser = task.getResult().getUser();
 

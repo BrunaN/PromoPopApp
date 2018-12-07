@@ -26,23 +26,21 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link WishListFragment.OnFragmentInteractionListener} interface
+ * {@link OtherProductsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link WishListFragment#newInstance} factory method to
+ * Use the {@link OtherProductsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WishListFragment extends Fragment {
+public class OtherProductsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "idUser";
+    private static final String ARG_PARAM1 = "idLoja";
 
-    private String idUser;
-
-    private List<Product> productList = new ArrayList<Product>();
+    // TODO: Rename and change types of parameters
+    private String idLoja;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -50,16 +48,15 @@ public class WishListFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public WishListFragment() {
+    public OtherProductsFragment() {
         // Required empty public constructor
-        this.idUser = "";
     }
 
     // TODO: Rename and change types and number of parameters
-    public static WishListFragment newInstance(String idUser) {
-        WishListFragment fragment = new WishListFragment();
+    public static OtherProductsFragment newInstance(String idLoja) {
+        OtherProductsFragment fragment = new OtherProductsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, idUser);
+        args.putString(ARG_PARAM1, idLoja);
         fragment.setArguments(args);
         return fragment;
     }
@@ -67,80 +64,67 @@ public class WishListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
-            this.idUser = getArguments().getString(ARG_PARAM1);
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference ref = database.getReference("user/"+ idUser).child("wishedProducts");
-
-            ref.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                        String id = snapshot.getValue().toString();
-
-                        Log.w("FIREBASE DATABASE", ""+id);
-
-                        FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        DatabaseReference ref2 = database.getReference("product/" + id);
-
-                        ref2.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot productSnapshot) {
-                                Log.w("FIREBASE DATABASE", ""+productSnapshot);
-                                Product product = productSnapshot.getValue(Product.class);
-                                productList.add(product);
-                                Log.w("FIREBASE DATABASE", ""+productList);
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-
-                        });
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    // Getting Post failed, log a message
-                    Log.w("FIREBASE DATABASE", "loadPost:onCancelled", databaseError.toException());
-                    // ...
-                }
-            });
-
-            Log.w("FIREBASE DATABASE", ""+productList);
-
+            this.idLoja = getArguments().getString(ARG_PARAM1);
         } else {
-            this.idUser = "";
+            this.idLoja = "";
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_wish_list, container, false);
+
+        final View view = inflater.inflate(R.layout.fragment_other_products, container, false);
+
 
         mRecyclerView = view.findViewById(R.id.recycler_view);
 
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+
         mRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
 
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new ProductListAdapter(productList, getContext(), R.layout.list_item);
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("product/");
 
-        ((ProductListAdapter) mAdapter).setOnItemClickListener(new ItemClickListener() {
+        ref.orderByChild("idLoja").equalTo(idLoja).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onItemClick(int position) {
-                Log.d("TESTE", "Elemento " + position + " clicado.");
-                Intent intent = new Intent(getActivity(), ProductActivity.class);
-                   intent.putExtra("produto",productList.get(position));
-                   startActivity(intent);
-            }
-        });
+            public void onDataChange(DataSnapshot snapshot) {
+                final List<Product> productList = new ArrayList<Product>();
 
-        mRecyclerView.setAdapter(mAdapter);
+                for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+                    productList.add(productSnapshot.getValue(Product.class));
+                    Log.d("teste", "" + productList.size());
+                }
+
+                mAdapter = new ProductListAdapter(productList, getContext(), R.layout.list_item);
+
+                ((ProductListAdapter) mAdapter).setOnItemClickListener(new ItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        Log.d("TESTE", "Elemento " + position + " clicado.");
+                        Intent intent = new Intent(getActivity(), ProductActivity.class);
+                        intent.putExtra("produto", productList.get(position));
+                        startActivity(intent);
+                    }
+                });
+                mRecyclerView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
 
         return view;
 
