@@ -9,14 +9,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bn.promopopaplication.Activity.MainActivity;
 import com.bn.promopopaplication.Activity.MainStoreActivity;
+import com.bn.promopopaplication.Activity.ProductActivity;
+import com.bn.promopopaplication.DAO.ConfigurationFirebase;
 import com.bn.promopopaplication.Entity.Product;
 import com.bn.promopopaplication.Entity.Store;
+import com.bn.promopopaplication.Entity.Users;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,7 +32,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.bn.promopopaplication.R.drawable.ic_favorite;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.MyViewHolder>{
 
@@ -40,9 +50,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public ImageView productImage, storeImage, noImage;
         public TextView productName, storeName, productTime, productPriceBefore, productPrice;
+        public ImageButton addWishList, wishList;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            addWishList = itemView.findViewById(R.id.addWishList);
+            wishList = itemView.findViewById(R.id.wishList);
             productImage = itemView.findViewById(R.id.imageProduct);
             storeImage = itemView.findViewById(R.id.storeImage);
             noImage = itemView.findViewById(R.id.noImage);
@@ -52,10 +66,69 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             productPriceBefore = itemView.findViewById(R.id.productPriceBefore);
             productPrice = itemView.findViewById(R.id.productPrice);
 
+
             itemView.setOnClickListener(this);
         }
 
-        public void bindData(Product produto, final Context context) {
+        public void bindData(final Product produto, final Context context) {
+
+            FirebaseAuth firebaseAuth = ConfigurationFirebase.getFirebaseAuthtication();
+            final FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+            final List<String> wishedList = new ArrayList<String>();
+
+            if(firebaseUser != null){
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference ref = database.getReference("user/"+ firebaseUser.getUid()).child("wishedProducts");
+
+                ref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                            wishedList.add(snapshot.getValue().toString());
+                            if(snapshot.getValue().toString().equals(produto.getId())){
+                                wishList.setVisibility(View.VISIBLE);
+                                addWishList.setVisibility(View.GONE);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Getting Post failed, log a message
+                        Log.w("FIREBASE DATABASE", "loadPost:onCancelled", databaseError.toException());
+                        // ...
+                    }
+                });
+            }
+
+            addWishList.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if(firebaseUser != null){
+
+                        for(int i=0; i < wishedList.size(); i++){
+                            if(produto.getId() == wishedList.get(i)){
+                                Toast.makeText(context, "Esse Produto já está adicionado na sua Lista de desejo!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        wishList.setVisibility(View.VISIBLE);
+                        addWishList.setVisibility(View.GONE);
+
+                        Users user = new Users();
+                        user.setId(firebaseUser.getUid());
+
+                        String idProduct = produto.getId();
+                        user.addWished(idProduct);
+                        Toast.makeText(context, "Esse Produto foi adicionado na sua Lista de desejo!", Toast.LENGTH_SHORT).show();
+
+                    }else{
+                        Toast.makeText(context, "Para adicionar o produto na sua Lista de desejo, você precisa fazer login", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
 
             final Store store = new Store();
 

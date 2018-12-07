@@ -37,7 +37,9 @@ public class ProductActivity extends AppCompatActivity {
     private ImageView productImage, productNoImage, storeImage, storeNoImage;
     private Product produto;
     private Button comoChegar;
-    private ImageButton addWishList;
+    private ImageButton addWishList, wishList;
+
+    private List<String> wishedList = new ArrayList<String>();
 
     private Users user;
     private Store store;
@@ -78,26 +80,46 @@ public class ProductActivity extends AppCompatActivity {
         comoChegar = findViewById(R.id.comoChegar);
 
         addWishList = findViewById(R.id.addWishList);
+        wishList = findViewById(R.id.wishList);
 
         FirebaseAuth firebaseAuth = ConfigurationFirebase.getFirebaseAuthtication();
         final FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
-        addWishList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(firebaseUser != null){
-                    user = new Users();
-                    user.setId(firebaseUser.getUid());
+        if(firebaseUser != null){
 
-                    String idProduct = produto.getId();
-                    user.addWished(idProduct);
-                    Toast.makeText(ProductActivity.this, "Esse Produto foi adicionado na sua Lista de desejo!", Toast.LENGTH_SHORT).show();
+            Log.w("FIREBASE DATABASE", "FOR"+firebaseUser.getUid());
 
-                }else{
-                    Toast.makeText(ProductActivity.this, "Para adicionar o produto na sua Lista de desejo, você precisa fazer login", Toast.LENGTH_SHORT).show();
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference ref = database.getReference("user/"+ firebaseUser.getUid()).child("wishedProducts");
+
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                        wishedList.add(snapshot.getValue().toString());
+                        if(snapshot.getValue().toString().equals(produto.getId())){
+                            Log.w("FIREBASE DATABASE", "EEXISTE");
+                            wishList.setVisibility(View.VISIBLE);
+                            addWishList.setVisibility(View.GONE);
+                        }
+                    }
+
+                    for(int i=0; i<wishedList.size(); i++){
+
+                    }
                 }
-            }
-        });
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    // Getting Post failed, log a message
+                    Log.w("FIREBASE DATABASE", "loadPost:onCancelled", databaseError.toException());
+                    // ...
+                }
+            });
+
+            Log.w("FIREBASE DATABASE", "FOR"+wishedList);
+
+        }
 
         storeName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +129,6 @@ public class ProductActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
         StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/"+ produto.getImage());
 
