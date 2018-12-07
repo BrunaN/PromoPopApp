@@ -83,21 +83,7 @@ public class ProductGrid extends android.support.v4.app.Fragment {
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        Log.d("teste", "CRIANDO GRID");
-
-        // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_product_grid, container, false);
-
-        mRecyclerView = view.findViewById(R.id.recycler_view);
-
-        mRecyclerView.setHasFixedSize(true);
-
-        mLayoutManager = new GridLayoutManager(getContext(), 2);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
+    private void loadProducts(){
         if(idLoja == null || idLoja.equals("")){
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -172,11 +158,28 @@ public class ProductGrid extends android.support.v4.app.Fragment {
 
             });
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        Log.d("teste", "CRIANDO GRID");
+
+        // Inflate the layout for this fragment
+        final View view = inflater.inflate(R.layout.fragment_product_grid, container, false);
+
+        mRecyclerView = view.findViewById(R.id.recycler_view);
+
+        mRecyclerView.setHasFixedSize(true);
+
+        mLayoutManager = new GridLayoutManager(getContext(), 2);
+        mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter and pass in our data model list
 
-        return view;
+        loadProducts();
 
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -184,6 +187,14 @@ public class ProductGrid extends android.support.v4.app.Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        Log.d("TESTE", "RESUME FRAGMENTS");
+        loadProducts();
     }
 
     @Override

@@ -73,25 +73,8 @@ public class OtherProductsFragment extends Fragment {
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
 
-        final View view = inflater.inflate(R.layout.fragment_other_products, container, false);
-
-
-        mRecyclerView = view.findViewById(R.id.recycler_view);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-
-        mRecyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-
-        mLayoutManager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
+    private void loadProducts(){
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("product/");
 
@@ -113,6 +96,7 @@ public class OtherProductsFragment extends Fragment {
                         Log.d("TESTE", "Elemento " + position + " clicado.");
                         Intent intent = new Intent(getActivity(), ProductActivity.class);
                         intent.putExtra("produto", productList.get(position));
+                        getActivity().finish();
                         startActivity(intent);
                     }
                 });
@@ -126,9 +110,39 @@ public class OtherProductsFragment extends Fragment {
             }
 
         });
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        final View view = inflater.inflate(R.layout.fragment_other_products, container, false);
+
+
+        mRecyclerView = view.findViewById(R.id.recycler_view);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+
+        mRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+
+        mLayoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        loadProducts();
 
         return view;
+    }
 
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        Log.d("TESTE", "RESUME FRAGMENTS");
+        loadProducts();
     }
 
     // TODO: Rename method, update argument and hook method into UI event

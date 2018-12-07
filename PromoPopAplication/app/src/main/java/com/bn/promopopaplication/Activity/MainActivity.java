@@ -268,6 +268,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+
+
+        Log.d("TESTE", "RESUME ACTIVITY");
+    }
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 

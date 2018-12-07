@@ -82,28 +82,7 @@ public class ProductList extends android.support.v4.app.Fragment{
     }
 
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        Log.d("teste", "CRIANDO LIST");
-
-        // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_product_list, container, false);
-
-
-        mRecyclerView = view.findViewById(R.id.recycler_view);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-
-        mRecyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-
-        mLayoutManager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
+    private void loadProducts(){
         if(idLoja == null || idLoja.equals("")) {
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference ref = database.getReference("product/");
@@ -175,6 +154,41 @@ public class ProductList extends android.support.v4.app.Fragment{
 
             });
         }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        Log.d("TESTE", "RESUME FRAGMENTS");
+        loadProducts();
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        Log.d("teste", "CRIANDO LIST");
+
+        // Inflate the layout for this fragment
+        final View view = inflater.inflate(R.layout.fragment_product_list, container, false);
+
+
+        mRecyclerView = view.findViewById(R.id.recycler_view);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+
+        mRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+
+        mLayoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        loadProducts();
+
         return view;
     }
 
