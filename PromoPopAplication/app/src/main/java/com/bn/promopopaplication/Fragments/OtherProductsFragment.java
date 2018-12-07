@@ -116,6 +116,7 @@ public class OtherProductsFragment extends Fragment {
                         startActivity(intent);
                     }
                 });
+
                 mRecyclerView.setAdapter(mAdapter);
             }
 

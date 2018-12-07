@@ -52,7 +52,6 @@ public class WishListFragment extends Fragment {
 
     public WishListFragment() {
         // Required empty public constructor
-        this.idUser = "";
     }
 
     // TODO: Rename and change types and number of parameters
@@ -67,12 +66,14 @@ public class WishListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             this.idUser = getArguments().getString(ARG_PARAM1);
 
         } else {
             this.idUser = "";
         }
+
     }
 
     @Override
@@ -87,64 +88,59 @@ public class WishListFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        if (idUser != null) {
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("user/"+ idUser).child("wishedProducts");
 
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference ref = database.getReference("user/"+ idUser).child("wishedProducts");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    String id = snapshot.getValue().toString();
+                    Log.w("FIREBASE DATABASE", ""+id);
 
-            ref.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                        String id = snapshot.getValue().toString();
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference ref2 = database.getReference("product/" + id);
 
-                        Log.w("FIREBASE DATABASE", ""+id);
-
-                        FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        DatabaseReference ref2 = database.getReference("product/" + id);
-
-                        ref2.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot productSnapshot) {
-                                Log.w("FIREBASE DATABASE", ""+productSnapshot);
-                                Product product = productSnapshot.getValue(Product.class);
-                                productList.add(product);
-                                Log.w("FIREBASE DATABASE", ""+productList);
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-
-                        });
-                    }
-
-                    mAdapter = new ProductListAdapter(productList, getContext(), R.layout.list_item);
-
-                    ((ProductListAdapter) mAdapter).setOnItemClickListener(new ItemClickListener() {
+                    ref2.addValueEventListener(new ValueEventListener() {
                         @Override
-                        public void onItemClick(int position) {
-                            Log.d("TESTE", "Elemento " + position + " clicado.");
-                            Intent intent = new Intent(getActivity(), ProductActivity.class);
-                            intent.putExtra("produto",productList.get(position));
-                            startActivity(intent);
+                        public void onDataChange(DataSnapshot productSnapshot) {
+                            Log.w("FIREBASE DATABASE", ""+productSnapshot);
+                            Product product = productSnapshot.getValue(Product.class);
+                            productList.add(product);
+                            Log.w("FIREBASE DATABASE", ""+productList);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
                         }
                     });
-
-                    mRecyclerView.setAdapter(mAdapter);
                 }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    // Getting Post failed, log a message
-                    Log.w("FIREBASE DATABASE", "loadPost:onCancelled", databaseError.toException());
-                    // ...
-                }
-            });
+                mAdapter = new ProductListAdapter(productList, getContext(), R.layout.list_item);
 
-            Log.w("FIREBASE DATABASE", ""+productList);
-        }
+                ((ProductListAdapter) mAdapter).setOnItemClickListener(new ItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        Log.d("TESTE", "Elemento " + position + " clicado.");
+                        Intent intent = new Intent(getActivity(), ProductActivity.class);
+                        intent.putExtra("produto",productList.get(position));
+                        startActivity(intent);
+                    }
+                });
+
+                mRecyclerView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w("FIREBASE DATABASE", "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        });
+
+        Log.w("FIREBASE DATABASE", ""+ productList);
 
         return view;
 
