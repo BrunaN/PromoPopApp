@@ -69,6 +69,26 @@ public class WishListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             this.idUser = getArguments().getString(ARG_PARAM1);
+
+        } else {
+            this.idUser = "";
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.fragment_wish_list, container, false);
+
+        mRecyclerView = view.findViewById(R.id.recycler_view);
+
+        mRecyclerView.setHasFixedSize(true);
+
+        mLayoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        if (idUser != null) {
+
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference ref = database.getReference("user/"+ idUser).child("wishedProducts");
 
@@ -99,6 +119,20 @@ public class WishListFragment extends Fragment {
 
                         });
                     }
+
+                    mAdapter = new ProductListAdapter(productList, getContext(), R.layout.list_item);
+
+                    ((ProductListAdapter) mAdapter).setOnItemClickListener(new ItemClickListener() {
+                        @Override
+                        public void onItemClick(int position) {
+                            Log.d("TESTE", "Elemento " + position + " clicado.");
+                            Intent intent = new Intent(getActivity(), ProductActivity.class);
+                            intent.putExtra("produto",productList.get(position));
+                            startActivity(intent);
+                        }
+                    });
+
+                    mRecyclerView.setAdapter(mAdapter);
                 }
 
                 @Override
@@ -110,37 +144,7 @@ public class WishListFragment extends Fragment {
             });
 
             Log.w("FIREBASE DATABASE", ""+productList);
-
-        } else {
-            this.idUser = "";
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_wish_list, container, false);
-
-        mRecyclerView = view.findViewById(R.id.recycler_view);
-
-        mRecyclerView.setHasFixedSize(true);
-
-        mLayoutManager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        mAdapter = new ProductListAdapter(productList, getContext(), R.layout.list_item);
-
-        ((ProductListAdapter) mAdapter).setOnItemClickListener(new ItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                Log.d("TESTE", "Elemento " + position + " clicado.");
-                Intent intent = new Intent(getActivity(), ProductActivity.class);
-                   intent.putExtra("produto",productList.get(position));
-                   startActivity(intent);
-            }
-        });
-
-        mRecyclerView.setAdapter(mAdapter);
 
         return view;
 

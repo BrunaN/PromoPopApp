@@ -56,7 +56,6 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, home.OnFragmentInteractionListener,
         map.OnFragmentInteractionListener, sales.OnFragmentInteractionListener, ProductList.OnFragmentInteractionListener, ProductGrid.OnFragmentInteractionListener {
 
@@ -243,11 +242,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 } else {
                     Toast.makeText(this, "Para visualizar a sua Lista de desejo, você precisa fazer login", Toast.LENGTH_SHORT).show();
                 }
+
                 break;
             case R.id.login:
                 startActivity(new Intent(this, Login.class));
+                finish();
             case R.id.logout:
                 logout();
+                startActivity(new Intent(this, Login.class));
+                finish();
             case R.id.editProfile:
                 //startActivity(new Intent(this, EditProfileActivity.class).putExtra("user", user));
         }

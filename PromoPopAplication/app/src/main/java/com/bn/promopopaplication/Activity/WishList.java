@@ -31,8 +31,6 @@ import com.google.firebase.storage.StorageReference;
 
 public class WishList extends AppCompatActivity implements WishListFragment.OnFragmentInteractionListener {
 
-    private Users user;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
