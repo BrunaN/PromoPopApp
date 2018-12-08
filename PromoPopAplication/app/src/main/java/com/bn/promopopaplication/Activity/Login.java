@@ -127,7 +127,7 @@ public class Login extends AppCompatActivity {
 
                     DatabaseReference ref = database.getReference("user/"+ id);
 
-                    ref.addValueEventListener(new ValueEventListener() {
+                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
 

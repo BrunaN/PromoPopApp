@@ -107,8 +107,8 @@ public class ProductActivity extends AppCompatActivity implements OtherProductsF
 
                         ref.addValueEventListener(new ValueEventListener() {
                             @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                            public void onDataChange(DataSnapshot dataSnapshot2) {
+                                for (DataSnapshot snapshot: dataSnapshot2.getChildren()) {
                                     wishedList.add(snapshot.getValue().toString());
                                     if(snapshot.getValue().toString().equals(produto.getId())){
                                         wishList.setVisibility(View.VISIBLE);
@@ -123,6 +123,7 @@ public class ProductActivity extends AppCompatActivity implements OtherProductsF
                                         for(int i=0; i < wishedList.size(); i++){
                                             if(produto.getId() == wishedList.get(i)){
                                                 Toast.makeText(ProductActivity.this, "Esse Produto já está adicionado na sua Lista de desejo!", Toast.LENGTH_SHORT).show();
+                                                return;
                                             }
                                         }
 
@@ -200,7 +201,7 @@ public class ProductActivity extends AppCompatActivity implements OtherProductsF
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("stores/" + produto.getIdLoja());
 
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 

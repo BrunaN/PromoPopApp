@@ -91,7 +91,7 @@ public class WishListFragment extends Fragment {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("user/"+ idUser).child("wishedProducts");
 
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
@@ -101,7 +101,7 @@ public class WishListFragment extends Fragment {
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference ref2 = database.getReference("product/" + id);
 
-                    ref2.addValueEventListener(new ValueEventListener() {
+                    ref2.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot productSnapshot) {
                             Log.w("FIREBASE DATABASE", ""+productSnapshot);

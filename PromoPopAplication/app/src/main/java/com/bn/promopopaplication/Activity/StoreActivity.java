@@ -81,7 +81,7 @@ public class StoreActivity extends AppCompatActivity implements ProductList.OnFr
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("stores/"+ store.getId());
 
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(store.getImage() != null) {

@@ -44,7 +44,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     String id = firebaseUser.getUid();
                     DatabaseReference ref = database.getReference("user/"+ id);
 
-                    ref.addValueEventListener(new ValueEventListener() {
+                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
 

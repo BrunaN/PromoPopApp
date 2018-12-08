@@ -78,7 +78,7 @@ public class MainStoreActivity extends AppCompatActivity implements NavigationVi
 
             DatabaseReference ref = database.getReference("stores/"+ id);
 
-            ref.addValueEventListener(new ValueEventListener() {
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Log.d("teste", ""+dataSnapshot.getValue());

@@ -78,7 +78,7 @@ public class OtherProductsFragment extends Fragment {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("product/");
 
-        ref.orderByChild("idLoja").equalTo(idLoja).addValueEventListener(new ValueEventListener() {
+        ref.orderByChild("idLoja").equalTo(idLoja).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 final List<Product> productList = new ArrayList<Product>();

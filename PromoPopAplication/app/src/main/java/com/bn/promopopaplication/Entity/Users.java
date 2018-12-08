@@ -1,8 +1,13 @@
 package com.bn.promopopaplication.Entity;
 
+import android.support.annotation.NonNull;
+
 import com.bn.promopopaplication.DAO.ConfigurationFirebase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -106,9 +111,10 @@ public class Users implements Serializable{
     }
 
     public void addWished(String idProduct) {
-        this.wishedProducts.add(idProduct);
 
+        this.wishedProducts.add(idProduct);
         DatabaseReference referenciaDatabase = ConfigurationFirebase.getFirebase();
+
         referenciaDatabase.child("user").child(id).child("wishedProducts").push().setValue(idProduct);
     }
 

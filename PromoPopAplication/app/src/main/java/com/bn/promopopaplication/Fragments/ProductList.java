@@ -87,7 +87,7 @@ public class ProductList extends android.support.v4.app.Fragment{
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference ref = database.getReference("product/");
 
-            ref.addValueEventListener(new ValueEventListener() {
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     final List<Product> productList = new ArrayList<Product>();
@@ -123,7 +123,7 @@ public class ProductList extends android.support.v4.app.Fragment{
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference ref = database.getReference("product/");
 
-            ref.orderByChild("idLoja").equalTo(idLoja).addValueEventListener(new ValueEventListener() {
+            ref.orderByChild("idLoja").equalTo(idLoja).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     final List<Product> productList = new ArrayList<Product>();

@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             DatabaseReference ref = database.getReference("user/"+ id);
 
-            ref.addValueEventListener(new ValueEventListener() {
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         DatabaseReference ref = database.getReference("user/"+ id).child("wishedProducts");
                         final List<String> wishedList = new ArrayList<String>();
 
-                        ref.addValueEventListener(new ValueEventListener() {
+                        ref.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {

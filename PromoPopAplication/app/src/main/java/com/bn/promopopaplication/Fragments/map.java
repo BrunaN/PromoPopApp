@@ -171,7 +171,7 @@ public class map extends android.support.v4.app.Fragment implements OnMapReadyCa
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("stores/");
 
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                  storeList = new ArrayList<Store>();
