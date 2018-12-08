@@ -78,56 +78,91 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             final List<String> wishedList = new ArrayList<String>();
 
             if(firebaseUser != null){
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference ref = database.getReference("user/"+ firebaseUser.getUid()).child("wishedProducts");
+                final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                String id = firebaseUser.getUid();
+
+                DatabaseReference ref = database.getReference("user/"+ id);
 
                 ref.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                            wishedList.add(snapshot.getValue().toString());
-                            if(snapshot.getValue().toString().equals(produto.getId())){
-                                wishList.setVisibility(View.VISIBLE);
-                                addWishList.setVisibility(View.GONE);
-                            }
+
+                        if(dataSnapshot.getValue() != null){
+
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference ref = database.getReference("user/"+ firebaseUser.getUid()).child("wishedProducts");
+
+                            ref.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                                        wishedList.add(snapshot.getValue().toString());
+                                        if(snapshot.getValue().toString().equals(produto.getId())){
+                                            wishList.setVisibility(View.VISIBLE);
+                                            addWishList.setVisibility(View.GONE);
+                                        }
+                                    }
+
+                                    addWishList.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+
+                                            for(int i=0; i < wishedList.size(); i++){
+                                                if(produto.getId() == wishedList.get(i)){
+                                                    Toast.makeText(context, "Esse Produto já está adicionado na sua Lista de desejo!", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+
+                                            wishList.setVisibility(View.VISIBLE);
+                                            addWishList.setVisibility(View.GONE);
+
+                                            Users user = new Users();
+                                            user.setId(firebaseUser.getUid());
+
+                                            String idProduct = produto.getId();
+                                            user.addWished(idProduct);
+                                            Toast.makeText(context, "Esse Produto foi adicionado na sua Lista de desejo!", Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    });
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    Log.w("FIREBASE DATABASE", "loadPost:onCancelled", databaseError.toException());
+                                }
+                            });
+
+                        } else {
+
+                            addWishList.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Toast.makeText(context, "Este produto apenas pode ser adicionado na Lista de desejo de perfis sem loja", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
                         }
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        Log.w("FIREBASE DATABASE", "loadPost:onCancelled", databaseError.toException());
+                        System.out.println("The read failed: " + databaseError.getCode());
                     }
                 });
-            }
 
-            addWishList.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            } else {
 
-                    if(firebaseUser != null){
-
-                        for(int i=0; i < wishedList.size(); i++){
-                            if(produto.getId() == wishedList.get(i)){
-                                Toast.makeText(context, "Esse Produto já está adicionado na sua Lista de desejo!", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        wishList.setVisibility(View.VISIBLE);
-                        addWishList.setVisibility(View.GONE);
-
-                        Users user = new Users();
-                        user.setId(firebaseUser.getUid());
-
-                        String idProduct = produto.getId();
-                        user.addWished(idProduct);
-                        Toast.makeText(context, "Esse Produto foi adicionado na sua Lista de desejo!", Toast.LENGTH_SHORT).show();
-
-                    }else{
+                addWishList.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
                         Toast.makeText(context, "Para adicionar o produto na sua Lista de desejo, você precisa fazer login", Toast.LENGTH_SHORT).show();
-                    }
 
-                }
-            });
+                    }
+                });
+
+            }
 
             final Store store = new Store();
 
