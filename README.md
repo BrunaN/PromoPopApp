@@ -2,8 +2,8 @@
 O PromoPop é um aplicativo para Android que fornece aos usuários os anúncios de promoções em lojas físicas mais próximas.
 
 ## Requisitos
-Android Studio
-Celular com android 4.4 ou acima
+* Android Studio
+* Celular com android 4.4 ou acima
 
 ## Tecnologias
 * Android Studio - ambiente de desenvolvimento para a plataforma Android;
