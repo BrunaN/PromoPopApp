@@ -309,6 +309,7 @@ public class map extends android.support.v4.app.Fragment implements OnMapReadyCa
             Intent i = new Intent(getContext(), StoreActivity.class);
             i.putExtra("store", store);
             startActivity(i);
+
         }
     }
 }
