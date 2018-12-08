@@ -52,7 +52,7 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
                 android:background="@drawable/inputs"
-                android:inputType="text"
+                android:inputType="textEmailAddress"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"/>
 
@@ -81,11 +81,6 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
                 android:hint="Confirme a senha" />
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="15dp">
 
             <EditText
                 android:id="@+id/edtCidade"
@@ -124,7 +119,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
                 android:hint="CPNJ"
-                android:inputType="number" />
+                android:inputType="text" />
 
             <EditText
                 android:id="@+id/edtRamoAtuacao"
