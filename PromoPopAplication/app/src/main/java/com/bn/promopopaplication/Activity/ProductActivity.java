@@ -1,6 +1,7 @@
 package com.bn.promopopaplication.Activity;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -237,6 +238,7 @@ public class ProductActivity extends AppCompatActivity implements OtherProductsF
         productPriceBefore.setText("R$ "+produto.getPrecoAnterior());
         productPrice.setText("R$ "+produto.getPreco());
 
+        productPriceBefore.setPaintFlags(productPriceBefore.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
     }
 
     @Override

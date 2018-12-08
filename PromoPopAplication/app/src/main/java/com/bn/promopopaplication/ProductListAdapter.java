@@ -2,6 +2,7 @@ package com.bn.promopopaplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -195,6 +196,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             productTime.setText(produto.getDiasRestantes()+" dias restantes");
             productPriceBefore.setText("R$ "+produto.getPrecoAnterior());
             productPrice.setText("R$ "+produto.getPreco());
+
+            productPriceBefore.setPaintFlags(productPriceBefore.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
         }
 
         @Override
