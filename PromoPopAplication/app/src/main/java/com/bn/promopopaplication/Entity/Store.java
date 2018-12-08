@@ -18,7 +18,7 @@ public class Store implements Serializable{
     private String storeImg;
     private String Cidade, Endereco;
     private Integer CEP;
-    private Integer CNPJ;
+    private String CNPJ;
     private String image;
 
     public void save(){
@@ -90,11 +90,11 @@ public class Store implements Serializable{
         this.CEP = CEP;
     }
 
-    public Integer getCNPJ() {
+    public String getCNPJ() {
         return CNPJ;
     }
 
-    public void setCNPJ(Integer CNPJ) {
+    public void setCNPJ(String CNPJ) {
         this.CNPJ = CNPJ;
     }
 
